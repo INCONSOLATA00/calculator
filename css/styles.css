@@ -11,8 +11,8 @@ background-color: black;
 .wrapper {
 display: flex;
 
-width: 500px;
-height: 500px;
+width: 380px;
+height: 280px;
 background-color: cyan;
 
 justify-content: center;
@@ -20,27 +20,46 @@ align-items: end;
 }
 
 .wrapper > div {
+display: flex;
+align-items: center;
+
 width: 500px;
-height: 80%;
+height: 201px;
 background-color: gray;
+}
+
+.wrapper > div > button {
+width: 73px;
+height: 22px;
 }
 
 .wrapper > div > div {
 display: flex;
-justify-content: center;
-align-items: center;
-width: 80%;
-height: 80%;
+
+
+justify-content: end;
+width: 256px;
+height: 100%;
 background-color: brown;
 }
 
 #numpad {
-width: 80%;
-height: 80%;
-background-color: greenyellow
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+gap: 7px;
+
+background-color: greenyellow;
+height: 174px;
+width: 247px;
 }
 
 #numpad > button {
+width: 73px; /* 80 */
+height: 22px;
+}
 
-width: 80px;
+#numpad > button:nth-child(12) {
+visibility: hidden;
 }
