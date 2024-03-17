@@ -17,15 +17,19 @@ background-color: cyan;
 }
 
 .wrapper > div:nth-child(1) { /* the screen */
-display: block;
-text-align: right;
+display: flex;
+justify-content: end;
 width: 80%;
 height: 44px;
 margin: 10px;
 }
 
-div > p { /* SEE HERE */
-margin-right: 13px;
+div > input { /* SEE HERE */
+text-align: end;
+width: 258px;
+height: 32px;
+padding-right: 16px;
+margin-right: 2px;
 }
 
 .wrapper > div {
