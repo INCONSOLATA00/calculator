@@ -22,11 +22,12 @@ console.log('fired')
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
-}
-// only if it is a number key that is engaged; excluding backspace (conditional)
+} else { // only if it is a number key that is engaged; excluding backspace (conditional)
+
 
 alsoInput += e.key
 input_field.value = alsoInput;
+}
 }
 
 function  operand_click(e) { // -= if backspace "del" clicked
