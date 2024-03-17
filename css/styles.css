@@ -24,15 +24,16 @@ height: 44px;
 margin: 10px;
 }
 
-div > input { /* SEE HERE */
+div > input {
 text-align: end;
 width: 258px;
 height: 32px;
 padding-right: 16px;
 margin-right: 2px;
+outline: none;
 }
 
-.wrapper > div {
+.wrapper > div { /* SEE HERE */
 display: flex;
 align-items: center;
 width: 100%;
