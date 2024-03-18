@@ -32,8 +32,13 @@ isPair = true;
 const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', () => {
 console.log('delete')
 
+if(isPair == true) {
+inputSum = alsoInput.slice(0, inputSum.length -1);
+input_field.value = inputSum;
+} else {
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
+}
 });
 
 const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', () => {
@@ -46,7 +51,7 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 console.log('equals')
 
  input_field.value = +alsoInput + + inputSum;
-// SEE DO EQUATION 
+// add logic so that del can be used on the sum of an equation
 });
 
 
@@ -58,12 +63,16 @@ operands[i].addEventListener('click', operand_click)
 
 
 function keyboard_input(e) {
-if(e.key == "Backspace") {
+if(e.key == "Backspace" && isPair == true) {
 console.log('fired')
+
+inputSum = inputSum.slice(0, inputSum.length -1);
+input_field.value = inputSum;
+} else  if(e.key == "Backspace" && isPair == false) {
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
-} else {
+}
 
 if(isNaN(e.key) == true) {
 // do nothing
@@ -79,11 +88,9 @@ alsoInput += e.key
 input_field.value = alsoInput;
 }
 
-}}
+}
 
 function  operand_click(e) {
-
-
 if(isPair == true) {
 input_field.value = "";
 
@@ -97,5 +104,5 @@ input_field.value = alsoInput;
 }
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
-// allow equals only with number pairs. (optional)
+// allow equals only with number pairs.
 // sum the pair, and continuously update a variable, until "AC" is pressed. -->
