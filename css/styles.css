@@ -41,17 +41,25 @@ height: 201px;
 background-color: gray;
 }
 
-#functions {
+.functions {
+padding-top: 10px;
 display: flex;
 align-items: center;
 flex-direction: column;
-height: 100%;
-width: 100px;
 background-color: yellow;
+height: calc(100% - 10px);
+width: 100px;
+
 gap: 7px;
 }
 
-#functions > button { /*  SEE HERE */
+.assignment02 {
+display: flex;
+flex-direction: column;
+margin-top: 60px;
+}
+
+.functions > button { /*  SEE HERE */
 width: 50%;
 margin-top: 8px;
 }

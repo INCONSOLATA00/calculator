@@ -2,15 +2,27 @@ let  alsoInput ="";
 
 const input_field = document.querySelector("div > input");
 input_field.value = "value";
-
 const operands = document.querySelectorAll("#numpad > button");
+
+const numerical_functions_del  = document.querySelector(".assignment02 > button").addEventListener('click', () => {
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
+input_field.value = alsoInput;
+});
 
 
 window.addEventListener("keyup", keyboard_input);
 
 for(let i = 0; i < operands.length -1; i++) {
-operands[i].addEventListener('click', operand_click);
+operands[i].addEventListener('click', operand_click)
+};
+
+let assignment = function(){
+let someArray = ['-','+','/','*',]
+for(let chars of someArray) {
+return chars;
 }
+}
+
 
 
 
@@ -25,10 +37,15 @@ input_field.value = alsoInput;
 } else { // only if it is a number key that is engaged; excluding backspace (conditional)
 
 
+if(|| isNaN(e.key) == true){
+// do nothing
+
+} else {
 alsoInput += e.key
 input_field.value = alsoInput;
 }
-}
+
+}}
 
 function  operand_click(e) { // -= if backspace "del" clicked
 
