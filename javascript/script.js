@@ -1,7 +1,7 @@
 let alsoInput ="";
 let inputSum = "";
 let someArray = ['-','+','/','*',];
-let count = 0; // better represented by use of integer rather than boolean*
+let count = 0;
 
 let isContinuous_value = false;
 let isPair = false;
@@ -45,7 +45,7 @@ const functions_delete  = document.querySelector(".assignment02 > button").addEv
 console.log('delete')
 
 if(isPair == true) {
-inputSum = alsoInput.slice(0, inputSum.length -1);
+inputSum = inputSum.slice(0, inputSum.length -1);
 input_field.value = inputSum;
 } else {
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
@@ -88,16 +88,31 @@ operands[i].addEventListener('click', operand_click)
 
 
 function keyboard_input(e) {
-if(e.key == "Backspace" && isPair == true) {
-console.log('fired')
+if(e.key == "Backspace" && isPair == true && count < 1) {
+console.log('fired00')
 
 inputSum = inputSum.slice(0, inputSum.length -1);
 input_field.value = inputSum;
-} else  if(e.key == "Backspace" && isPair == false) {
+} else  if(e.key == "Backspace" && isPair == false && count < 1) {
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
 }
+
+// --------------------------------
+
+if(e.key == "Backspace" && isPair == true && count >= 1) {
+console.log({alsoInput});
+
+// find a way to do string to numerical conversion and back for this function*
+
+alsoInput = alsoInput + "";
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
+input_field.value = alsoInput;
+alsoInput = +alsoInput;
+}
+
+// --------------------------------
 
 if(isNaN(e.key) == true) {
 // do nothing
