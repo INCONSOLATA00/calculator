@@ -1,6 +1,7 @@
 let alsoInput ="";
 let inputSum = "";
 let someArray = ['-','+','/','*',];
+let count = 0; // better represented by use of integer rather than boolean*
 
 let isContinuous_value = false;
 let isPair = false;
@@ -17,7 +18,17 @@ isPair = true;
 
 const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', () => {
 console.log('add')
-isPair = true;
+
+if(count < 1) {
+isPair = true; // determines the current number pair
+count++
+} else if(count >= 1) { // if the + operator is clicked again and the count is greater than 0 set inputSum to =""
+
+inputSum ="";
+input_field.value = inputSum;
+}
+
+
 });
 
 const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', () => {
@@ -46,6 +57,10 @@ const functions_all_clear  = document.querySelector(".assignment02 > button:nth-
 console.log('all clear')
 
 inputSum = "";
+input_field.value = "";
+
+// isPair = false; - on AC ?
+// count = 0; - on AC?
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', () => {
@@ -61,8 +76,6 @@ alsoInput += +inputSum
 input_field.value = +alsoInput;
 }
 
-
-// isPair = false; - on AC ?
 // add logic so that del can be used on the sum of an equation ... if isContinuous_value == true delete chars at?
 });
 
@@ -117,4 +130,3 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
 // allow equals only with number pairs.
-// sum the pair, and continuously update a variable, until "AC" is pressed. -->
