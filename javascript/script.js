@@ -1,12 +1,13 @@
-let  alsoInput ="";
+let alsoInput ="";
 let inputSum = "";
 let someArray = ['-','+','/','*',];
+
+let isContinuous_value = false;
 let isPair = false;
 
 const input_field = document.querySelector("div > input");
 input_field.value = "value";
 const operands = document.querySelectorAll("#numpad > button");
-
 
 
 const arithmetic_functions_subtract = document.querySelector(".assignment00 > button:nth-child(1)").addEventListener('click', () => {
@@ -50,8 +51,19 @@ inputSum = "";
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', () => {
 console.log('equals')
 
- input_field.value = +alsoInput + + inputSum;
-// add logic so that del can be used on the sum of an equation
+if(isContinuous_value == false) { // 50 + 50 = 100
+alsoInput = +alsoInput + +inputSum;  // according to operator used*
+input_field.value = alsoInput;
+
+isContinuous_value = true;
+} else if(isContinuous_value == true) { // 100 + 50 ... isContinuous to become false on AC
+alsoInput += +inputSum
+input_field.value = +alsoInput;
+}
+
+
+// isPair = false; - on AC ?
+// add logic so that del can be used on the sum of an equation ... if isContinuous_value == true delete chars at?
 });
 
 
