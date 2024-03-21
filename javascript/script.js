@@ -1,4 +1,4 @@
-setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`) },500)
+setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`) },100)
 
 let alsoInput ="";
 let inputSum = "";
@@ -84,8 +84,9 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 console.log('equals')
 
 if(isPair == true) {
-alsoInput = +alsoInput + +inputSum;  // according to operator used*
-input_field.value = alsoInput;
+inputSum =  +inputSum  + +alsoInput;  // according to operator used*
+// alsoInput = "";
+input_field.value = inputSum;
 
 
 } else if(isPair == false) {
