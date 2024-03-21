@@ -1,3 +1,5 @@
+setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`) },500)
+
 let alsoInput ="";
 let inputSum = "";
 let inputTotal = "";
@@ -19,20 +21,21 @@ isPair = true;
 });
 
 const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', () => {
-console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`) 
+console.log('add');
 
 if(alsoInput > 0) {
 isPair = true;
 count++;
 } 
 
-if(inputSum > 0) { // switch to pair one
+if(inputSum > 0 && alsoInput > 0) { // switch to pair one
+isPair = false;
+
 console.log('fired');
 inputSum = +alsoInput + +inputSum;
-alsoInput = "";
 input_field.value = alsoInput;
+alsoInput = "";
 }
-
 
 });
 
