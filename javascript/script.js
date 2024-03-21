@@ -1,5 +1,7 @@
 let alsoInput ="";
 let inputSum = "";
+let inputTotal = "";
+
 let someArray = ['-','+','/','*',];
 let count = 0;
 
@@ -17,15 +19,18 @@ isPair = true;
 });
 
 const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', () => {
-console.log('add')
+console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`) 
 
-if(count < 1) {
+if(alsoInput > 0) {
 isPair = true;
 count++;
-} else if(count >= 1) { 
+} 
 
-inputSum =""; // allows you to assign more values to the current sum
-input_field.value = inputSum;
+if(inputSum > 0) { // switch to pair one
+console.log('fired');
+inputSum = +alsoInput + +inputSum;
+alsoInput = "";
+input_field.value = alsoInput;
 }
 
 
@@ -56,9 +61,9 @@ alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
 alsoInput = +alsoInput;
-}
+}});
 
-});
+
 const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', () => {
 console.log('all clear')
 
@@ -145,3 +150,6 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
 // allow equals only with number pairs.
+
+// when adding 500 + 550, - when deleting 1 character, proceeds to delete from pair one, revise conditional*
+// this bug persists with both backspace and onmousedown
