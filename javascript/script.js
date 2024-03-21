@@ -29,7 +29,7 @@ count++;
 } 
 
 if(inputSum > 0 && alsoInput > 0) { // switch to pair one
-isPair = false;
+isPair = false; // false == pair one, true == pair two
 
 console.log('fired');
 inputSum = +alsoInput + +inputSum;
@@ -83,14 +83,13 @@ input_field.value = alsoInput;
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', () => {
 console.log('equals')
 
-if(isContinuous_value == false && +alsoInput + +inputSum > 1) {
+if(isPair == true) {
 alsoInput = +alsoInput + +inputSum;  // according to operator used*
 input_field.value = alsoInput;
 
-isContinuous_value = true;
-} else if(isContinuous_value == true) {
-alsoInput += +inputSum
-input_field.value = +alsoInput;
+
+} else if(isPair == false) {
+input_field.value = "";
 }});
 
 
