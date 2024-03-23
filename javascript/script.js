@@ -3,6 +3,7 @@ setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`)
 let alsoInput ="";
 let inputSum = "";
 let inputTotal = "";
+let previousValue;
 
 let someArray = ['-','+','/','*',];
 let count = 0;
@@ -28,12 +29,15 @@ isPair = true;
 count++;
 } 
 
-if(inputSum > 0 && alsoInput > 0) { console.log('this also')
-isPair = false; // false == pair one, true == pair two
+if(inputSum > 0 && alsoInput > 0) {
+inputSum = +inputSum + +alsoInput;
+alsoInput = "";
+isPair = false;
 
-} if(isPair == true && alsoInput == "") { console.log('executed')
+} if(isPair == true && alsoInput == "") {
 isPair = false;
 }
+
 });
 
 const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', () => {
