@@ -28,15 +28,12 @@ isPair = true;
 count++;
 } 
 
-if(inputSum > 0 && alsoInput > 0) { // switch to pair one
+if(inputSum > 0 && alsoInput > 0) { console.log('this also')
 isPair = false; // false == pair one, true == pair two
 
-console.log('fired03');
-inputSum = +alsoInput + +inputSum;
-input_field.value = alsoInput;
-alsoInput = "";
+} if(isPair == true && alsoInput == "") { console.log('executed')
+isPair = false;
 }
-
 });
 
 const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', () => {
@@ -52,19 +49,27 @@ isPair = true;
 const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', () => {
 console.log('delete')
 
+if(isPair == false) {alsoInput = alsoInput + "";
+if(isPair == false && alsoInput.length > 0) {
 
-if(isPair == false && count < 1) {
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
-input_field.value = alsoInput;
-} else if(isPair == true && count < 1) {
-inputSum = inputSum.slice(0, inputSum.length -1);
-input_field.value = inputSum;
-} else if(isPair == true && count >= 1) {
-alsoInput = alsoInput + "";
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
-input_field.value = alsoInput;
 alsoInput = +alsoInput;
-}});
+input_field.value = alsoInput;
+}} else if (isPair == false && alsoInput.length < 0) {
+// SEE HERE
+}
+
+
+if(isPair == true) {inputSum = inputSum + "";
+if(isPair == true && inputSum.length > 0) {console.log("this also?")
+
+inputSum = inputSum.slice(0, inputSum.length -1);
+inputSum = +inputSum;
+input_field.value = inputSum;
+}} else if(isPair == true && inputSum.length < 0) {
+
+}
+});
 
 
 const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', () => {
@@ -101,7 +106,6 @@ operands[i].addEventListener('click', operand_click)
 
 function keyboard_input(e) {
 if(e.key == "Backspace" && isPair == true && count < 1) {
-console.log('fired00')
 
 inputSum = inputSum.slice(0, inputSum.length -1);
 input_field.value = inputSum;
