@@ -31,7 +31,7 @@ count++;
 if(inputSum > 0 && alsoInput > 0) { // switch to pair one
 isPair = false; // false == pair one, true == pair two
 
-console.log('fired');
+console.log('fired03');
 inputSum = +alsoInput + +inputSum;
 input_field.value = alsoInput;
 alsoInput = "";
@@ -83,11 +83,10 @@ input_field.value = alsoInput;
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', () => {
 console.log('equals')
 
-if(isPair == true) {
+if(isPair == true || inputSum > alsoInput) {
 inputSum =  +inputSum  + +alsoInput;  // according to operator used*
-// alsoInput = "";
 input_field.value = inputSum;
-
+alsoInput = "";
 
 } else if(isPair == false) {
 input_field.value = "";
