@@ -50,25 +50,32 @@ const functions_delete  = document.querySelector(".assignment02 > button").addEv
 console.log('delete')
 
 if(isPair == false) {alsoInput = alsoInput + "";
-if(isPair == false && alsoInput.length > 0) {
+if(isPair == false && alsoInput > 0) {
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
-}} else if (isPair == false && alsoInput.length < 0) {
-// SEE HERE
-}
+} 
+if (isPair == false && alsoInput  == "0") { console.log('fired')
+
+alsoInput = "";
+input_field.value = alsoInput;
+}} 
 
 
 if(isPair == true) {inputSum = inputSum + "";
-if(isPair == true && inputSum.length > 0) {console.log("this also?")
+if(isPair == true && inputSum.length > 0) {
 
 inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = +inputSum;
 input_field.value = inputSum;
-}} else if(isPair == true && inputSum.length < 0) {
-
 }
+if(isPair == true && inputSum  == "0") { console.log('fired')
+
+inputSum = "";
+input_field.value = inputSum;
+}}
+
 });
 
 
