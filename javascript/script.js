@@ -16,6 +16,9 @@ input_field.value = "value";
 const operands = document.querySelectorAll("#numpad > button");
 
 
+// SEE HERE
+
+
 const arithmetic_functions_subtract = document.querySelector(".assignment00 > button:nth-child(1)").addEventListener('click', (e) => {
 
 actual_previousValue = previousValue;
@@ -33,7 +36,7 @@ console.log('add');
 if(alsoInput > 0) {
 isPair = true;
 
-} if(inputSum > 0 && alsoInput > 0) { console.log("see also") // was else if*
+} if(inputSum > 0 && alsoInput > 0) {
 inputSum = +inputSum + +alsoInput;
 alsoInput = "";
 isPair = false;
@@ -78,8 +81,6 @@ if (isPair == false && alsoInput  == "0") {
 alsoInput = "";
 input_field.value = alsoInput;}}
 
-
-
 if(isPair == true) {inputSum = inputSum + "";
 if(isPair == true && inputSum.length > 0) {
 
@@ -113,14 +114,14 @@ previousValue = e.target.textContent + "";
 console.log('equals')
 
 
-if(previousValue !== actual_previousValue) { console.log('code-00') // check here also*
+if(previousValue !== actual_previousValue) {
 inputSum =  +inputSum  + +alsoInput;
 also_alsoInput = +alsoInput;
 
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(previousValue == actual_previousValue) { console.log("code-01") // SEE HERE
+} else if(previousValue == actual_previousValue) {
 input_field.value = inputSum += also_alsoInput;
 }});
 
@@ -130,30 +131,40 @@ for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', operand_click)};
 
 
-function keyboard_input(e) {
+function keyboard_input(e) { // deleting numbers from incorrect pair (copy code from click function) e.key == "Backspace"
 
 actual_previousValue = previousValue;
-previousValue = e.key + "";
+previousValue = e.target.textContent + "";
+console.log('delete')
 
+if(isPair == false && e.key == "Backspace") {
+alsoInput = alsoInput + "";
 
-if(e.key == "Backspace" && isPair == true) {
+if(isPair == false && alsoInput > 0) {
+
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
+alsoInput = +alsoInput;
+input_field.value = alsoInput;
+} 
+if (isPair == false && alsoInput  == "0") {
+
+alsoInput = "";
+input_field.value = alsoInput;}}
+
+if(isPair == true && e.key == "Backspace") {
+inputSum = inputSum + "";
+
+if(isPair == true && inputSum.length > 0) {
 
 inputSum = inputSum.slice(0, inputSum.length -1);
+inputSum = +inputSum;
+input_field.value = inputSum;}
+
+if(isPair == true && inputSum  == "0") {
+
+inputSum = "";
 input_field.value = inputSum;
-} else  if(e.key == "Backspace" && isPair == false) {
-
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
-input_field.value = alsoInput;
-}
-
-// --------------------------------
-
-if(e.key == "Backspace" && isPair == true) {
-alsoInput = alsoInput + "";
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
-input_field.value = alsoInput;
-alsoInput = +alsoInput;
-}
+}}
 
 // --------------------------------
 
@@ -173,7 +184,7 @@ input_field.value = alsoInput;
 function  operand_click(e) {
 
 actual_previousValue = previousValue;
-previousValue = e.target.textContent + ""; // values may need to be converted to string values for operators
+previousValue = e.target.textContent + "";
 
 if(isPair == true) {
 input_field.value = "";
@@ -188,6 +199,3 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
 // allow equals only with number pairs.
-
-// when adding 500 + 550, - when deleting 1 character, proceeds to delete from pair one, revise conditional*
-// this bug persists with both backspace and onmousedown
