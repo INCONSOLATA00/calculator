@@ -6,6 +6,7 @@ let inputTotal = "";
 
 let previousValue;
 let actual_previousValue;
+let also_alsoInput;
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
@@ -114,11 +115,13 @@ console.log('equals')
 
 if(isPair == true && previousValue !== actual_previousValue) { console.log('code-00')
 inputSum =  +inputSum  + +alsoInput;
+also_alsoInput = +alsoInput;
+
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(isPair == false && previousValue == actual_previousValue) { // SEE HERE: && previousValue == "="
-input_field.value = "code-01";
+} else if(previousValue == actual_previousValue) { console.log("code-01") // SEE HERE
+input_field.value = inputSum += also_alsoInput;
 }});
 
 
