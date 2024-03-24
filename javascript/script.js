@@ -1,4 +1,4 @@
-setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum}`) },100)
+setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum} previousValue ${previousValue}`) },100)
 
 let alsoInput ="";
 let inputSum = "";
@@ -6,9 +6,6 @@ let inputTotal = "";
 let previousValue;
 
 let someArray = ['-','+','/','*',];
-let count = 0;
-
-let isContinuous_value = false;
 let isPair = false;
 
 const input_field = document.querySelector("div > input");
@@ -16,41 +13,44 @@ input_field.value = "value";
 const operands = document.querySelectorAll("#numpad > button");
 
 
-const arithmetic_functions_subtract = document.querySelector(".assignment00 > button:nth-child(1)").addEventListener('click', () => {
+const arithmetic_functions_subtract = document.querySelector(".assignment00 > button:nth-child(1)").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
 console.log('subtract')
-isPair = true;
-});
+isPair = true;});
 
-const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', () => {
+
+const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
 console.log('add');
 
 if(alsoInput > 0) {
-isPair = true;
-count++;
-} 
+isPair = true;} 
 
 if(inputSum > 0 && alsoInput > 0) {
 inputSum = +inputSum + +alsoInput;
 alsoInput = "";
 isPair = false;
 
+
 } if(isPair == true && alsoInput == "") {
 isPair = false;
-}
+}});
 
-});
 
-const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', () => {
+const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
 console.log('divide')
-isPair = true;
-});
+isPair = true;});
 
-const arithmetic_functions_multiply = document.querySelector(".assignment01 > button:nth-child(2)").addEventListener('click', () => {
+
+const arithmetic_functions_multiply = document.querySelector(".assignment01 > button:nth-child(2)").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
 console.log('multiply')
-isPair = true;
-});
+isPair = true;});
 
-const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', () => {
+
+const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
 console.log('delete')
 
 if(isPair == false) {alsoInput = alsoInput + "";
@@ -60,11 +60,11 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
 } 
-if (isPair == false && alsoInput  == "0") { console.log('fired')
+if (isPair == false && alsoInput  == "0") {
 
 alsoInput = "";
-input_field.value = alsoInput;
-}} 
+input_field.value = alsoInput;}}
+
 
 
 if(isPair == true) {inputSum = inputSum + "";
@@ -72,55 +72,53 @@ if(isPair == true && inputSum.length > 0) {
 
 inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = +inputSum;
-input_field.value = inputSum;
-}
-if(isPair == true && inputSum  == "0") { console.log('fired')
+input_field.value = inputSum;}
+
+if(isPair == true && inputSum  == "0") {
 
 inputSum = "";
 input_field.value = inputSum;
-}}
+}}});
 
-});
+const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
+console.log('ac')
 
-
-const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', () => {
-console.log('all clear')
-
-count = 0;
 isPair = false;
-isContinuous_value == false;
-
 alsoInput = "";
 inputSum = "";
 
 input_field.value = alsoInput;
 });
 
-const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', () => {
+const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
+previousValue = e.target.textContent + "";
 console.log('equals')
+cumulative = true;
 
-if(isPair == true || inputSum > alsoInput) {
-inputSum =  +inputSum  + +alsoInput;  // according to operator used*
+if(isPair == true) {
+inputSum =  +inputSum  + +alsoInput;
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(isPair == false) {
-input_field.value = "";
+} else if(previousValue == "=") { // SEE HERE: && previousValue == "="
+input_field.value = "this";
 }});
 
 
 window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
-operands[i].addEventListener('click', operand_click)
-};
+operands[i].addEventListener('click', operand_click)};
 
 
 function keyboard_input(e) {
-if(e.key == "Backspace" && isPair == true && count < 1) {
+previousValue = e.key + "";
+
+if(e.key == "Backspace" && isPair == true) {
 
 inputSum = inputSum.slice(0, inputSum.length -1);
 input_field.value = inputSum;
-} else  if(e.key == "Backspace" && isPair == false && count < 1) {
+} else  if(e.key == "Backspace" && isPair == false) {
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
@@ -128,13 +126,11 @@ input_field.value = alsoInput;
 
 // --------------------------------
 
-if(e.key == "Backspace" && isPair == true && count >= 1) {
-console.log({alsoInput});
-
+if(e.key == "Backspace" && isPair == true) {
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;
-alsoInput = +alsoInput; // SEE HERE
+alsoInput = +alsoInput;
 }
 
 // --------------------------------
@@ -144,7 +140,6 @@ if(isNaN(e.key) == true) {
 
 } else if (isPair == true){
 input_field.value = "";
-
 inputSum += e.key
 input_field.value = inputSum;
 
@@ -154,6 +149,8 @@ input_field.value = alsoInput;
 }}
 
 function  operand_click(e) {
+previousValue = e.target.textContent + ""; // values may need to be converted to string values for operators
+
 if(isPair == true) {
 input_field.value = "";
 
