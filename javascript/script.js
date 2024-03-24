@@ -113,10 +113,16 @@ actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('equals')
 
+//
 
 if(previousValue !== actual_previousValue) {
 inputSum =  +inputSum  + +alsoInput;
 also_alsoInput = +alsoInput;
+
+// inputSum = +inputSum + +alsoInput;  create a function that passes the event...
+// alsoInput = "";
+
+// can call seperate function for delete chars*
 
 input_field.value = inputSum;
 alsoInput = "";
@@ -131,13 +137,13 @@ for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', operand_click)};
 
 
-function keyboard_input(e) { // deleting numbers from incorrect pair (copy code from click function) e.key == "Backspace"
+function keyboard_input(e) {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('delete')
 
-if(isPair == false && e.key == "Backspace") {
+if(e.key == "Backspace" || isPair == false) { // CREATE FUNCTION FOR THIS
 alsoInput = alsoInput + "";
 
 if(isPair == false && alsoInput > 0) {
@@ -151,7 +157,7 @@ if (isPair == false && alsoInput  == "0") {
 alsoInput = "";
 input_field.value = alsoInput;}}
 
-if(isPair == true && e.key == "Backspace") {
+if(e.key == "Backspace" || isPair == true) {
 inputSum = inputSum + "";
 
 if(isPair == true && inputSum.length > 0) {
@@ -198,4 +204,3 @@ input_field.value = alsoInput;
 }}
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
-// allow equals only with number pairs.
