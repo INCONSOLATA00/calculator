@@ -1,9 +1,11 @@
-setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum ${inputSum} previousValue ${previousValue}`) },100)
+setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} `) },100)
 
 let alsoInput ="";
 let inputSum = "";
 let inputTotal = "";
+
 let previousValue;
+let actual_previousValue;
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
@@ -14,12 +16,16 @@ const operands = document.querySelectorAll("#numpad > button");
 
 
 const arithmetic_functions_subtract = document.querySelector(".assignment00 > button:nth-child(1)").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('subtract')
 isPair = true;});
 
 
 const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('add');
 
@@ -38,18 +44,24 @@ isPair = false;
 
 
 const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('divide')
 isPair = true;});
 
 
 const arithmetic_functions_multiply = document.querySelector(".assignment01 > button:nth-child(2)").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('multiply')
 isPair = true;});
 
 
 const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('delete')
 
@@ -81,6 +93,8 @@ input_field.value = inputSum;
 }}});
 
 const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('ac')
 
@@ -92,17 +106,19 @@ input_field.value = alsoInput;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('equals')
-cumulative = true;
 
-if(isPair == true) {
+
+if(isPair == true && previousValue !== actual_previousValue) { console.log('code-00')
 inputSum =  +inputSum  + +alsoInput;
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(previousValue == "=") { // SEE HERE: && previousValue == "="
-input_field.value = "this";
+} else if(isPair == false && previousValue == actual_previousValue) { // SEE HERE: && previousValue == "="
+input_field.value = "code-01";
 }});
 
 
@@ -112,7 +128,10 @@ operands[i].addEventListener('click', operand_click)};
 
 
 function keyboard_input(e) {
+
+actual_previousValue = previousValue;
 previousValue = e.key + "";
+
 
 if(e.key == "Backspace" && isPair == true) {
 
@@ -149,6 +168,8 @@ input_field.value = alsoInput;
 }}
 
 function  operand_click(e) {
+
+actual_previousValue = previousValue;
 previousValue = e.target.textContent + ""; // values may need to be converted to string values for operators
 
 if(isPair == true) {
