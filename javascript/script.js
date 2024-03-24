@@ -31,9 +31,9 @@ previousValue = e.target.textContent + "";
 console.log('add');
 
 if(alsoInput > 0) {
-isPair = true;} 
+isPair = true;
 
-if(inputSum > 0 && alsoInput > 0) {
+} if(inputSum > 0 && alsoInput > 0) { console.log("see also") // was else if*
 inputSum = +inputSum + +alsoInput;
 alsoInput = "";
 isPair = false;
@@ -113,7 +113,7 @@ previousValue = e.target.textContent + "";
 console.log('equals')
 
 
-if(isPair == true && previousValue !== actual_previousValue) { console.log('code-00')
+if(previousValue !== actual_previousValue) { console.log('code-00') // check here also*
 inputSum =  +inputSum  + +alsoInput;
 also_alsoInput = +alsoInput;
 
