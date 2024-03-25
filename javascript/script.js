@@ -23,21 +23,31 @@ const arithmetic_functions_subtract = document.querySelector(".assignment00 > bu
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-console.log('subtract')
-isPair = true;});
+
+if(alsoInput > 0) {
+isPair = true;
+
+} if(inputSum > 0 && alsoInput > 0) {
+determine_arithmetic(previousValue);
+alsoInput = "";
+isPair = false;
+
+
+} if(isPair == true && alsoInput == "") {
+isPair = false;
+}});
 
 
 const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', (e) => {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-console.log('add');
 
 if(alsoInput > 0) {
 isPair = true;
 
 } if(inputSum > 0 && alsoInput > 0) {
-inputSum = +inputSum + +alsoInput;
+determine_arithmetic(previousValue);
 alsoInput = "";
 isPair = false;
 
@@ -51,48 +61,48 @@ const arithmetic_functions_divide = document.querySelector(".assignment01 > butt
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-console.log('divide')
-isPair = true;});
+
+if(alsoInput > 0) {
+isPair = true;
+
+} if(inputSum > 0 && alsoInput > 0) {
+determine_arithmetic(previousValue);
+alsoInput = "";
+isPair = false;
+
+
+} if(isPair == true && alsoInput == "") {
+isPair = false;
+}});
 
 
 const arithmetic_functions_multiply = document.querySelector(".assignment01 > button:nth-child(2)").addEventListener('click', (e) => {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-console.log('multiply')
-isPair = true;});
+
+if(alsoInput > 0) {
+isPair = true;
+
+} if(inputSum > 0 && alsoInput > 0) {
+determine_arithmetic(previousValue);
+alsoInput = "";
+isPair = false;
+
+
+} if(isPair == true && alsoInput == "") {
+isPair = false;
+}});
 
 
 const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
+
 console.log('delete')
-
-if(isPair == false) {alsoInput = alsoInput + "";
-if(isPair == false && alsoInput > 0) {
-
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
-alsoInput = +alsoInput;
-input_field.value = alsoInput;
-} 
-if (isPair == false && alsoInput  == "0") {
-
-alsoInput = "";
-input_field.value = alsoInput;}}
-
-if(isPair == true) {inputSum = inputSum + "";
-if(isPair == true && inputSum.length > 0) {
-
-inputSum = inputSum.slice(0, inputSum.length -1);
-inputSum = +inputSum;
-input_field.value = inputSum;}
-
-if(isPair == true && inputSum  == "0") {
-
-inputSum = "";
-input_field.value = inputSum;
-}}});
+operand_delete(e);
+});
 
 const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
 
@@ -112,8 +122,6 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('equals')
-
-//
 
 if(previousValue !== actual_previousValue) {
 inputSum =  +inputSum  + +alsoInput;
@@ -138,7 +146,39 @@ operands[i].addEventListener('click', operand_click)};
 
 
 function keyboard_input(e) {
+operand_delete(e)
 
+// --------------------------------
+
+if(isNaN(e.key) == true) {
+} else if (isPair == true){
+input_field.value = "";
+inputSum += e.key
+input_field.value = inputSum;
+
+} else {
+alsoInput += e.key
+input_field.value = alsoInput;}}
+
+
+function  operand_click(e) {
+actual_previousValue = previousValue;
+previousValue = e.target.textContent + "";
+
+if(isPair == true) {
+input_field.value = "";
+
+inputSum += e.target.textContent;
+input_field.value = inputSum;
+
+} else {
+alsoInput += e.target.textContent;
+input_field.value = alsoInput;
+}}
+
+// someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
+
+function operand_delete(e){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('delete')
@@ -150,8 +190,8 @@ if(isPair == false && alsoInput > 0) {
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
-input_field.value = alsoInput;
-} 
+input_field.value = alsoInput;}
+
 if (isPair == false && alsoInput  == "0") {
 
 alsoInput = "";
@@ -170,37 +210,26 @@ if(isPair == true && inputSum  == "0") {
 
 inputSum = "";
 input_field.value = inputSum;
-}}
+}}}
 
-// --------------------------------
+// function that determines the arithmetic to be used, likely a function that contains a switch statement
 
-if(isNaN(e.key) == true) {
-// do nothing
+function determine_arithmetic(value){
+switch(value) {
+case "-":
+inputSum = +inputSum - +alsoInput;
+return;
 
-} else if (isPair == true){
-input_field.value = "";
-inputSum += e.key
-input_field.value = inputSum;
+case "+":
+inputSum = +inputSum + +alsoInput;
+return;
 
-} else {
-alsoInput += e.key
-input_field.value = alsoInput;
-}}
+case "/":
+inputSum = +inputSum / +alsoInput;
+return;
 
-function  operand_click(e) {
-
-actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
-
-if(isPair == true) {
-input_field.value = "";
-
-inputSum += e.target.textContent;
-input_field.value = inputSum;
-
-} else {
-alsoInput += e.target.textContent;
-input_field.value = alsoInput;
-}}
-
-// someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
+case "*":
+inputSum = +inputSum * +alsoInput;
+return;
+}
+}
