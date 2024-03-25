@@ -11,34 +11,19 @@ let also_alsoInput;
 let someArray = ['-','+','/','*',];
 let isPair = false;
 
+
+
 const input_field = document.querySelector("div > input");
 input_field.value = "value";
 const operands = document.querySelectorAll("#numpad > button");
 
-
-// SEE HERE
-
-
-const arithmetic_functions_subtract = document.querySelector(".assignment00 > button:nth-child(1)").addEventListener('click', (e) => {
-
-actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
-
-if(alsoInput > 0) {
-isPair = true;
-
-} if(inputSum > 0 && alsoInput > 0) {
-determine_arithmetic(previousValue);
-alsoInput = "";
-isPair = false;
+const arithmetic_functions = [...document.querySelectorAll(".functions > div > button")]
+for(let i = 0; i < arithmetic_functions.length; i++){
+arithmetic_functions[i].addEventListener('click', arithmetic);
+}
 
 
-} if(isPair == true && alsoInput == "") {
-isPair = false;
-}});
-
-
-const arithmetic_functions_add= document.querySelector(".assignment00 > button:nth-child(2)").addEventListener('click', (e) => {
+function arithmetic(e) {console.log(e.target.textContent)
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
@@ -54,45 +39,8 @@ isPair = false;
 
 } if(isPair == true && alsoInput == "") {
 isPair = false;
-}});
+};}
 
-
-const arithmetic_functions_divide = document.querySelector(".assignment01 > button:nth-child(1)").addEventListener('click', (e) => {
-
-actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
-
-if(alsoInput > 0) {
-isPair = true;
-
-} if(inputSum > 0 && alsoInput > 0) {
-determine_arithmetic(previousValue);
-alsoInput = "";
-isPair = false;
-
-
-} if(isPair == true && alsoInput == "") {
-isPair = false;
-}});
-
-
-const arithmetic_functions_multiply = document.querySelector(".assignment01 > button:nth-child(2)").addEventListener('click', (e) => {
-
-actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
-
-if(alsoInput > 0) {
-isPair = true;
-
-} if(inputSum > 0 && alsoInput > 0) {
-determine_arithmetic(previousValue);
-alsoInput = "";
-isPair = false;
-
-
-} if(isPair == true && alsoInput == "") {
-isPair = false;
-}});
 
 
 const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
