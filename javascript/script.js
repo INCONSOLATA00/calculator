@@ -12,6 +12,8 @@ let also_alsoInput;
 let someArray = ['-','+','/','*',];
 let isPair = false;
 
+let alwaysTrue = true; // temp val
+
 
 const input_field = document.querySelector("div > input");
 input_field.value = "value";
@@ -70,7 +72,7 @@ actual_previousValue = previousValue;                             // determine_a
 previousValue = e.target.textContent + "";
 console.log('equals')
 
-if(previousValue !== actual_previousValue) { console.log('reached01')
+if(alwaysTrue == true) { console.log('reached01') // previousValue !== actual_previousValue, something error @ previous also*
 inputSum = +inputSum + +alsoInput; 
 also_alsoInput = +alsoInput;
 
