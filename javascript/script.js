@@ -25,7 +25,7 @@ arithmetic_functions[i].addEventListener('click', arithmetic);
 function arithmetic(e) {
 
 actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
+previousValue = e.target.textContent + ""; // SEE HERE
 currentValue.push(previousValue);
 
 if(alsoInput > 0) {
@@ -64,23 +64,33 @@ inputSum = "";
 input_field.value = alsoInput;
 });
 
+let also_currentValue;
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
-// console.log(`check integrity ${alsoInput + inputSum}`) // inputSum == NaN (likely still string from see add)
-actual_previousValue = previousValue;                                 // determine_arithmetic(currentValue.filter((iteration) => someArray.includes(iteration)).toString());
-previousValue = e.target.textContent + "";
 console.log('equals')
 
-console.log(`previousValue ${typeof previousValue} actual_previousValue ${typeof actual_previousValue}`)
-if(previousValue !== actual_previousValue) { console.log('reached01') // previousValue !== actual_previousValue, something error @ previous also*
+if(previousValue !== actual_previousValue) { console.log('reached01')
 inputSum = +inputSum + +alsoInput; 
 also_alsoInput = +alsoInput;
 
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(previousValue == actual_previousValue) { console.log('reached02')
-input_field.value = inputSum += also_alsoInput;
-}});
+} else if(previousValue == actual_previousValue) { console.log('reached02') // the last value being assigned is not a number*
+
+function last_operand() {
+also_currentValue = currentValue.filter((a) => !a == isNaN(a))
+// return also_currentValue[also_currentValue.length -1]
+return currentValue; // does not contain numerical values; check push statement*
+};
+
+console.log(last_operand())
+// inputSum += +last_operand();
+input_field.value =  inputSum;
+}
+
+actual_previousValue = previousValue;                      
+previousValue = e.target.textContent + "";
+});
 
 window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
