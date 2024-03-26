@@ -12,8 +12,6 @@ let also_alsoInput;
 let someArray = ['-','+','/','*',];
 let isPair = false;
 
-let alwaysTrue = true; // temp val
-
 
 const input_field = document.querySelector("div > input");
 input_field.value = "value";
@@ -35,7 +33,7 @@ isPair = true;
 
 } if(inputSum > 0 && alsoInput > 0) {
 inputSum = +inputSum + +alsoInput;
-console.log(`check integrity ${typeof alsoInput}`)
+
 alsoInput = "";
 isPair = false;
 
@@ -67,19 +65,20 @@ input_field.value = alsoInput;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
-console.log(`check integrity ${alsoInput + inputSum}`) // inputSum == NaN (likely still string from see add)
-actual_previousValue = previousValue;                             // determine_arithmetic(currentValue.filter((iteration) => someArray.includes(iteration)).toString());
+// console.log(`check integrity ${alsoInput + inputSum}`) // inputSum == NaN (likely still string from see add)
+actual_previousValue = previousValue;                                 // determine_arithmetic(currentValue.filter((iteration) => someArray.includes(iteration)).toString());
 previousValue = e.target.textContent + "";
 console.log('equals')
 
-if(alwaysTrue == true) { console.log('reached01') // previousValue !== actual_previousValue, something error @ previous also*
+console.log(`previousValue ${typeof previousValue} actual_previousValue ${typeof actual_previousValue}`)
+if(previousValue !== actual_previousValue) { console.log('reached01') // previousValue !== actual_previousValue, something error @ previous also*
 inputSum = +inputSum + +alsoInput; 
 also_alsoInput = +alsoInput;
 
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(previousValue == actual_previousValue) {
+} else if(previousValue == actual_previousValue) { console.log('reached02')
 input_field.value = inputSum += also_alsoInput;
 }});
 
