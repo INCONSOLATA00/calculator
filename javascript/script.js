@@ -6,11 +6,11 @@ let inputTotal = "";
 
 let previousValue;
 let actual_previousValue;
+let currentValue = [];
 let also_alsoInput;
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
-
 
 
 const input_field = document.querySelector("div > input");
@@ -22,28 +22,27 @@ for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
-
-function arithmetic(e) {console.log(e.target.textContent)
+function arithmetic(e) {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
+currentValue.push(previousValue);
 
 if(alsoInput > 0) {
 isPair = true;
 
 } if(inputSum > 0 && alsoInput > 0) {
-determine_arithmetic(previousValue);
+inputSum = +inputSum + +alsoInput;
+console.log(`check integrity ${typeof alsoInput}`)
 alsoInput = "";
 isPair = false;
-
 
 } if(isPair == true && alsoInput == "") {
 isPair = false;
 };}
 
 
-
-const functions_delete  = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
+const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
@@ -52,7 +51,7 @@ console.log('delete')
 operand_delete(e);
 });
 
-const functions_all_clear  = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
+const functions_all_clear = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
@@ -66,19 +65,14 @@ input_field.value = alsoInput;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
-
-actual_previousValue = previousValue;
+console.log(`check integrity ${alsoInput + inputSum}`) // inputSum == NaN (likely still string from see add)
+actual_previousValue = previousValue;                             // determine_arithmetic(currentValue.filter((iteration) => someArray.includes(iteration)).toString());
 previousValue = e.target.textContent + "";
 console.log('equals')
 
-if(previousValue !== actual_previousValue) {
-inputSum =  +inputSum  + +alsoInput;
+if(previousValue !== actual_previousValue) { console.log('reached01')
+inputSum = +inputSum + +alsoInput; 
 also_alsoInput = +alsoInput;
-
-// inputSum = +inputSum + +alsoInput;  create a function that passes the event...
-// alsoInput = "";
-
-// can call seperate function for delete chars*
 
 input_field.value = inputSum;
 alsoInput = "";
@@ -87,11 +81,9 @@ alsoInput = "";
 input_field.value = inputSum += also_alsoInput;
 }});
 
-
 window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', operand_click)};
-
 
 function keyboard_input(e) {
 operand_delete(e)
@@ -108,8 +100,7 @@ input_field.value = inputSum;
 alsoInput += e.key
 input_field.value = alsoInput;}}
 
-
-function  operand_click(e) {
+function operand_click(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
@@ -131,7 +122,7 @@ actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('delete')
 
-if(e.key == "Backspace" || isPair == false) { // CREATE FUNCTION FOR THIS
+if(e.key == "Backspace" || isPair == false) {
 alsoInput = alsoInput + "";
 
 if(isPair == false && alsoInput > 0) {
@@ -140,7 +131,7 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;}
 
-if (isPair == false && alsoInput  == "0") {
+if (isPair == false && alsoInput == "0") {
 
 alsoInput = "";
 input_field.value = alsoInput;}}
@@ -154,30 +145,29 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = +inputSum;
 input_field.value = inputSum;}
 
-if(isPair == true && inputSum  == "0") {
+if(isPair == true && inputSum == "0") {
 
 inputSum = "";
 input_field.value = inputSum;
 }}}
 
-// function that determines the arithmetic to be used, likely a function that contains a switch statement
 
 function determine_arithmetic(value){
 switch(value) {
 case "-":
-inputSum = +inputSum - +alsoInput;
+alsoInput = +inputSum - +alsoInput;
 return;
 
 case "+":
-inputSum = +inputSum + +alsoInput;
+alsoInput = +inputSum + +alsoInput;
 return;
 
 case "/":
-inputSum = +inputSum / +alsoInput;
+alsoInput = +inputSum / +alsoInput;
 return;
 
 case "*":
-inputSum = +inputSum * +alsoInput;
+alsoInput = +inputSum * +alsoInput;
 return;
 }
 }
