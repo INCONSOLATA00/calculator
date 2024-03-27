@@ -11,6 +11,7 @@ let also_alsoInput;
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
+let isKeyboard = false;
 
 
 const input_field = document.querySelector("div > input");
@@ -23,10 +24,8 @@ arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
 function arithmetic(e) {
-
 actual_previousValue = previousValue;
-previousValue = e.target.textContent + ""; // SEE HERE
-currentValue.push(previousValue);
+previousValue = e.target.textContent + ""; // SEE HERE, ONLY PASSES OPERATORS, NOT NUMBERS
 
 if(alsoInput > 0) {
 isPair = true;
@@ -47,7 +46,7 @@ const functions_delete = document.querySelector(".assignment02 > button").addEve
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
-console.log('delete')
+isKeyboard = false;
 operand_delete(e);
 });
 
@@ -64,27 +63,19 @@ inputSum = "";
 input_field.value = alsoInput;
 });
 
-let also_currentValue;
+
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 console.log('equals')
 
 if(previousValue !== actual_previousValue) { console.log('reached01')
-inputSum = +inputSum + +alsoInput; 
+inputSum = +inputSum + +alsoInput;
 also_alsoInput = +alsoInput;
 
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(previousValue == actual_previousValue) { console.log('reached02') // the last value being assigned is not a number*
-
-function last_operand() {
-also_currentValue = currentValue.filter((a) => !a == isNaN(a))
-// return also_currentValue[also_currentValue.length -1]
-return currentValue; // does not contain numerical values; check push statement*
-};
-
-console.log(last_operand())
-// inputSum += +last_operand();
+} else if(previousValue == actual_previousValue) { console.log('reached02') // the last value being assigned is not a number* && // does not contain numerical values; check push statement*
+inputSum += +currentValue[currentValue.length -1]
 input_field.value =  inputSum;
 }
 
@@ -97,23 +88,33 @@ for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', operand_click)};
 
 function keyboard_input(e) {
+
+isKeyboard = true;
 operand_delete(e)
 
 // --------------------------------
 
 if(isNaN(e.key) == true) {
 } else if (isPair == true){
+actual_previousValue = previousValue;
+previousValue = e.key + "";
+
 input_field.value = "";
 inputSum += e.key
 input_field.value = inputSum;
 
-} else {
+} else { // is not pair
+actual_previousValue = previousValue;
+previousValue = e.key + "";
+
 alsoInput += e.key
 input_field.value = alsoInput;}}
 
-function operand_click(e) {
+
+function operand_click(e) { // when exactly is delete being called?
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
+currentValue.push(previousValue);
 
 if(isPair == true) {
 input_field.value = "";
@@ -130,27 +131,31 @@ input_field.value = alsoInput;
 
 function operand_delete(e){
 actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
+
+if(isKeyboard == false){ console.log('isMouse')
+previousValue = e.target.textContent + ""
+} else { console.log('isKeyboard')
+previousValue = e.key + ""};
 console.log('delete')
 
-if(e.key == "Backspace" || isPair == false) {
+if((e.key == "Backspace" && isPair == false) || (e.target.textContent == "DEL" && isPair == false)) { console.log('reached03')
 alsoInput = alsoInput + "";
 
-if(isPair == false && alsoInput > 0) {
+if(isPair == false) { console.log('reached final') // SEE HERE //  && alsoInput > 0
 
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;}
 
-if (isPair == false && alsoInput == "0") {
+if(isPair == false && alsoInput == "0") {
 
 alsoInput = "";
 input_field.value = alsoInput;}}
 
-if(e.key == "Backspace" || isPair == true) {
+if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { console.log('reached04')
 inputSum = inputSum + "";
 
-if(isPair == true && inputSum.length > 0) {
+if(isPair == true) { // SEE HERE // && inputSum.length > 0
 
 inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = +inputSum;
