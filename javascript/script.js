@@ -134,26 +134,37 @@ console.log('delete')
 
 if((e.key == "Backspace" && isPair == false) || (e.target.textContent == "DEL" && isPair == false)) { console.log('reached03')
 
-inputSum = inputSum + "";
-inputSum = inputSum.slice(0, inputSum.length -1);
-inputSum = +inputSum;
-input_field.value = inputSum;
-}
+alsoInput = alsoInput + "";
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
 
-if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { console.log('reached04')
+alsoInput= +alsoInput;
+input_field.value = alsoInput;
 
-inputSum = inputSum + "";
-inputSum = inputSum.slice(0, inputSum.length -1);
-inputSum = +inputSum;
-input_field.value = inputSum;
-}
+if(alsoInput == 0) { console.log('reached00')
+alsoInput = alsoInput + "";
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
 
-if(alsoInput.length == 1 || inputSum.length == 1) {
-inputSum = inputSum + "";
-inputSum = inputSum.slice(0, inputSum.length -1);
 alsoInput = "";
 input_field.value = alsoInput;
 }}
+
+if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { console.log('reached04')
+
+alsoInput = alsoInput + "";
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
+
+alsoInput= +alsoInput;
+input_field.value = alsoInput;
+
+if(alsoInput == 0) { console.log('reached00')
+alsoInput = alsoInput + "";
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
+
+alsoInput = "";
+input_field.value = alsoInput;
+}}
+
+}
 
 
 
