@@ -1,4 +1,4 @@
-setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} `) },100)
+setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue}`) },100)
 
 let alsoInput ="";
 let inputSum = "";
@@ -6,8 +6,8 @@ let inputTotal = "";
 
 let previousValue;
 let actual_previousValue;
-let currentValue = [];
-let also_alsoInput;
+
+let currentValue = []; // numerical
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
@@ -24,7 +24,6 @@ arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
 function arithmetic(e) { // operators only*
-
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
@@ -68,15 +67,16 @@ input_field.value = alsoInput;
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
 if(previousValue !== actual_previousValue) { console.log('reached01')
-inputSum = +inputSum + +alsoInput;
-also_alsoInput = +alsoInput;
 console.log('equals')
+inputSum = +inputSum + +alsoInput;
+currentValue.push(alsoInput) // is attempting to push " '' "
 
 input_field.value = inputSum;
 alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
-inputSum += also_alsoInput;
+console.log('equals')
+inputSum += +currentValue[0];
 input_field.value =  inputSum;
 }
 
@@ -114,7 +114,6 @@ input_field.value = alsoInput;}}
 function operand_click(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-currentValue.push(previousValue);
 
 if(isPair == true) {
 input_field.value = "";
