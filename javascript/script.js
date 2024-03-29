@@ -23,7 +23,7 @@ for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
-function arithmetic(e) { // operators only*
+function arithmetic(e) { // operators only* // ADD DYNAMIC OPERATION HERE
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
@@ -31,6 +31,7 @@ if(alsoInput > 0) {
 isPair = true;
 
 } if(inputSum > 0 && alsoInput > 0) {
+currentValue.push(alsoInput) 
 inputSum = +inputSum + +alsoInput;
 
 alsoInput = "";
@@ -68,8 +69,9 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 
 if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
-inputSum = +inputSum + +alsoInput;
-currentValue.push(alsoInput) // is attempting to push " '' "
+// is attempting to push " '' "
+// inputSum = +inputSum + +alsoInput; false code* - addition is not happening here
+
 
 input_field.value = inputSum;
 alsoInput = "";
@@ -127,6 +129,8 @@ input_field.value = alsoInput;
 }}
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
+
+// DELETES VALUES FROM INCORRECT ASSIGNMENT
 
 function operand_delete(e){
 console.log('delete')
