@@ -76,7 +76,7 @@ input_field.value = inputSum;
 alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
-inputSum += +currentValue[currentValue.length -1]
+inputSum += also_alsoInput;
 input_field.value =  inputSum;
 }
 
