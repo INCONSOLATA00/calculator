@@ -1,4 +1,4 @@
-setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue}`) },100)
+setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) },100)
 
 let alsoInput ="";
 let inputSum = "";
@@ -11,7 +11,6 @@ let currentValue = []; // numerical
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
-let isKeyboard = false;
 
 
 const input_field = document.querySelector("div > input");
@@ -30,7 +29,7 @@ previousValue = e.target.textContent + "";
 if(alsoInput > 0) {
 isPair = true;
 
-} if(inputSum > 0 && alsoInput > 0) {
+} if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {  console.log(` see here ${previousValue}`) // WAS HERE
 currentValue.push(alsoInput) 
 inputSum = +inputSum + +alsoInput;
 
@@ -46,8 +45,6 @@ const functions_delete = document.querySelector(".assignment02 > button").addEve
 
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-
-isKeyboard = false;
 operand_delete(e);
 });
 
@@ -60,6 +57,7 @@ console.log('ac')
 isPair = false;
 alsoInput = "";
 inputSum = "";
+currentValue = [];
 
 input_field.value = alsoInput;
 });
@@ -91,8 +89,6 @@ for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', operand_click)};
 
 function keyboard_input(e) {
-
-isKeyboard = true;
 operand_delete(e)
 
 // --------------------------------
@@ -130,8 +126,6 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
 
-// DELETES VALUES FROM INCORRECT ASSIGNMENT
-
 function operand_delete(e){
 console.log('delete')
 
@@ -153,18 +147,18 @@ input_field.value = alsoInput;
 
 if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { console.log('reached04')
 
-alsoInput = alsoInput + "";
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
+inputSum = inputSum + "";
+inputSum = inputSum.slice(0, inputSum.length -1);
 
-alsoInput= +alsoInput;
-input_field.value = alsoInput;
+inputSum = +inputSum;
+input_field.value = inputSum;
 
-if(alsoInput == 0) { console.log('reached00')
-alsoInput = alsoInput + "";
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
+if(inputSum == 0) { console.log('reached00')
+inputSum = inputSum + "";
+inputSum = inputSum.slice(0, inputSum.length -1);
 
-alsoInput = "";
-input_field.value = alsoInput;
+inputSum = "";
+input_field.value = inputSum;
 }}
 
 }
