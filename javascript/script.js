@@ -22,19 +22,19 @@ for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
-function arithmetic(e) { // operators only* // ADD DYNAMIC OPERATION HERE
+let alsoInput_copy;
+function arithmetic(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
-if(previousValue !== "=") { console.log('0000') // if = is pressed after +
-also_inputSum = alsoInput;
-}
 
-if(alsoInput > 0 && previousValue !== "DEL") { console.log('000')
+if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000') // prevent delete from registering as generic operation* // or backspace*
 isPair = true;
+alsoInput_copy = +alsoInput; // is being assigned each time = is used, add conditional*
 
 } if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {  console.log(` see here ${previousValue}`) // WAS HERE
 currentValue.push(alsoInput)
+
 
 console.log('001')
 // disable delete button
@@ -63,17 +63,21 @@ currentValue = [];
 input_field.value = alsoInput;
 });
 
-let also_inputSum ="";
+let also_inputSum = [];
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
 if (inputSum == "") { console.log('reached00')
-if(also_inputSum == "") {
-also_inputSum = +also_inputSum + +alsoInput *2; // may need to call function here later* // MAY NEED TO REFER TO A PREVIOUS VALUE LATER
-input_field.value =  also_inputSum;
+if(also_inputSum == "") { console.log('initial')
+also_inputSum.push(alsoInput_copy);  // may need to call function here later* // MAY NEED TO REFER TO A PREVIOUS VALUE LATER*
+input_field.value = also_inputSum.reduce((a, b)=> a + b);
+alsoInput = +input_field.value;
+
 } else {
-also_inputSum = +also_inputSum + +alsoInput;
-input_field.value =  also_inputSum;
+also_inputSum.push(alsoInput_copy);
+input_field.value = also_inputSum.reduce((a, b)=> a + b);
+alsoInput = +input_field.value;
 }
+
 } else if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
 
@@ -82,7 +86,7 @@ alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
 console.log('equals')
-inputSum += +currentValue[0]; // needs to be reset on clear, and on ??? create additional assignment for continuous opperations.
+inputSum += +currentValue[0]; // needs to be reset on clear, and on ??? create additional assignment for continuous opperations ???
 input_field.value =  inputSum;
 }                  
 previousValue = e.target.textContent + "";
