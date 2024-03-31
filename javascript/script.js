@@ -7,7 +7,7 @@ let inputTotal = "";
 let previousValue;
 let actual_previousValue;
 
-let currentValue = []; // numerical
+let currentValue = [];
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
@@ -42,15 +42,11 @@ isPair = false;
 
 
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
-
-actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 operand_delete(e);
 });
 
 const functions_all_clear = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
-
-actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 console.log('ac')
 
@@ -67,9 +63,6 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 
 if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
-// is attempting to push " '' "
-// inputSum = +inputSum + +alsoInput; false code* - addition is not happening here
-
 
 input_field.value = inputSum;
 alsoInput = "";
@@ -78,9 +71,7 @@ alsoInput = "";
 console.log('equals')
 inputSum += +currentValue[0];
 input_field.value =  inputSum;
-}
-
-actual_previousValue = previousValue;                      
+}                  
 previousValue = e.target.textContent + "";
 });
 
@@ -125,11 +116,12 @@ input_field.value = alsoInput;
 }}
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
+// if number buttons are pressed after equals, call clear*
 
 function operand_delete(e){
 console.log('delete')
-
-if((e.key == "Backspace" && isPair == false) || (e.target.textContent == "DEL" && isPair == false)) { console.log('reached03')
+if(actual_previousValue !== "="){ // only works the first time around.
+if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) { console.log('reached03')
 
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
@@ -160,7 +152,7 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = "";
 input_field.value = inputSum;
 }}
-
+}
 }
 
 
