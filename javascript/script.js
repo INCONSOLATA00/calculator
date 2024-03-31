@@ -26,19 +26,24 @@ function arithmetic(e) { // operators only* // ADD DYNAMIC OPERATION HERE
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
-if(alsoInput > 0) {
+if(previousValue !== "=") { console.log('0000') // if = is pressed after +
+also_inputSum = alsoInput;
+}
+
+if(alsoInput > 0 && previousValue !== "DEL") { console.log('000')
 isPair = true;
 
 } if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {  console.log(` see here ${previousValue}`) // WAS HERE
-currentValue.push(alsoInput) 
+currentValue.push(alsoInput)
+
+console.log('001')
+// disable delete button
 inputSum = +inputSum + +alsoInput;
 
 alsoInput = "";
 isPair = false;
 
-} if(isPair == true && alsoInput == "") {
-isPair = false;
-};}
+}}
 
 
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
@@ -58,10 +63,18 @@ currentValue = [];
 input_field.value = alsoInput;
 });
 
-
+let also_inputSum ="";
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
-if(previousValue !== actual_previousValue) { console.log('reached01')
+if (inputSum == "") { console.log('reached00')
+if(also_inputSum == "") {
+also_inputSum = +also_inputSum + +alsoInput *2; // may need to call function here later* // MAY NEED TO REFER TO A PREVIOUS VALUE LATER
+input_field.value =  also_inputSum;
+} else {
+also_inputSum = +also_inputSum + +alsoInput;
+input_field.value =  also_inputSum;
+}
+} else if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
 
 input_field.value = inputSum;
@@ -69,7 +82,7 @@ alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
 console.log('equals')
-inputSum += +currentValue[0];
+inputSum += +currentValue[0]; // needs to be reset on clear, and on ??? create additional assignment for continuous opperations.
 input_field.value =  inputSum;
 }                  
 previousValue = e.target.textContent + "";
@@ -115,13 +128,13 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 }}
 
-// someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators*
-// if number buttons are pressed after equals, call clear*
+// someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators.
+// if number buttons are pressed after equals, call clear.
 
 function operand_delete(e){
 console.log('delete')
-if(actual_previousValue !== "="){ // only works the first time around.
-if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) { console.log('reached03')
+if(actual_previousValue !== "=") { // only works the first time around.
+if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) {
 
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
@@ -129,7 +142,7 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput= +alsoInput;
 input_field.value = alsoInput;
 
-if(alsoInput == 0) { console.log('reached00')
+if(alsoInput == 0) {
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 
@@ -137,7 +150,7 @@ alsoInput = "";
 input_field.value = alsoInput;
 }}
 
-if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { console.log('reached04')
+if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) {
 
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
@@ -145,7 +158,7 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = +inputSum;
 input_field.value = inputSum;
 
-if(inputSum == 0) { console.log('reached00')
+if(inputSum == 0) {
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
