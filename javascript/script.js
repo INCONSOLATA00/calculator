@@ -1,6 +1,5 @@
 setInterval(()=>{
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(typeof previousValue)
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 },100)
 
 let alsoInput ="";
@@ -15,7 +14,6 @@ let also_inputSum = [];
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
-let executable = true;
 
 
 const input_field = document.querySelector("div > input");
@@ -60,7 +58,7 @@ isPair = false;
 
 
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
-previousValue = e.target.textContent + "";
+// previousValue = e.target.textContent + "";
 operand_delete(e);
 });
 
@@ -82,7 +80,7 @@ input_field.value = alsoInput;
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
 if (inputSum == "") { console.log('reached00')
-if(also_inputSum == "") { console.log('initial')
+if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
@@ -119,33 +117,35 @@ for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', operand_click)};
 
 function keyboard_input(e) {
-operand_delete(e)
-
-// --------------------------------
 
 if(isNaN(e.key) == true) {
+actual_previousValue = previousValue;
+previousValue = e.key + ""; 
+
+operand_delete(e)
 } else if (isPair == true){
 actual_previousValue = previousValue;
-previousValue = e.key + ""; // number assignment not applicable here
-// switchted back to number after the initial char passed was a string; unknown reason*
+previousValue = e.key;
+
 inputSum += e.key;
 input_field.value = inputSum;
 
 } else {
 actual_previousValue = previousValue;
-previousValue = +e.key; // SEE HERE
+previousValue = +e.key;
 
 alsoInput += e.key;
 input_field.value = alsoInput;}}
 
 
 function operand_click(e) {
-// if(previousValue == "=" && typeof actual_previousValue == "number")
-
 actual_previousValue = previousValue;
-previousValue = +e.target.textContent; // SEE HERE
+previousValue = +e.target.textContent;
 
-if(isPair == true) {
+if(previousValue == "=" && typeof actual_previousValue == "number") { console.log('runs')
+functions_all_clear.click();
+
+} else if(isPair == true) {
 input_field.value = "";
 
 inputSum += e.target.textContent;
@@ -156,15 +156,8 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 }}
 
-// function newAssignment(){
-// functions_all_clear.click();
-// executable = true;
-// }
-
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
-
-// if the previous value is equal to "=", and the value preceeding it is a number value, invoke clear*
 
 function operand_delete(e){
 console.log('delete')
