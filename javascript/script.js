@@ -1,4 +1,7 @@
-setInterval(()=>{ console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) },100)
+setInterval(()=>{
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(typeof previousValue)
+},100)
 
 let alsoInput ="";
 let inputSum = "";
@@ -12,6 +15,7 @@ let also_inputSum = [];
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
+let executable = true;
 
 
 const input_field = document.querySelector("div > input");
@@ -60,7 +64,8 @@ previousValue = e.target.textContent + "";
 operand_delete(e);
 });
 
-const functions_all_clear = document.querySelector(".assignment02 > button:nth-child(2)").addEventListener('click', (e) => {
+const functions_all_clear = document.querySelector(".assignment02 > button:nth-child(2)")
+functions_all_clear.addEventListener('click', (e) => {
 previousValue = e.target.textContent + "";
 console.log('ac')
 
@@ -121,22 +126,24 @@ operand_delete(e)
 if(isNaN(e.key) == true) {
 } else if (isPair == true){
 actual_previousValue = previousValue;
-previousValue = e.key + "";
-
+previousValue = e.key + ""; // number assignment not applicable here
+// switchted back to number after the initial char passed was a string; unknown reason*
 inputSum += e.key;
 input_field.value = inputSum;
 
 } else {
 actual_previousValue = previousValue;
-previousValue = e.key + "";
+previousValue = +e.key; // SEE HERE
 
 alsoInput += e.key;
 input_field.value = alsoInput;}}
 
 
 function operand_click(e) {
+// if(previousValue == "=" && typeof actual_previousValue == "number")
+
 actual_previousValue = previousValue;
-previousValue = e.target.textContent + "";
+previousValue = +e.target.textContent; // SEE HERE
 
 if(isPair == true) {
 input_field.value = "";
@@ -149,9 +156,15 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 }}
 
+// function newAssignment(){
+// functions_all_clear.click();
+// executable = true;
+// }
+
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
-// if number buttons are pressed after equals, call clear.
-// include logic to do nothing if equals is pressed with no addition assignment.
+// include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
+
+// if the previous value is equal to "=", and the value preceeding it is a number value, invoke clear*
 
 function operand_delete(e){
 console.log('delete')
