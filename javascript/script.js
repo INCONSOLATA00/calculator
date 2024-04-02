@@ -8,13 +8,14 @@ let previousValue;
 let actual_previousValue;
 
 let currentValue = [];
+let also_inputSum = [];
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
 
 
 const input_field = document.querySelector("div > input");
-input_field.value = "value";
+input_field.value = "";
 const operands = document.querySelectorAll("#numpad > button");
 
 const arithmetic_functions = [...document.querySelectorAll(".functions > div > button")]
@@ -28,21 +29,30 @@ actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 
 
-if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000') // prevent delete from registering as generic operation* // or backspace*
+if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
-alsoInput_copy = +alsoInput; // is being assigned each time = is used, add conditional*
+alsoInput_copy = +alsoInput;
+} 
 
-} if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {  console.log(` see here ${previousValue}`) // WAS HERE
+if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {  console.log(` see here ${previousValue}`)
 currentValue.push(alsoInput)
-
-
 console.log('001')
-// disable delete button
+
+inputSum = +inputSum + +alsoInput;
+
+alsoInput = "";
+input_field.value = inputSum;
+isPair = false;
+
+
+} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {  console.log(` see here ${previousValue}`)
+currentValue.push(alsoInput)
+console.log('002')
+
 inputSum = +inputSum + +alsoInput;
 
 alsoInput = "";
 isPair = false;
-
 }}
 
 
@@ -59,22 +69,23 @@ isPair = false;
 alsoInput = "";
 inputSum = "";
 currentValue = [];
+also_inputSum = [];
 
 input_field.value = alsoInput;
 });
 
-let also_inputSum = [];
+
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
 if (inputSum == "") { console.log('reached00')
 if(also_inputSum == "") { console.log('initial')
-also_inputSum.push(alsoInput_copy);  // may need to call function here later* // MAY NEED TO REFER TO A PREVIOUS VALUE LATER*
-input_field.value = also_inputSum.reduce((a, b)=> a + b);
+also_inputSum.push(alsoInput_copy);
+input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 
 } else {
 also_inputSum.push(alsoInput_copy);
-input_field.value = also_inputSum.reduce((a, b)=> a + b);
+input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
@@ -86,7 +97,7 @@ alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
 console.log('equals')
-inputSum += +currentValue[0]; // needs to be reset on clear, and on ??? create additional assignment for continuous opperations ???
+inputSum += +currentValue[0];
 input_field.value =  inputSum;
 }                  
 previousValue = e.target.textContent + "";
@@ -132,8 +143,10 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 }}
 
-// someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators.
+// someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // if number buttons are pressed after equals, call clear.
+// include logic to do nothing if equals is pressed with no addition assignment.
+// update the display if there is a full pair with continuous assignment.
 
 function operand_delete(e){
 console.log('delete')
