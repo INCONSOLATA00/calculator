@@ -36,7 +36,7 @@ isPair = true;
 alsoInput_copy = +alsoInput;
 } 
 
-if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {  console.log(` see here ${previousValue}`)
+if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {
 console.log('001')
 
 inputSum = +inputSum + +alsoInput;
@@ -46,7 +46,7 @@ input_field.value = inputSum;
 isPair = false;
 
 
-} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {  console.log(` see here ${previousValue}`)
+} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
 currentValue.push(alsoInput)
 console.log('002')
 
@@ -158,6 +158,7 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
+// some issue where 0002 is triggered at wrong stage, determining appropriate condition (CURRENT)
 
 function operand_delete(e){
 console.log('delete')
