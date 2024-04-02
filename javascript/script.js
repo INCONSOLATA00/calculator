@@ -35,7 +35,7 @@ alsoInput_copy = +alsoInput;
 } 
 
 if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {  console.log(` see here ${previousValue}`)
-currentValue.push(alsoInput)
+currentValue.push(alsoInput) // may be redundant.
 console.log('001')
 
 inputSum = +inputSum + +alsoInput;
@@ -97,9 +97,16 @@ alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
 console.log('equals')
+
+if(currentValue.length <= 1) { console.log('0001')
 inputSum += +currentValue[0];
 input_field.value =  inputSum;
-}                  
+
+} else if (currentValue.length > 1) { console.log('0002') // error on consecutive usage.
+inputSum += +currentValue[currentValue.length - 1]; // was negative 3, but current value may change based on status.
+input_field.value =  inputSum;
+}}
+
 previousValue = e.target.textContent + "";
 });
 
@@ -146,7 +153,6 @@ input_field.value = alsoInput;
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // if number buttons are pressed after equals, call clear.
 // include logic to do nothing if equals is pressed with no addition assignment.
-// update the display if there is a full pair with continuous assignment.
 
 function operand_delete(e){
 console.log('delete')
