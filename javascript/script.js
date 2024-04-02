@@ -1,4 +1,4 @@
-setInterval(()=>{console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) },100)
+setInterval(()=>{ console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) },100)
 
 let alsoInput ="";
 let inputSum = "";
@@ -35,7 +35,6 @@ alsoInput_copy = +alsoInput;
 } 
 
 if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {  console.log(` see here ${previousValue}`)
-currentValue.push(alsoInput) // may be redundant.
 console.log('001')
 
 inputSum = +inputSum + +alsoInput;
@@ -102,8 +101,8 @@ if(currentValue.length <= 1) { console.log('0001')
 inputSum += +currentValue[0];
 input_field.value =  inputSum;
 
-} else if (currentValue.length > 1) { console.log('0002') // error on consecutive usage.
-inputSum += +currentValue[currentValue.length - 1]; // was negative 3, but current value may change based on status.
+} else if (currentValue.length > 1) { console.log('0002')
+inputSum += +currentValue[currentValue.length - 2];
 input_field.value =  inputSum;
 }}
 
