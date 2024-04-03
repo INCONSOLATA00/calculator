@@ -1,6 +1,6 @@
 setInterval(()=>{
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue ${currentValue} currentOperator ${currentOperator}`);
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`currentValue ${currentValue} currentOperator ${currentOperator}`);
 },100)
 
 let alsoInput ="";
@@ -13,10 +13,12 @@ let actual_previousValue;
 let currentValue = [];
 let currentOperator = [];
 let also_inputSum = [];
+let history = [];
 
 let someArray = ['-','+','/','*',];
 let isPair = false;
 
+// let evaluation = () => current_value00.some((iteration) => someArray00.includes(iteration));
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -33,13 +35,19 @@ actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 currentOperator.push(previousValue);
 
+
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
 alsoInput_copy = +alsoInput;
 } 
 
-if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {
+if(inputSum > 0 && alsoInput > 0 && previousValue == "+") { // add function here, check if array contains()*- ^
+// evaluate the same function for applicable keyboard values.
+
+// - additionally will allow the use of any operator as a conditional
 console.log('001')
+
+// history.push(previousValue);
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 
 alsoInput = "";
@@ -51,6 +59,8 @@ isPair = false;
 currentValue.push(alsoInput)
 if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
 console.log('002')
+
+// history.push(previousValue);
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 
 alsoInput = "";
@@ -79,7 +89,7 @@ input_field.value = alsoInput;
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
-if (inputSum == "") { console.log('reached00')
+if (inputSum == "" && currentOperator[currentOperator.length -1] !== "=") { console.log('reached00')
 if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
@@ -93,14 +103,14 @@ alsoInput = +input_field.value;
 
 } else if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
-determine_arithmetic(currentOperator[0]) // 0 may be dynamic*
+determine_arithmetic(currentOperator[0])
 input_field.value = inputSum;
 alsoInput = "";
 
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if(currentValue.length <= 1) { console.log('0001')
+if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the length
 inputSum += +currentValue[0];
 input_field.value =  inputSum;
 
@@ -201,6 +211,7 @@ input_field.value = inputSum;
 function determine_arithmetic(value){ console.log(`value ${value}`)
 switch(value) {
 case "-":
+inputSum = +inputSum - +alsoInput;
 return;
 
 case "+":
@@ -208,12 +219,11 @@ inputSum = +inputSum + +alsoInput;
 return;
 
 case "/":
+inputSum = +inputSum / +alsoInput;
 return;
 
 case "*":
-return;
-
-case "=":
+inputSum = +inputSum * +alsoInput;
 return;
 }
 }
