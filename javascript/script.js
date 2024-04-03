@@ -1,5 +1,6 @@
 setInterval(()=>{
 console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+// console.log(`currentValue ${currentValue} currentOperator ${currentOperator}`);
 },100)
 
 let alsoInput ="";
@@ -10,6 +11,7 @@ let previousValue;
 let actual_previousValue;
 
 let currentValue = [];
+let currentOperator = [];
 let also_inputSum = [];
 
 let someArray = ['-','+','/','*',];
@@ -29,7 +31,7 @@ let alsoInput_copy;
 function arithmetic(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-
+currentOperator.push(previousValue);
 
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
@@ -38,8 +40,7 @@ alsoInput_copy = +alsoInput;
 
 if(inputSum > 0 && alsoInput > 0 && previousValue == "+") {
 console.log('001')
-
-inputSum = +inputSum + +alsoInput;
+determine_arithmetic(currentOperator[currentOperator.length -2]);
 
 alsoInput = "";
 input_field.value = inputSum;
@@ -49,8 +50,7 @@ isPair = false;
 } else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
 currentValue.push(alsoInput)
 console.log('002')
-
-inputSum = +inputSum + +alsoInput;
+determine_arithmetic(currentOperator[currentOperator.length -2]);
 
 alsoInput = "";
 isPair = false;
@@ -98,14 +98,15 @@ input_field.value = inputSum;
 alsoInput = "";
 
 } else if(previousValue == actual_previousValue) { console.log('reached02')
+// currentValue.push(inputSum + ""); // new line
 console.log('equals')
 
 if(currentValue.length <= 1) { console.log('0001')
-inputSum += +currentValue[0];
+inputSum += +currentValue[0];  // determine arithmetic conditional?*
 input_field.value =  inputSum;
 
 } else if (currentValue.length > 1) { console.log('0002')
-inputSum += +currentValue[currentValue.length - 2];
+inputSum += +currentValue[currentValue.length -1];  // determine arithmetic conditional?*
 input_field.value =  inputSum;
 }}
 
@@ -158,7 +159,6 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
-// some issue where 0002 is triggered at wrong stage, determining appropriate condition (CURRENT)
 
 function operand_delete(e){
 console.log('delete')
@@ -199,22 +199,22 @@ input_field.value = inputSum;
 
 
 
-function determine_arithmetic(value){
+function determine_arithmetic(value){ console.log(`value ${value}`)
 switch(value) {
 case "-":
-alsoInput = +inputSum - +alsoInput;
 return;
 
 case "+":
-alsoInput = +inputSum + +alsoInput;
+inputSum = +inputSum + +alsoInput;
 return;
 
 case "/":
-alsoInput = +inputSum / +alsoInput;
 return;
 
 case "*":
-alsoInput = +inputSum * +alsoInput;
+return;
+
+case "=":
 return;
 }
 }
