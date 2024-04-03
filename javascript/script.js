@@ -47,7 +47,7 @@ input_field.value = inputSum;
 isPair = false;
 
 
-} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
+} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
 currentValue.push(alsoInput)
 console.log('002')
 determine_arithmetic(currentOperator[currentOperator.length -2]);
@@ -58,7 +58,6 @@ isPair = false;
 
 
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
-// previousValue = e.target.textContent + "";
 operand_delete(e);
 });
 
@@ -93,20 +92,19 @@ alsoInput = +input_field.value;
 
 } else if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
-
+determine_arithmetic(currentOperator[0]) // 0 may be dynamic*
 input_field.value = inputSum;
 alsoInput = "";
 
-} else if(previousValue == actual_previousValue) { console.log('reached02')
-// currentValue.push(inputSum + ""); // new line
+} else if(previousValue == actual_previousValue) {
 console.log('equals')
 
 if(currentValue.length <= 1) { console.log('0001')
-inputSum += +currentValue[0];  // determine arithmetic conditional?*
+inputSum += +currentValue[0];
 input_field.value =  inputSum;
 
 } else if (currentValue.length > 1) { console.log('0002')
-inputSum += +currentValue[currentValue.length -1];  // determine arithmetic conditional?*
+inputSum += +currentValue[currentValue.length -1];
 input_field.value =  inputSum;
 }}
 
@@ -162,7 +160,7 @@ input_field.value = alsoInput;
 
 function operand_delete(e){
 console.log('delete')
-if(actual_previousValue !== "=") { // only works the first time around.
+if(actual_previousValue !== "=") {
 if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) {
 
 alsoInput = alsoInput + "";
