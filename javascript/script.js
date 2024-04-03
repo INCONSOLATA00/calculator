@@ -47,14 +47,15 @@ input_field.value = inputSum;
 isPair = false;
 
 
-} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
+} else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
 currentValue.push(alsoInput)
+if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
 console.log('002')
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 
 alsoInput = "";
 isPair = false;
-}}
+}}}
 
 
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
