@@ -107,11 +107,15 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if(currentValue.length <= 1 && history[history.length -2] == "string" && history[history.length -1] == "number" ) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
-inputSum += determine_arithmetic(currentOperator[0]); // check the conditional at the switch statement; needs to be dynamic / universal.
-input_field.value =  inputSum;
+if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
+// inputSum += determine_arithmetic(currentOperator[0]); // check the conditional at the switch statement; needs to be dynamic / universal.
+// input_field.value =  inputSum;
 
-} else if (currentValue.length > 1) { console.log('0002')
+
+//  && history[history.length -2] == "string" && history[history.length -1] == "number"
+input_field.value  = "hello";
+
+} else if (currentValue.length > 1) { console.log('0002') // verify integrity*
 inputSum += +currentValue[currentValue.length -1];
 input_field.value =  inputSum;
 }}
