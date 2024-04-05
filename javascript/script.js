@@ -1,6 +1,6 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue ${currentValue} currentOperator ${currentOperator}`);
+console.log(`currentValue ${currentValue} currentOperator ${currentOperator} history ${history}`);
 },100)
 
 let alsoInput ="";
@@ -14,11 +14,15 @@ let currentValue = [];
 let currentOperator = [];
 let also_inputSum = [];
 let history = [];
-
-let someArray = ['-','+','/','*',];
 let isPair = false;
 
-// let evaluation = () => current_value00.some((iteration) => someArray00.includes(iteration));
+
+let someArray = ['-','+','/','*'];
+let falseValues = ['DEL', 'AC', '='];
+
+let evaluation00 = () => someArray.some((value) => value == previousValue);
+let evaluation01 = () => falseValues.some((value) => value == previousValue);
+// let evaluation02 = () => current_value00.some((iteration) => someArray00.includes(iteration));
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -36,20 +40,16 @@ previousValue = e.target.textContent + "";
 currentOperator.push(previousValue);
 
 
+if(evaluation01() == false) { history.push(previousValue)};
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
 alsoInput_copy = +alsoInput;
 } 
 
-if(inputSum > 0 && alsoInput > 0 && previousValue == "+") { // add function here, check if array contains()*- ^
-// evaluate the same function for applicable keyboard values.
+if(inputSum > 0 && alsoInput > 0 && evaluation00() == true) {
 
-// - additionally will allow the use of any operator as a conditional
-console.log('001')
-
-// history.push(previousValue);
 determine_arithmetic(currentOperator[currentOperator.length -2]);
-
+console.log('001')
 alsoInput = "";
 input_field.value = inputSum;
 isPair = false;
@@ -58,11 +58,8 @@ isPair = false;
 } else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
 currentValue.push(alsoInput)
 if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
-console.log('002')
-
-// history.push(previousValue);
 determine_arithmetic(currentOperator[currentOperator.length -2]);
-
+console.log('002')
 alsoInput = "";
 isPair = false;
 }}}
@@ -110,7 +107,7 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the length
+if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
 inputSum += +currentValue[0];
 input_field.value =  inputSum;
 
@@ -124,7 +121,7 @@ previousValue = e.target.textContent + "";
 
 window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
-operands[i].addEventListener('click', operand_click)};
+operands[i].addEventListener('click', buttons_click)};
 
 function keyboard_input(e) {
 
@@ -132,10 +129,11 @@ if(isNaN(e.key) == true) {
 actual_previousValue = previousValue;
 previousValue = e.key + ""; 
 
-operand_delete(e)
+operand_delete(e) // may need to add exception; see history  here.
 } else if (isPair == true){
 actual_previousValue = previousValue;
 previousValue = e.key;
+history.push(previousValue);
 
 inputSum += e.key;
 input_field.value = inputSum;
@@ -143,16 +141,18 @@ input_field.value = inputSum;
 } else {
 actual_previousValue = previousValue;
 previousValue = +e.key;
+history.push(previousValue);
 
 alsoInput += e.key;
 input_field.value = alsoInput;}}
 
 
-function operand_click(e) {
+function buttons_click(e) { // 
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 
-if(previousValue == "=" && typeof actual_previousValue == "number") { console.log('runs')
+if(evaluation01() == false) { history.push(previousValue)}
+if(previousValue == "=" && typeof actual_previousValue == "number") { console.log('runs') // verify intergrity of this code*
 functions_all_clear.click();
 
 } else if(isPair == true) {
