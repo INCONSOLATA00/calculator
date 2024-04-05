@@ -1,11 +1,10 @@
 setInterval(()=>{
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue ${currentValue} currentOperator ${currentOperator} history ${history}`);
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+// console.log(`currentValue ${currentValue} currentOperator ${currentOperator} history ${history}`);
 },100)
 
 let alsoInput ="";
 let inputSum = "";
-let inputTotal = "";
 
 let previousValue;
 let actual_previousValue;
@@ -100,7 +99,8 @@ alsoInput = +input_field.value;
 
 } else if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
-determine_arithmetic(currentOperator[0])
+
+determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum;
 alsoInput = "";
 
@@ -108,7 +108,7 @@ alsoInput = "";
 console.log('equals')
 
 if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
-inputSum += +currentValue[0];
+inputSum += determine_arithmetic(currentOperator[0]); // check the conditional at the switch statement; needs to be dynamic / universal.
 input_field.value =  inputSum;
 
 } else if (currentValue.length > 1) { console.log('0002')
@@ -129,7 +129,7 @@ if(isNaN(e.key) == true) {
 actual_previousValue = previousValue;
 previousValue = e.key + ""; 
 
-operand_delete(e) // may need to add exception; see history  here.
+operand_delete(e)
 } else if (isPair == true){
 actual_previousValue = previousValue;
 previousValue = e.key;
@@ -210,20 +210,37 @@ input_field.value = inputSum;
 
 function determine_arithmetic(value){ console.log(`value ${value}`)
 switch(value) {
+
 case "-":
+if(inputSum > 0) { // condition for = assignment that determines if a number is += itself or not*
 inputSum = +inputSum - +alsoInput;
+} else {
+inputSum = +alsoInput - +alsoInput;
+}
 return;
 
 case "+":
+if(inputSum > 0) {
 inputSum = +inputSum + +alsoInput;
+} else { console.log('reached'); // create another conditional here, for stage 0001
+inputSum = +alsoInput + +alsoInput;
+}
 return;
 
 case "/":
+if(inputSum > 0) {
 inputSum = +inputSum / +alsoInput;
+} else {
+inputSum = +alsoInput / +alsoInput;
+}
 return;
 
 case "*":
+if(inputSum > 0) {
 inputSum = +inputSum * +alsoInput;
+} else {
+inputSum = +alsoInput * +alsoInput;
+}
 return;
 }
 }
