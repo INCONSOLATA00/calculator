@@ -85,7 +85,7 @@ input_field.value = alsoInput;
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
-if (inputSum == "" && currentOperator[currentOperator.length -1] !== "=") { console.log('reached00')
+if (inputSum == "" && history.length > 1) { console.log('reached00')
 if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
@@ -107,7 +107,7 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
+if(currentValue.length <= 1 && history[history.length -2] == "string" && history[history.length -1] == "number" ) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
 inputSum += determine_arithmetic(currentOperator[0]); // check the conditional at the switch statement; needs to be dynamic / universal.
 input_field.value =  inputSum;
 
@@ -222,7 +222,7 @@ return;
 case "+":
 if(inputSum > 0) {
 inputSum = +inputSum + +alsoInput;
-} else { console.log('reached'); // create another conditional here, for stage 0001
+} else { console.log('reached'); // create another conditional here, for stage 0001 (pending)
 inputSum = +alsoInput + +alsoInput;
 }
 return;
