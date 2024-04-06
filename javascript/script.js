@@ -107,16 +107,12 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if(currentValue.length <= 1) { console.log('0001') // create an array with both operators and values, and evaluate against the total length
-// inputSum += determine_arithmetic(currentOperator[0]); // check the conditional at the switch statement; needs to be dynamic / universal.
-// input_field.value =  inputSum;
+if(currentValue.length < 1 && history[0] == "string" && history[1] =="number") { console.log('0001')
+determine_arithmetic(currentOperator[0]); // was less than or equal to 1*
+input_field.value =  inputSum;
 
-
-//  && history[history.length -2] == "string" && history[history.length -1] == "number"
-input_field.value  = "hello";
-
-} else if (currentValue.length > 1) { console.log('0002') // verify integrity*
-inputSum += +currentValue[currentValue.length -1];
+} else if (currentValue.length >= 1) { console.log('0002')
+determine_arithmetic(currentOperator[0]); // verify integrity, possibly use shift on new aritmetic*
 input_field.value =  inputSum;
 }}
 
@@ -224,9 +220,23 @@ inputSum = +alsoInput - +alsoInput;
 return;
 
 case "+":
-if(inputSum > 0) {
+if(inputSum > 0 && alsoInput > 0) { console.log('reached03')
 inputSum = +inputSum + +alsoInput;
-} else { console.log('reached'); // create another conditional here, for stage 0001 (pending)
+
+} else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
+if(history.length == 3) { console.log('reached010')
+
+also_inputSum.push(alsoInput_copy);
+input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
+alsoInput = +input_field.value;
+
+} else { console.log('reached020')
+also_inputSum.push(alsoInput_copy);
+input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
+alsoInput = +input_field.value;
+}
+
+} else { console.log('reached05');
 inputSum = +alsoInput + +alsoInput;
 }
 return;
