@@ -1,6 +1,6 @@
 setInterval(()=>{
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue ${currentValue} currentOperator ${currentOperator} history ${history}`);
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`currentValue ${currentValue} currentOperator ${currentOperator} history ${history}`);
 },100)
 
 let alsoInput ="";
@@ -226,9 +226,11 @@ inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 if(history.length == 3) { console.log('reached010')
 
+also_inputSum.push(alsoInput_copy); // likely correct code alternative.
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
+also_inputSum.pop() // see also - 
 
 } else { console.log('reached020')
 also_inputSum.push(alsoInput_copy);
