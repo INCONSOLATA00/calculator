@@ -1,6 +1,6 @@
 setInterval(()=>{
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue ${currentValue} currentOperator ${currentOperator} history ${history}`);
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+// console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length}`);
 },100)
 
 let alsoInput ="";
@@ -112,8 +112,9 @@ determine_arithmetic(currentOperator[0]); // was less than or equal to 1*
 input_field.value =  inputSum;
 
 } else if (currentValue.length >= 1) { console.log('0002')
+also_inputSum.push(alsoInput_copy);
 determine_arithmetic(currentOperator[0]); // verify integrity, possibly use shift on new aritmetic*
-input_field.value =  inputSum;
+alsoInput = "";
 }}
 
 previousValue = e.target.textContent + "";
@@ -220,17 +221,16 @@ inputSum = +alsoInput - +alsoInput;
 return;
 
 case "+":
-if(inputSum > 0 && alsoInput > 0) { console.log('reached03')
+if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 if(history.length == 3) { console.log('reached010')
 
 also_inputSum.push(alsoInput_copy); // likely correct code alternative.
-also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value;
-also_inputSum.pop() // see also - 
+alsoInput = +input_field.value; console.log(input_field.value) 
+also_inputSum.pop() 
 
 } else { console.log('reached020')
 also_inputSum.push(alsoInput_copy);
@@ -238,7 +238,7 @@ input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
-} else { console.log('reached05');
+} else { console.log('reached05'); // else if(history.length !== 3 ) - 04 not being executed at all* 
 inputSum = +alsoInput + +alsoInput;
 }
 return;
