@@ -1,6 +1,6 @@
 setInterval(()=>{
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length}`);
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length}`);
 },100)
 
 let alsoInput ="";
@@ -109,7 +109,7 @@ console.log('equals')
 
 if(currentValue.length < 1 && history[0] == "string" && history[1] =="number") { console.log('0001')
 determine_arithmetic(currentOperator[0]); // was less than or equal to 1*
-input_field.value =  inputSum;
+// input_field.value =  inputSum; // verify integrity
 
 } else if (currentValue.length >= 1) { console.log('0002')
 also_inputSum.push(alsoInput_copy);
@@ -169,7 +169,9 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
+
 // bug; where += supposedly any cumulative value over 5 does additional assignment.
+// if the value is a single integer with no assignment, the same value must remain on display.
 
 function operand_delete(e){
 console.log('delete')
@@ -205,10 +207,7 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 inputSum = "";
 input_field.value = inputSum;
 }}
-}
-}
-
-
+}}
 
 function determine_arithmetic(value){ console.log(`value ${value}`)
 switch(value) {
@@ -227,20 +226,24 @@ inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 if(history.length == 3) { console.log('reached010')
+also_inputSum.push(alsoInput_copy);
 
-also_inputSum.push(alsoInput_copy); // amount of iterations should be based on the current value length* (initial for loop)
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value; console.log(input_field.value) 
-also_inputSum.pop() 
+alsoInput = +input_field.value; console.log(input_field.value)
+also_inputSum.pop();
 
-} else { console.log('reached020')
+} else { console.log('reached020') // SEE HERE
+if(currentValue.length < 2) {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
-}
+} else {
+input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
+alsoInput = +input_field.value;
+}}
 
-} else { console.log('reached05'); // else if(history.length !== 3 ) - 04 not being executed at all* 
-inputSum = +alsoInput + +alsoInput;
+} else { console.log('reached05');
+inputSum = +inputSum + +alsoInput;
 }
 return;
 
