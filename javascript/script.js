@@ -1,6 +1,6 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length}`);
+console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length} also_inputSum ${also_inputSum}`);
 },100)
 
 let alsoInput ="";
@@ -55,7 +55,7 @@ isPair = false;
 
 
 } else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
-currentValue.push(alsoInput)
+currentValue.push(alsoInput) // current value likely needs to be pushed on each line where there is cumulative assignment
 if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 console.log('002')
@@ -108,12 +108,12 @@ alsoInput = "";
 console.log('equals')
 
 if(currentValue.length < 1 && history[0] == "string" && history[1] =="number") { console.log('0001')
-determine_arithmetic(currentOperator[0]); // was less than or equal to 1*
-// input_field.value =  inputSum; // verify integrity
+determine_arithmetic(currentOperator[0]);
+
 
 } else if (currentValue.length >= 1) { console.log('0002')
 also_inputSum.push(alsoInput_copy);
-determine_arithmetic(currentOperator[0]); // verify integrity, possibly use shift on new aritmetic*
+determine_arithmetic(currentOperator[0]);
 alsoInput = "";
 }}
 
@@ -153,7 +153,7 @@ actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 
 if(evaluation01() == false) { history.push(previousValue)}
-if(previousValue == "=" && typeof actual_previousValue == "number") { console.log('runs') // verify intergrity of this code*
+if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
 
 } else if(isPair == true) {
@@ -226,24 +226,30 @@ inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 if(history.length == 3) { console.log('reached010')
-also_inputSum.push(alsoInput_copy);
 
+also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value; console.log(input_field.value)
 also_inputSum.pop();
 
-} else { console.log('reached020') // SEE HERE
-if(currentValue.length < 2) {
+} else { console.log('reached020') // may not be needed ^ the above conditional can be "|| history.length == 3?
+// all of 020 may not be needed; then default to 05; see after.
+if(currentValue.length < 2) { console.log('030')
+
 also_inputSum.push(alsoInput_copy);
+// also_inputSum.push(alsoInput_copy);
+
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
-} else {
-input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value;
+
+also_inputSum.pop();
+// also_inputSum.pop();
 }}
 
-} else { console.log('reached05');
-inputSum = +inputSum + +alsoInput;
+} else { console.log('reached05'); // current value.length?
+
+input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
+alsoInput = +input_field.value;
 }
 return;
 
