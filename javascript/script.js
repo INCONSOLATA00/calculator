@@ -21,7 +21,6 @@ let falseValues = ['DEL', 'AC', '='];
 
 let evaluation00 = () => someArray.some((value) => value == previousValue);
 let evaluation01 = () => falseValues.some((value) => value == previousValue);
-// let evaluation02 = () => current_value00.some((iteration) => someArray00.includes(iteration));
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -33,13 +32,14 @@ arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
 let alsoInput_copy;
-function arithmetic(e) {
+function arithmetic(e) { console.log('fired')
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 currentOperator.push(previousValue);
 
 
 if(evaluation01() == false) { history.push(previousValue)};
+isPair = false; // verify integrity*
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
 alsoInput_copy = +alsoInput;
@@ -169,6 +169,7 @@ input_field.value = alsoInput;
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
+// bug; where += supposedly any cumulative value over 5 does additional assignment.
 
 function operand_delete(e){
 console.log('delete')
@@ -227,7 +228,7 @@ inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 if(history.length == 3) { console.log('reached010')
 
-also_inputSum.push(alsoInput_copy); // likely correct code alternative.
+also_inputSum.push(alsoInput_copy); // amount of iterations should be based on the current value length* (initial for loop)
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value; console.log(input_field.value) 
 also_inputSum.pop() 
