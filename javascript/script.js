@@ -1,6 +1,7 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length} also_inputSum ${also_inputSum}`);
+// console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length} also_inputSum ${also_inputSum}`)
+console.log(`total indices @someArray ${evaluation02()}`)
 },100)
 
 let alsoInput ="";
@@ -22,6 +23,8 @@ let falseValues = ['DEL', 'AC', '='];
 
 let evaluation00 = () => someArray.some((value) => value == previousValue);
 let evaluation01 = () => falseValues.some((value) => value == previousValue);
+let evaluation02 = () => currentOperator.filter((value) => someArray.includes(value)).length;
+
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -239,14 +242,14 @@ if(currentValue.length < 2) { console.log('030')
 
 also_inputSum.push(alsoInput_copy);
 also_inputSum.push(alsoInput_copy); // needs to be dynamic, "5 + 5 + 5 + 5 ="
-for(let i = 5; i < currentOperator.length; i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00') };
+for(let i = 2; i < evaluation02(); i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00') };
 
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 
 also_inputSum.pop();                     // add to counter? verify integrity.
 also_inputSum.pop();
-for(let i = 5; i < currentOperator.length; i++ ) { also_inputSum.pop(); console.log('should not be working yet01') };
+for(let i = 2; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') }; // and if secondary codition,triggering loop?
 }}
 
 // look for 010 && 030
