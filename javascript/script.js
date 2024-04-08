@@ -8,10 +8,11 @@ let inputSum = "";
 
 let previousValue;
 let actual_previousValue;
+let generic_counter = 0;
 
 let currentValue = [];
 let currentOperator = [];
-let also_inputSum = [];
+let also_inputSum = []; // SEE: rename variables
 let history = [];
 let isPair = false;
 
@@ -32,7 +33,7 @@ arithmetic_functions[i].addEventListener('click', arithmetic);
 }
 
 let alsoInput_copy;
-function arithmetic(e) { console.log('fired')
+function arithmetic(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 currentOperator.push(previousValue);
@@ -55,7 +56,7 @@ isPair = false;
 
 
 } else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
-currentValue.push(alsoInput) // current value likely needs to be pushed on each line where there is cumulative assignment
+currentValue.push(alsoInput)
 if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 console.log('002')
@@ -78,6 +79,7 @@ alsoInput = "";
 inputSum = "";
 currentValue = [];
 also_inputSum = [];
+generic_counter = 0;
 
 input_field.value = alsoInput;
 });
@@ -99,8 +101,7 @@ alsoInput = +input_field.value;
 
 } else if(previousValue !== actual_previousValue) { console.log('reached01')
 console.log('equals')
-
-determine_arithmetic(currentOperator[0]);
+determine_arithmetic(currentOperator[0]); // add a late stage counter to sum on 05. "also_inputSum.push(alsoInput_copy);" (IGNORE)
 input_field.value = inputSum;
 alsoInput = "";
 
@@ -109,7 +110,6 @@ console.log('equals')
 
 if(currentValue.length < 1 && history[0] == "string" && history[1] =="number") { console.log('0001')
 determine_arithmetic(currentOperator[0]);
-
 
 } else if (currentValue.length >= 1) { console.log('0002')
 also_inputSum.push(alsoInput_copy);
@@ -230,26 +230,32 @@ if(history.length == 3) { console.log('reached010')
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value; console.log(input_field.value)
-also_inputSum.pop();
+also_inputSum.pop();                      // add to counter? verify integrity.
+generic_counter++;                         // see after, likely correct.
 
 } else { console.log('reached020') // may not be needed ^ the above conditional can be "|| history.length == 3?
-// all of 020 may not be needed; then default to 05; see after.
+                                                            // all of 020 may not be needed; then default to 05; see after.
 if(currentValue.length < 2) { console.log('030')
 
 also_inputSum.push(alsoInput_copy);
-// also_inputSum.push(alsoInput_copy);
+also_inputSum.push(alsoInput_copy); // needs to be dynamic, "5 + 5 + 5 + 5 ="
+for(let i = 5; i < currentOperator.length; i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00') };
 
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 
+also_inputSum.pop();                     // add to counter? verify integrity.
 also_inputSum.pop();
-// also_inputSum.pop();
+for(let i = 5; i < currentOperator.length; i++ ) { also_inputSum.pop(); console.log('should not be working yet01') };
 }}
 
-} else { console.log('reached05'); // current value.length?
+// look for 010 && 030
 
+} else { console.log('reached05');
+for(let i = 0; i < generic_counter; i++) { also_inputSum.push(alsoInput_copy) };
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
+for(let i = 0; i < generic_counter; i++) { also_inputSum.pop() }; // 15, 20 .. account for missing values popped, from live sum to static sum.
 }
 return;
 
