@@ -1,7 +1,7 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history.length ${history.length} also_inputSum ${also_inputSum}`)
-console.log(`total indices @someArray ${evaluation02()}`)
+console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history ${history} also_inputSum ${also_inputSum}`)
+// console.log(`total indices @someArray ${evaluation02()}`)
 },100)
 
 let alsoInput ="";
@@ -9,14 +9,13 @@ let inputSum = "";
 
 let previousValue;
 let actual_previousValue;
-let generic_counter = 0;
 
 let currentValue = [];
 let currentOperator = [];
 let also_inputSum = []; // SEE: rename variables
 let history = [];
-let isPair = false;
 
+let isPair = false;
 
 let someArray = ['-','+','/','*'];
 let falseValues = ['DEL', 'AC', '='];
@@ -82,7 +81,6 @@ alsoInput = "";
 inputSum = "";
 currentValue = [];
 also_inputSum = [];
-generic_counter = 0;
 
 input_field.value = alsoInput;
 });
@@ -212,7 +210,7 @@ input_field.value = inputSum;
 }}
 }}
 
-function determine_arithmetic(value){ console.log(`value ${value}`)
+function determine_arithmetic(value){ // console.log(`value ${value}`)
 switch(value) {
 
 case "-":
@@ -233,32 +231,21 @@ if(history.length == 3) { console.log('reached010')
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value; console.log(input_field.value)
-also_inputSum.pop();                      // add to counter? verify integrity.
-generic_counter++;                         // see after, likely correct.
+also_inputSum.pop();
 
 } else { console.log('reached020') // may not be needed ^ the above conditional can be "|| history.length == 3?
                                                             // all of 020 may not be needed; then default to 05; see after.
-if(currentValue.length < 2) { console.log('030')
-
-also_inputSum.push(alsoInput_copy);
-also_inputSum.push(alsoInput_copy); // needs to be dynamic, "5 + 5 + 5 + 5 ="
-for(let i = 2; i < evaluation02(); i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00') };
-
+for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00')};
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
+for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') }; // and if secondary codition,triggering loop?
+}
 
-also_inputSum.pop();                     // add to counter? verify integrity.
-also_inputSum.pop();
-for(let i = 2; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') }; // and if secondary codition,triggering loop?
-}}
+} else { console.log('reached05'); // alsoInput + "total instances of 20" == 80 [20, 20, 20, 20, 20].
 
-// look for 010 && 030
 
-} else { console.log('reached05');
-for(let i = 0; i < generic_counter; i++) { also_inputSum.push(alsoInput_copy) };
-input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value;
-for(let i = 0; i < generic_counter; i++) { also_inputSum.pop() }; // 15, 20 .. account for missing values popped, from live sum to static sum.
+
+
 }
 return;
 
