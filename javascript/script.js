@@ -38,8 +38,9 @@ let alsoInput_copy;
 function arithmetic(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
-currentOperator.push(previousValue);
 
+if(isPair == false) { history.push(alsoInput); } else {history.push(inputSum);}
+currentOperator.push(previousValue);
 
 if(evaluation01() == false) { history.push(previousValue)};
 isPair = false; // verify integrity*
@@ -153,7 +154,8 @@ function buttons_click(e) { //
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 
-if(evaluation01() == false) { history.push(previousValue)}
+if(evaluation01() == false) { // history.push(previousValue)
+}
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
 
@@ -226,7 +228,7 @@ if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('rea
 inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
-if(history.length == 3) { console.log('reached010')
+if(history.length == 2) { console.log('reached010') // was 3, prior to see history => conditional statement(s)
 
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
