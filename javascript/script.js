@@ -243,11 +243,10 @@ alsoInput = +input_field.value;
 for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') }; // and if secondary codition,triggering loop?
 }
 
-} else { console.log('reached05'); // alsoInput + "total instances of 20" == 80 [20, 20, 20, 20, 20].
-
-
-
-
+} else { console.log('reached05');
+input_field.value = "hello?";
+// history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+// alsoInput = +input_field.value;
 }
 return;
 
