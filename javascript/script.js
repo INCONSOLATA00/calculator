@@ -1,6 +1,6 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history ${history} also_inputSum ${also_inputSum}`)
+console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history ${history} history.length ${history.length}`)
 // console.log(`total indices @someArray ${evaluation02()}`)
 
 },100)
@@ -107,11 +107,14 @@ input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
-} else if(previousValue !== actual_previousValue && history.length >= 3) { console.log('reached01')
-console.log('equals') // history.length or currentValue.length (CURRENT)
+} else if(previousValue !== actual_previousValue && history.length >= 3) { console.log('reached01') // verify integrity.
+console.log('equals') // history.length >= 3 (CURRENT)
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)
 alsoInput = "";
+
+// 01 is called before 05 so 05 can't necessitate a boolean, then the wrong value is being assigned via (100 + 200 + 300) +=
+// 01 needs to bypass to 03, for see example: 300 += (-bypasses to 04 instead for example see above "//").
 
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
@@ -234,8 +237,8 @@ if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('rea
 inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
-if(history.length == 2) { console.log('reached010')
-
+if(history.length == 2 || history.length >= 6) { console.log('reached010') // history length may be later invalid.
+// maybe further nests.
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 // alsoInput = +input_field.value;
