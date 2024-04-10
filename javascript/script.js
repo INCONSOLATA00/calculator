@@ -2,6 +2,7 @@ setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history ${history} also_inputSum ${also_inputSum}`)
 // console.log(`total indices @someArray ${evaluation02()}`)
+
 },100)
 
 let alsoInput ="";
@@ -12,10 +13,11 @@ let actual_previousValue;
 
 let currentValue = [];
 let currentOperator = [];
-let also_inputSum = []; // SEE: rename variables
+let also_inputSum = [];
 let history = [];
 
 let isPair = false;
+let isContinuous = false;
 
 let someArray = ['-','+','/','*'];
 let falseValues = ['DEL', 'AC', '='];
@@ -80,6 +82,10 @@ console.log('ac')
 isPair = false;
 alsoInput = "";
 inputSum = "";
+
+isPair = false;
+isContinuous = false;
+
 currentValue = [];
 also_inputSum = [];
 
@@ -101,10 +107,10 @@ input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
-} else if(previousValue !== actual_previousValue) { console.log('reached01')
-console.log('equals')
-determine_arithmetic(currentOperator[0]); // add a late stage counter to sum on 05. "also_inputSum.push(alsoInput_copy);" (IGNORE)
-input_field.value = inputSum;
+} else if(previousValue !== actual_previousValue && history.length >= 3) { console.log('reached01')
+console.log('equals') // history.length or currentValue.length (CURRENT)
+determine_arithmetic(currentOperator[0]);
+input_field.value = inputSum; // (timeout @ 05)
 alsoInput = "";
 
 } else if(previousValue == actual_previousValue) {
@@ -154,7 +160,7 @@ function buttons_click(e) { //
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 
-if(evaluation01() == false) { // history.push(previousValue)
+if(evaluation01() == false) {
 }
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
@@ -212,7 +218,7 @@ input_field.value = inputSum;
 }}
 }}
 
-function determine_arithmetic(value){ // console.log(`value ${value}`)
+function determine_arithmetic(value){
 switch(value) {
 
 case "-":
@@ -228,25 +234,35 @@ if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('rea
 inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
-if(history.length == 2) { console.log('reached010') // was 3, prior to see history => conditional statement(s)
+if(history.length == 2) { console.log('reached010')
 
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value; console.log(input_field.value)
+// alsoInput = +input_field.value;
+inputSum = input_field.value;
 also_inputSum.pop();
 
-} else { console.log('reached020') // may not be needed ^ the above conditional can be "|| history.length == 3?
-                                                            // all of 020 may not be needed; then default to 05; see after.
+} else { console.log('reached020')
+
 for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00')};
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value;
-for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') }; // and if secondary codition,triggering loop?
+// alsoInput = +input_field.value;
+inputSum = input_field.value;
+for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') };
 }
 
 } else { console.log('reached05');
-input_field.value = "hello?";
-// history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
-// alsoInput = +input_field.value;
+if(history.length % 2 > 0) {
+setTimeout(() => { console.log('030')
+input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );  // in addition to alsoInput else =>
+inputSum = +input_field.value;    
+}, 1)} else {
+setTimeout(() => { console.log('040')
+input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+inputSum = +input_field.value;    
+}, 1)
+}
+
 }
 return;
 
