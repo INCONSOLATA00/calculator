@@ -1,8 +1,7 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue.length ${currentValue.length} currentOperator ${currentOperator} history ${history} history.length ${history.length}`)
-// console.log(`total indices @someArray ${evaluation02()}`)
-
+// console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
+console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
 },100)
 
 let alsoInput ="";
@@ -20,12 +19,14 @@ let isPair = false;
 let isContinuous = false;
 
 let someArray = ['-','+','/','*'];
+let also_someArray = ['-','+','/','*',''];
 let falseValues = ['DEL', 'AC', '='];
 
 let evaluation00 = () => someArray.some((value) => value == previousValue);
 let evaluation01 = () => falseValues.some((value) => value == previousValue);
-let evaluation02 = () => currentOperator.filter((value) => someArray.includes(value)).length;
 
+let filtered_history = () => history.filter((value) => !also_someArray.includes(value));
+let evaluation02 = () => +filtered_history()[filtered_history().length -1];
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -59,7 +60,6 @@ alsoInput = "";
 input_field.value = inputSum;
 isPair = false;
 
-
 } else if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL") {
 currentValue.push(alsoInput)
 if(inputSum > 0 && alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") {
@@ -68,7 +68,6 @@ console.log('002')
 alsoInput = "";
 isPair = false;
 }}}
-
 
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
 operand_delete(e);
@@ -92,37 +91,30 @@ also_inputSum = [];
 input_field.value = alsoInput;
 });
 
-
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
-if (inputSum == "" && history.length > 1) { console.log('reached00')
+if (inputSum == "" && history.length > 1) { console.log('reached00') // filtered_history
 if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 
-} else {
+} else { console.log('also')
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
-} else if(previousValue !== actual_previousValue && history.length >= 3) { console.log('reached01') // verify integrity.
-console.log('equals') // history.length >= 3 (CURRENT)
+} else if(previousValue !== actual_previousValue && history.length >= 3) { console.log('reached01')
+console.log('equals')
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)
 alsoInput = "";
 
-// 01 is called before 05 so 05 can't necessitate a boolean, then the wrong value is being assigned via (100 + 200 + 300) +=
-// 01 needs to bypass to 03, for see example: 300 += (-bypasses to 04 instead for example see above "//").
-
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if(currentValue.length < 1 && history[0] == "string" && history[1] =="number") { console.log('0001')
-determine_arithmetic(currentOperator[0]);
-
-} else if (currentValue.length >= 1) { console.log('0002')
+if (currentValue.length >= 1) { console.log('0002') // filtered_history
 also_inputSum.push(alsoInput_copy);
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";
@@ -157,7 +149,6 @@ history.push(previousValue);
 
 alsoInput += e.key;
 input_field.value = alsoInput;}}
-
 
 function buttons_click(e) { // 
 actual_previousValue = previousValue;
@@ -237,32 +228,19 @@ if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('rea
 inputSum = +inputSum + +alsoInput;
 
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
-if(history.length == 2 || history.length >= 6) { console.log('reached010') // history length may be later invalid.
-// maybe further nests.
-also_inputSum.push(alsoInput_copy);
-input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-// alsoInput = +input_field.value;
+input_field.value = filtered_history().reduce((a, b) => +a + +b) + +filtered_history()[filtered_history().length -1];
 inputSum = input_field.value;
-also_inputSum.pop();
-
-} else { console.log('reached020')
-
-for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.push(alsoInput_copy); console.log('should not be working yet00')};
-input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-// alsoInput = +input_field.value;
-inputSum = input_field.value;
-for(let i = 0; i < evaluation02(); i++ ) { also_inputSum.pop(); console.log('should not be working yet01') };
-}
+history.push(+filtered_history()[filtered_history().length -1])
 
 } else { console.log('reached05');
 if(history.length % 2 > 0) {
 setTimeout(() => { console.log('030')
-input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );  // in addition to alsoInput else =>
-inputSum = +input_field.value;    
+input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+inputSum = +input_field.value; 
 }, 1)} else {
 setTimeout(() => { console.log('040')
 input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
-inputSum = +input_field.value;    
+inputSum = +input_field.value; 
 }, 1)
 }
 
