@@ -93,7 +93,9 @@ input_field.value = alsoInput;
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 
-if (inputSum == "" && history.length > 1) { console.log('reached00') // filtered_history
+// everything is working so far, the issue is that when an operator is passed, the code tries to evaluate against it resulting in NaN
+
+if (inputSum == "" && history.length > 1 && currentOperator.length > 1 && history[0].some((value) => isNaN(value))) { console.log('reached00') // filtered_history
 if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
