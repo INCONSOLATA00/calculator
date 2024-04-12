@@ -101,10 +101,7 @@ input_field.value = alsoInput;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
-
-// everything is working so far, the issue is that when an operator is passed, the code tries to evaluate against it resulting in NaN
-
-if (!evaluation03() == true && evaluation04() == true) { console.log('reached00') // filtered_history
+if (!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1) { console.log('reached00')
 if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
@@ -116,7 +113,7 @@ input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
-} else if(previousValue !== actual_previousValue && history.length >= 3) { console.log('reached01')
+} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1) { console.log('reached01') // most recent change, see last conditional
 console.log('equals')
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)
@@ -125,7 +122,7 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if (currentValue.length >= 1) { console.log('0002') // filtered_history
+if (currentValue.length >= 1) { console.log('0002')
 also_inputSum.push(alsoInput_copy);
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";
@@ -183,10 +180,6 @@ input_field.value = alsoInput;
 }}
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
-// include logic to do nothing if equals is pressed with no addition assignment. (needs work)*
-
-// bug; where += supposedly any cumulative value over 5 does additional assignment.
-// if the value is a single integer with no assignment, the same value must remain on display.
 
 function operand_delete(e){
 console.log('delete')
