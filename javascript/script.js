@@ -1,7 +1,8 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
-console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
+// console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history}`)
 },100)
 
 let alsoInput ="";
@@ -13,6 +14,8 @@ let actual_previousValue;
 let currentValue = [];
 let currentOperator = [];
 let also_inputSum = [];
+
+let unaltered_history = [];
 let history = [];
 
 let isPair = false;
@@ -28,6 +31,12 @@ let evaluation01 = () => falseValues.some((value) => value == previousValue);
 let filtered_history = () => history.filter((value) => !also_someArray.includes(value));
 let evaluation02 = () => +filtered_history()[filtered_history().length -1];
 
+let evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true
+} else {return false}};
+
+let evaluation04 = () => {if(isNaN(unaltered_history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true
+} else {return false}};
+
 const input_field = document.querySelector("div > input");
 input_field.value = "";
 const operands = document.querySelectorAll("#numpad > button");
@@ -41,6 +50,7 @@ let alsoInput_copy;
 function arithmetic(e) {
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
+if(evaluation01() == false) {unaltered_history.push(previousValue)};
 
 if(isPair == false) { history.push(alsoInput); } else {history.push(inputSum);}
 currentOperator.push(previousValue);
@@ -95,7 +105,7 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 
 // everything is working so far, the issue is that when an operator is passed, the code tries to evaluate against it resulting in NaN
 
-if (inputSum == "" && history.length > 1 && currentOperator.length > 1 && history[0].some((value) => isNaN(value))) { console.log('reached00') // filtered_history
+if (!evaluation03() == true && evaluation04() == true) { console.log('reached00') // filtered_history
 if(also_inputSum == "") {
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
@@ -140,6 +150,7 @@ operand_delete(e)
 actual_previousValue = previousValue;
 previousValue = e.key;
 history.push(previousValue);
+unaltered_history.push(previousValue);
 
 inputSum += e.key;
 input_field.value = inputSum;
@@ -148,16 +159,16 @@ input_field.value = inputSum;
 actual_previousValue = previousValue;
 previousValue = +e.key;
 history.push(previousValue);
+unaltered_history.push(previousValue);
 
 alsoInput += e.key;
 input_field.value = alsoInput;}}
 
-function buttons_click(e) { // 
+function buttons_click(e) { // as in numerical buttons, not to be confused with operators
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
+unaltered_history.push(previousValue);
 
-if(evaluation01() == false) {
-}
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
 
@@ -232,7 +243,8 @@ inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 input_field.value = filtered_history().reduce((a, b) => +a + +b) + +filtered_history()[filtered_history().length -1];
 inputSum = input_field.value;
-history.push(+filtered_history()[filtered_history().length -1])
+history.push(+filtered_history()[filtered_history().length -1]);
+unaltered_history.push(+filtered_history()[filtered_history().length -1]);
 
 } else { console.log('reached05');
 if(history.length % 2 > 0) {
