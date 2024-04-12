@@ -63,7 +63,6 @@ alsoInput_copy = +alsoInput;
 } 
 
 if(inputSum > 0 && alsoInput > 0 && evaluation00() == true) {
-
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 console.log('001')
 alsoInput = "";
