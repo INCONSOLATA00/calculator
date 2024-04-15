@@ -34,7 +34,7 @@ let evaluation02 = () => +filtered_history()[filtered_history().length -1];
 let evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true
 } else {return false}};
 
-let evaluation04 = () => {if(isNaN(unaltered_history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true
+let evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true
 } else {return false}};
 
 const input_field = document.querySelector("div > input");
@@ -101,8 +101,11 @@ input_field.value = alsoInput;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
-if (!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1) { console.log('reached00')
-if(also_inputSum == "") {
+if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00')
+unaltered_history = []; console.log('values reset')
+
+} else if(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1) {
+if(also_inputSum == "") { // add condition for relative to addition assignments, prevent values of some array from being stacked.
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
@@ -125,7 +128,7 @@ console.log('equals')
 if (currentValue.length >= 1) { console.log('0002')
 also_inputSum.push(alsoInput_copy);
 determine_arithmetic(currentOperator[0]);
-alsoInput = "";
+alsoInput = ""; // SEE BELOW
 }}
 
 previousValue = e.target.textContent + "";
@@ -180,6 +183,7 @@ input_field.value = alsoInput;
 }}
 
 // someArray.some((opr)=> e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
+// validate integrity of keyboard operations, 5 + 6, when entered on keyboard should not equal 10.
 
 function operand_delete(e){
 console.log('delete')
