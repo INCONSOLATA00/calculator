@@ -2,7 +2,7 @@ setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()}`)
 },100)
 
 let alsoInput ="";
@@ -27,15 +27,11 @@ let falseValues = ['DEL', 'AC', '='];
 
 let evaluation00 = () => someArray.some((value) => value == previousValue);
 let evaluation01 = () => falseValues.some((value) => value == previousValue);
-
 let filtered_history = () => history.filter((value) => !also_someArray.includes(value));
 let evaluation02 = () => +filtered_history()[filtered_history().length -1];
-
-let evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true
-} else {return false}};
-
-let evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true
-} else {return false}};
+let evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true } else {return false}};
+let evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true } else {return false}};
+let evaluation05 = () => currentOperator.filter((value) => !falseValues.includes(value)).length;
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -101,22 +97,22 @@ input_field.value = alsoInput;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
-if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00')
+if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)')
 unaltered_history = []; console.log('values reset')
 
-} else if(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1) {
-if(also_inputSum == "") { // add condition for relative to addition assignments, prevent values of some array from being stacked.
+} else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
+if(also_inputSum == "" && evaluation05() < 2) { console.log('also') // add condition for relative to addition assignments, prevent values of some array from being stacked.
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 
-} else { console.log('also')
+} else if(evaluation05() < 2) { console.log('also_also')
 also_inputSum.push(alsoInput_copy);
 input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
 alsoInput = +input_field.value;
 }
 
-} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1) { console.log('reached01') // most recent change, see last conditional
+} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1) { console.log('reached01') // most recent change, see last conditional
 console.log('equals')
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)
