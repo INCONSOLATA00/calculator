@@ -115,7 +115,7 @@ alsoInput = +input_field.value;
 } else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1) { console.log('reached01') // most recent change, see last conditional
 console.log('equals')
 determine_arithmetic(currentOperator[0]);
-input_field.value = inputSum; // (timeout @ 05)
+input_field.value = inputSum; // (timeout @ 05)*
 alsoInput = "";
 
 } else if(previousValue == actual_previousValue) {
