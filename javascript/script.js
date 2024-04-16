@@ -1,8 +1,8 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
+console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()}`)
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 },100)
 
 let alsoInput ="";
@@ -44,6 +44,7 @@ arithmetic_functions[i].addEventListener('click', arithmetic);
 
 let alsoInput_copy;
 function arithmetic(e) {
+if(previousValue !== '+'){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 if(evaluation01() == false) {unaltered_history.push(previousValue)};
@@ -72,8 +73,8 @@ determine_arithmetic(currentOperator[currentOperator.length -2]);
 console.log('002')
 alsoInput = "";
 isPair = false;
-}}}
-
+}};
+}}
 const functions_delete = document.querySelector(".assignment02 > button").addEventListener('click', (e) => {
 operand_delete(e);
 });
@@ -101,18 +102,19 @@ if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.len
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
-if(also_inputSum == "" && evaluation05() < 2) { console.log('also') // add condition for relative to addition assignments, prevent values of some array from being stacked.
-also_inputSum.push(alsoInput_copy);
-input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value;
+if(also_inputSum == "" && evaluation05() < 2  && history.length == 2) { console.log('also')
+
+history.push(alsoInput_copy);
+input_field.value = history.filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+inputSum = +input_field.value;
+history.pop();
 
 } else if(evaluation05() < 2) { console.log('also_also')
-also_inputSum.push(alsoInput_copy);
-input_field.value = also_inputSum.reduce((a, b) => a + b) + also_inputSum[0];
-alsoInput = +input_field.value;
+input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+inputSum = +input_field.value; 
 }
 
-} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1) { console.log('reached01') // most recent change, see last conditional
+} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1) { console.log('reached01')
 console.log('equals')
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)*
@@ -134,17 +136,19 @@ window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', buttons_click)};
 
-function keyboard_input(e) {
+function keyboard_input(e) { // somewhere around here, an extra 5 is being pushed, causing 03 return the wrong value.
 
 if(isNaN(e.key) == true) {
 actual_previousValue = previousValue;
-previousValue = e.key + ""; 
+previousValue = e.key + "";
+unaltered_history.push(previousValue);
 
 operand_delete(e)
 } else if (isPair == true){
 actual_previousValue = previousValue;
 previousValue = e.key;
-history.push(previousValue);
+
+// history.push(previousValue);
 unaltered_history.push(previousValue);
 
 inputSum += e.key;
@@ -153,7 +157,8 @@ input_field.value = inputSum;
 } else {
 actual_previousValue = previousValue;
 previousValue = +e.key;
-history.push(previousValue);
+
+// history.push(previousValue);
 unaltered_history.push(previousValue);
 
 alsoInput += e.key;
@@ -201,7 +206,6 @@ input_field.value = alsoInput;
 }}
 
 if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) {
-
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
@@ -214,8 +218,7 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 
 inputSum = "";
 input_field.value = inputSum;
-}}
-}}
+}}}}
 
 function determine_arithmetic(value){
 switch(value) {
@@ -231,7 +234,6 @@ return;
 case "+":
 if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 inputSum = +inputSum + +alsoInput;
-
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 input_field.value = filtered_history().reduce((a, b) => +a + +b) + +filtered_history()[filtered_history().length -1];
 inputSum = input_field.value;
@@ -247,18 +249,28 @@ inputSum = +input_field.value;
 setTimeout(() => { console.log('040')
 input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 inputSum = +input_field.value; 
-}, 1)
-}
-
-}
+}, 1)}}
 return;
 
 case "/":
-if(inputSum > 0) {
+if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 inputSum = +inputSum / +alsoInput;
-} else {
-inputSum = +alsoInput / +alsoInput;
-}
+} else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
+input_field.value = filtered_history().reduce((a, b) => +a / +b) + +filtered_history()[filtered_history().length -1];
+inputSum = input_field.value;
+history.push(+filtered_history()[filtered_history().length -1]);
+unaltered_history.push(+filtered_history()[filtered_history().length -1]);
+
+} else { console.log('reached05');
+if(history.length % 2 > 0) {
+setTimeout(() => { console.log('030')
+input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a / +b );
+inputSum = +input_field.value; 
+}, 1)} else {
+setTimeout(() => { console.log('040')
+input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a / +b );
+inputSum = +input_field.value; 
+}, 1)}}
 return;
 
 case "*":
@@ -268,5 +280,4 @@ inputSum = +inputSum * +alsoInput;
 inputSum = +alsoInput * +alsoInput;
 }
 return;
-}
-}
+}}
