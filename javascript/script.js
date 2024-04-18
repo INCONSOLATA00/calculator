@@ -2,14 +2,15 @@ setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`absolute_history ${absolute_history} alsoInput_copy ${alsoInput_copy}`) 
 },100)
-
-let alsoInput = "";
-let inputSum = "";
 
 let previousValue;
 let actual_previousValue;
+
+let alsoInput = "";
+let inputSum = "";
 
 let currentValue = [];
 let currentOperator = [];
@@ -19,14 +20,14 @@ let unaltered_history = [];
 let absolute_history = [];
 let history = [];
 
-
 let isPair = false;
-let isContinuous = false;
+let behaviour = false;
 
 let someArray = ['-','+','/','*'];
 let also_someArray = ['-','+','/','*',''];
 let falseValues = ['DEL', 'AC', '='];
 let also_falseValues = ['DEL', 'AC'];
+let alsoInput_copy;
 
 let evaluation00 = () => someArray.some((value) => value == previousValue);
 let evaluation01 = () => falseValues.some((value) => value == previousValue);
@@ -45,13 +46,13 @@ const arithmetic_functions = [...document.querySelectorAll(".functions > div > b
 for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);}
 
-let alsoInput_copy;
+
 function arithmetic(e) {
 if(previousValue !== '+'){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 if(evaluation01() == false) {unaltered_history.push(previousValue)};
-if(evaluation06() == false) {absolute_history_history.push(previousValue)};
+if(evaluation06() == false) {absolute_history.push(previousValue)};
 
 if(isPair == false) { history.push(alsoInput); } else {history.push(inputSum);}
 currentOperator.push(previousValue);
@@ -88,18 +89,10 @@ functions_all_clear.addEventListener('click', (e) => {
 previousValue = e.target.textContent + "";
 console.log('ac')
 
-isPair = false;
-alsoInput = "";
-inputSum = "";
-
-isPair = false;
-isContinuous = false;
-
-currentValue = [];
-also_inputSum = [];
-
+currentValue = []; unaltered_history = [];
+currentOperator = []; absolute_history = [];
+history = []; inputSum = ""; alsoInput = "";
 input_field.value = alsoInput;});
-
 
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
@@ -107,7 +100,7 @@ if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.len
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
-if(also_inputSum == "" && evaluation05() < 2  && history.length == 2) { console.log('also')
+if(also_inputSum == "" && evaluation05() < 2  && history.length == 2 && behaviour == false) { console.log('also')
 
 history.push(alsoInput_copy);
 absolute_history.push(alsoInput_copy);
@@ -115,7 +108,7 @@ input_field.value = history.filter((value) => !someArray.includes(value)).reduce
 inputSum = +input_field.value;
 history.pop();
 
-} else if(evaluation05() < 2) { console.log('also_also')
+} else if(evaluation05() < 2 && behaviour == false) { console.log('also_also')
 input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 inputSum = +input_field.value; }
 
@@ -190,20 +183,17 @@ input_field.value = alsoInput;
 }}
 
 // someArray.some((opr) => e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
-// needs new variable for history including "=" (CURRENT)
-
-// determine if a number is pressed directly after "="
 // determine if a number is pressed directly after "=" followed by "+"
-function determine_behavior(){ console.log('determine behaviour')
-someArray_numerical = ['0','1','2','3','4','5','6','7','8','9','.'];
-if(absolute_history[absolute_history.length -2] == '='){ // && absolute_history.findLastIndex((value) => someArray_numerical.includes(value)) == currentOperator.length -2 == true
-console.log('isPair = false (stage one)')
 
-// }
-// else if(absolute_history.findLastIndex((value) => someArray.includes(value)) == currentOperator.length -2
-// && absolute_history.findLastIndex((value) => someArray_numerical.includes(value)) == currentOperator.length -1 == true){
-// console.log('isPair... (stage two)')
-}};
+function determine_behavior(){ console.log('determine behaviour') // maybe use ||; alternate behaviour.
+if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage one')
+
+inputSum = "";
+input_field.value = inputSum;
+isPair = true;
+behaviour = true;
+}
+};
 
 function operand_delete(e){
 console.log('delete')
