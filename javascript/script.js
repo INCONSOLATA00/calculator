@@ -103,16 +103,15 @@ unaltered_history = []; console.log('values reset')
 if(also_inputSum == "" && evaluation05() < 2  && history.length == 2) { console.log('also')
 
 behaviour01 = true;
-// if(previousValue !== '=') { // may potentially prevent passing of incorrect values (err res see 000, 001)
 history.push(alsoInput_copy)
-// }; //  to only execute on +, = but not =, +
 
 absolute_history.push(alsoInput_copy);
-input_field.value = history.filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+// input_field.value = unaltered_history.filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // was just history, now == unaltered_history
+input_field.value = filtered_history().reduce((a,b) => +a + +b );
 inputSum = +input_field.value;
 history.pop();
 
-} else if(evaluation05() < 2) { console.log('also_also')
+} else if(evaluation05() < 2) { console.log('also_also') 
 if(behaviour01 == true || currentValue.length == 1){
 input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 inputSum = +input_field.value; } 
@@ -192,8 +191,6 @@ input_field.value = alsoInput;
 
 // someArray.some((opr) => e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // determine if a number is pressed directly after "=" followed by "+"
-// unaltered containes the correct standing value, but all other values returning the current standing history append
-// - an additional number from the first equation / instance
 
 function determine_behavior(){ console.log('determine behaviour')
 if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage one')
@@ -201,7 +198,6 @@ if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage o
 //inputSum = "";
 //input_field.value = inputSum;
 //isPair = true;
-
 }};
 
 function operand_delete(e){
