@@ -1,7 +1,7 @@
 setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
-//console.log(`also_inputSum ${also_inputSum} evaluation02() ${evaluation02()} filtered_history ${filtered_history()}`)
+// console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
 // console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
@@ -10,6 +10,7 @@ console.log(`history ${history} filtered_history ${filtered_history()}`)
 
 let previousValue;
 let actual_previousValue;
+let placeholder;
 
 let alsoInput = "";
 let inputSum = "";
@@ -35,8 +36,9 @@ let alsoInput_copy;
 
 const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
+
 const filtered_history = () => history.filter((value) => !also_someArray.includes(value));
-const evaluation02 = () => +filtered_history()[filtered_history().length -1];
+const alsoFiltered_history = () => someArray.reduce((a,b) => a+"" + b).split("+").reduce((a,b) => +a + +b); // 02 depreciated
 const evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true } else {return false}};
 const evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true } else {return false}};
 const evaluation05 = () => currentOperator.filter((value) => !falseValues.includes(value)).length;
@@ -61,7 +63,7 @@ if(isPair == false) {history.push(alsoInput);} else {if(previousValue !== '='){h
 currentOperator.push(previousValue);
 
 if(evaluation01() == false) { history.push(previousValue)};
-isPair = false; // verify integrity*
+isPair = false;
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000') // SEE HERE, 000
 isPair = true;
 alsoInput_copy = +alsoInput;} 
@@ -103,18 +105,23 @@ unaltered_history = []; console.log('values reset')
 if(also_inputSum == "" && evaluation05() < 2  && history.length == 2) { console.log('also')
 
 behaviour01 = true;
-history.push(alsoInput_copy)
-
 absolute_history.push(alsoInput_copy);
-// input_field.value = unaltered_history.filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // was just history, now == unaltered_history
-input_field.value = filtered_history().reduce((a,b) => +a + +b );
+
+input_field.value = unaltered_history.reduce((a,b) => a+"" + b).split("+").reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
-history.pop();
 
 } else if(evaluation05() < 2) { console.log('also_also') 
 if(behaviour01 == true || currentValue.length == 1){
-input_field.value = history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
-inputSum = +input_field.value; } 
+
+
+placeholder = unaltered_history.slice().reduce((a,b) => a+"" + b).split("+"); // switch for relevant, see includes operators
+
+
+input_field.value = placeholder[placeholder.length -1];
+inputSum = +input_field.value;
+
+
+} 
 else { console.log('also_alsoAlso')
 inputSum = inputSum + +history[history.length - history.length +2];
 input_field.value = inputSum;
