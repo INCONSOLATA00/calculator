@@ -1,4 +1,5 @@
 setInterval(()=>{
+
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
@@ -59,7 +60,10 @@ previousValue = e.target.textContent + "";
 if(evaluation01() == false) {unaltered_history.push(previousValue)};
 if(evaluation06() == false) {absolute_history.push(previousValue)};
 
-if(isPair == false) {history.push(alsoInput);} else {if(previousValue !== '='){history.push(inputSum)}};
+
+// may need new instantiation // +placeholder[placeholder.length -1] no assigned value
+// unsure where to get, value of 10, from "10 + 20"
+if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
 
 if(evaluation01() == false) { history.push(previousValue)};
@@ -106,22 +110,18 @@ if(also_inputSum == "" && evaluation05() < 2  && history.length == 2) { console.
 
 behaviour01 = true;
 absolute_history.push(alsoInput_copy);
-
+placeholder = unaltered_history.slice().reduce((a,b) => a+"" + b).split("+");
 input_field.value = unaltered_history.reduce((a,b) => a+"" + b).split("+").reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
 } else if(evaluation05() < 2) { console.log('also_also') 
 if(behaviour01 == true || currentValue.length == 1){
 
-
-placeholder = unaltered_history.slice().reduce((a,b) => a+"" + b).split("+"); // switch for relevant, see includes operators
-
-
-input_field.value = placeholder[placeholder.length -1];
+placeholder.push(placeholder[placeholder.length -1]);
+input_field.value = placeholder.reduce((a,b)=>(+a + +b));
 inputSum = +input_field.value;
+}
 
-
-} 
 else { console.log('also_alsoAlso')
 inputSum = inputSum + +history[history.length - history.length +2];
 input_field.value = inputSum;
@@ -265,7 +265,7 @@ absolute_history.push(+filtered_history()[filtered_history().length -1]);
 } else { console.log('reached05');
 if(history.length % 2 == 0) {
 setTimeout(() => { console.log('030')
-input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // may only produce correct value with singular integer*
+input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // verify integrity
 inputSum = +input_field.value;
 behaviour00 = false;
 }, 1)
