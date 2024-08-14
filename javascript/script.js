@@ -1,12 +1,12 @@
 setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
+console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
 // console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
-console.log(`history ${history} filtered_history ${filtered_history()}`)
+// console.log(`history ${history} filtered_history ${filtered_history()}`)
 },100)
 
 let previousValue;
@@ -31,6 +31,8 @@ let behaviour01 = false;
 
 const someArray = ['-','+','/','*'];
 const also_someArray = ['-','+','/','*',''];
+const alsoAlso_someArray = ['-','+','/','*'];
+
 const falseValues = ['DEL', 'AC', '='];
 const also_falseValues = ['DEL', 'AC'];
 let alsoInput_copy;
@@ -39,6 +41,8 @@ const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
 
 const filtered_history = () => history.filter((value) => !also_someArray.includes(value));
+const alsoAlsoFiltered_history = () => history.filter((value) => alsoAlso_someArray.includes(value)); // alsoAlsoFiltered_history();
+
 const alsoFiltered_history = () => someArray.reduce((a,b) => a+"" + b).split("+").reduce((a,b) => +a + +b); // 02 depreciated
 const evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true } else {return false}};
 const evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true } else {return false}};
@@ -61,8 +65,7 @@ if(evaluation01() == false) {unaltered_history.push(previousValue)};
 if(evaluation06() == false) {absolute_history.push(previousValue)};
 
 
-// may need new instantiation // +placeholder[placeholder.length -1] no assigned value
-// unsure where to get, value of 10, from "10 + 20"
+// sets the initial value, last value is likely being perpetuated somewhere else, verify integrity of second condition* (see equals)
 if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
 
@@ -102,11 +105,14 @@ history = []; inputSum = ""; alsoInput = "";
 input_field.value = alsoInput; behaviour01 = false;}); // see last 
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
+history.push(inputSum);
+
 if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)')
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
-if(also_inputSum == "" && evaluation05() < 2  && history.length == 2) { console.log('also')
+if(also_inputSum == "" && evaluation05() < 2  && alsoAlsoFiltered_history().length == 1) { console.log('also') // find a way to exec (history length false) - is including blank value eqating 3
+// last conditional was "history.length == 2"
 
 behaviour01 = true;
 absolute_history.push(alsoInput_copy);
@@ -116,13 +122,12 @@ inputSum = +input_field.value;
 
 } else if(evaluation05() < 2) { console.log('also_also') 
 if(behaviour01 == true || currentValue.length == 1){
-
-placeholder.push(placeholder[placeholder.length -1]);
+placeholder = unaltered_history.slice().reduce((a,b) => a+"" + b).split("+");
 input_field.value = placeholder.reduce((a,b)=>(+a + +b));
 inputSum = +input_field.value;
 }
 
-else { console.log('also_alsoAlso')
+else { console.log('also_alsoAlso') //  (supposed) the stage that executes if there has been += after equals assignment*
 inputSum = inputSum + +history[history.length - history.length +2];
 input_field.value = inputSum;
 }}
