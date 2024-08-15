@@ -117,6 +117,8 @@ if(also_inputSum == "" && evaluation05() < 2  && alsoAlsoFiltered_history().leng
 behaviour01 = true;
 absolute_history.push(alsoInput_copy);
 // input_field.value = absolute_history.reduce((a,b) => a+"" + b).split("+").reduce((a,b) => +a + +b); (left for example)
+// -w- 50+50
+
 input_field.value = absolute_filter().reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
