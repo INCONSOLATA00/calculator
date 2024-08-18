@@ -1,9 +1,9 @@
 setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
+// console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
-// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history()}`)
@@ -21,7 +21,9 @@ let currentOperator = [];
 let also_inputSum = [];
 
 let unaltered_history = [];
-let absolute_history = [];
+let unaltered_placeholder;
+
+let absolute_history = []; // same as above, one might have more use cases (probably this one) - suggest; leave alone*
 let history = [];
 
 let isPair = false;
@@ -42,7 +44,7 @@ const evaluation01 = () => falseValues.some((value) => value == previousValue);
 
 const filtered_history = () => history.filter((value) => !also_someArray.includes(value));
 const alsoAlsoFiltered_history = () => history.filter((value) => someArray.includes(value)); // alsoAlsoFiltered_history();
-const absolute_filter = () => absolute_history.filter((value) => !alsoAlso_someArray.includes(value)); // absolute_filter()
+const absolute_filter = () => absolute_history.filter((value) => !alsoAlso_someArray.includes(value)); // absolute_filter();
 
 const evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true } else {return false}};
 const evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true } else {return false}};
@@ -112,19 +114,27 @@ unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
 if(also_inputSum == "" && evaluation05() < 2  && alsoAlsoFiltered_history().length == 1) { console.log('also') // find a way to exec (history length false) - is including blank value eqating 3
-// last conditional was "history.length == 2" (left for example)
+
+// join when the + operand is used &&?
 
 behaviour01 = true;
-absolute_history.push(alsoInput_copy);
-// input_field.value = absolute_history.reduce((a,b) => a+"" + b).split("+").reduce((a,b) => +a + +b); (left for example)
-// -w- 50+50
+// modifier that detects if first instance - if unaltered history length is < 1 { (may need to execute somewhere else)
+// could also join from determining the total length of the integer entered.
 
-input_field.value = absolute_filter().reduce((a,b) => +a + +b);
+if(currentOperator.length == 1){ console.log('joined')
+unaltered_placeholder = unaltered_history.join(''); // get the length, and replace the relevant position in the original instance.
+}
+// }
+
+unaltered_history.push(alsoInput_copy);
+placeholder = unaltered_history.reduce((a,b) => a+"" + b).split("+");
+input_field.value = placeholder.reduce((a,b)=>(+a + +b))
 inputSum = +input_field.value;
 
-} else if(evaluation05() < 2) { console.log('also_also') 
+
+} else if(evaluation05() < 2) { console.log('also_also')  // likely works as intended with no complications*
 if(behaviour01 == true || currentValue.length == 1){
-placeholder = unaltered_history.slice().reduce((a,b) => a+"" + b).split("+");
+placeholder = unaltered_history.reduce((a,b) => a+"" + b).split("+");
 input_field.value = placeholder.reduce((a,b)=>(+a + +b));
 inputSum = +input_field.value;
 }
