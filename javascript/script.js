@@ -17,6 +17,7 @@ let alsoInput = "";
 let inputSum = "";
 
 let currentValue = [];
+let length = currentValue[0].length; // SEE ERR
 let currentOperator = [];
 let also_inputSum = [];
 
@@ -106,6 +107,8 @@ currentOperator = []; absolute_history = [];
 history = []; inputSum = ""; alsoInput = "";
 input_field.value = alsoInput; behaviour01 = false;}); // see last 
 
+
+
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 history.push(inputSum);
 
@@ -115,16 +118,11 @@ unaltered_history = []; console.log('values reset')
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
 if(also_inputSum == "" && evaluation05() < 2  && alsoAlsoFiltered_history().length == 1) { console.log('also') // find a way to exec (history length false) - is including blank value eqating 3
 
-// join when the + operand is used &&?
 
 behaviour01 = true;
-// modifier that detects if first instance - if unaltered history length is < 1 { (may need to execute somewhere else)
-// could also join from determining the total length of the integer entered.
-
-if(currentOperator.length == 1){ console.log('joined')
-unaltered_placeholder = unaltered_history.join(''); // get the length, and replace the relevant position in the original instance.
+if(currentOperator.length == 1) {
+unaltered_history.splice(0,length,alsoInput_copy); // alsoInput_copy has no length?  (2) // CURRENT
 }
-// }
 
 unaltered_history.push(alsoInput_copy);
 placeholder = unaltered_history.reduce((a,b) => a+"" + b).split("+");
