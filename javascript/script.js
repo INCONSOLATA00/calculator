@@ -11,13 +11,11 @@ console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} una
 
 let previousValue;
 let actual_previousValue;
-let placeholder;
 
 let alsoInput = "";
 let inputSum = "";
 
 let currentValue = [];
-let length = currentValue[0].length; // SEE ERR
 let currentOperator = [];
 let also_inputSum = [];
 
@@ -44,7 +42,6 @@ const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
 
 const filtered_history = () => history.filter((value) => !also_someArray.includes(value));
-const alsoAlsoFiltered_history = () => history.filter((value) => someArray.includes(value)); // alsoAlsoFiltered_history();
 const absolute_filter = () => absolute_history.filter((value) => !alsoAlso_someArray.includes(value)); // absolute_filter();
 
 const evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true } else {return false}};
@@ -116,17 +113,16 @@ if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.len
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
-if(also_inputSum == "" && evaluation05() < 2  && alsoAlsoFiltered_history().length == 1) { console.log('also') // find a way to exec (history length false) - is including blank value eqating 3
+if(also_inputSum == "" && evaluation05() < 2) { console.log('also') // find a way to exec (history length false) - is including blank value eqating 3
 
 
 behaviour01 = true;
 if(currentOperator.length == 1) {
-unaltered_history.splice(0,length,alsoInput_copy); // alsoInput_copy has no length?  (2) // CURRENT
-}
+unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
+} // modifies values for current instance but not other values respectively.
 
 unaltered_history.push(alsoInput_copy);
-placeholder = unaltered_history.reduce((a,b) => a+"" + b).split("+");
-input_field.value = placeholder.reduce((a,b)=>(+a + +b))
+input_field.value = unaltered_history.reduce((a,b) => a + b);
 inputSum = +input_field.value;
 
 
