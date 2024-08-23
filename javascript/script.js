@@ -1,9 +1,9 @@
 setInterval(()=>{
 
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history()}`)
@@ -112,33 +112,23 @@ history.push(inputSum);
 if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)')
 unaltered_history = []; console.log('values reset')
 
-} else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1) { console.log('reached00 (true)')
-if(also_inputSum == "" && evaluation05() < 2) { console.log('also') // find a way to exec (history length false) - is including blank value eqating 3
+} else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1 && inputSum == '') { console.log('reached00 (true)')
+if(also_inputSum == "" && evaluation05() < 2) { console.log('also')
 
+
+// also is executed, but then gives precedence to 05, and then 04 respectively doing the same function see also
 
 behaviour01 = true;
 if(currentOperator.length == 1) {
 unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
-} // modifies values for current instance but not other values respectively.
+}
 
 unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => a + b);
 inputSum = +input_field.value;
-
-
-} else if(evaluation05() < 2) { console.log('also_also')  // likely works as intended with no complications*
-if(behaviour01 == true || currentValue.length == 1){
-placeholder = unaltered_history.reduce((a,b) => a+"" + b).split("+");
-input_field.value = placeholder.reduce((a,b)=>(+a + +b));
-inputSum = +input_field.value;
 }
 
-else { console.log('also_alsoAlso')
-inputSum = inputSum + +history[history.length - history.length +2];
-input_field.value = inputSum;
-}}
-
-} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1) { console.log('reached01')
+} else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1 || evaluation05() < 2) { console.log('reached01') // new last conditional, see after ||
 console.log('equals')
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)*
@@ -310,4 +300,3 @@ inputSum = +alsoInput * +alsoInput;
 }
 return;
 }}
-
