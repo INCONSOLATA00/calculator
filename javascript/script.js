@@ -22,7 +22,7 @@ let also_inputSum = [];
 let unaltered_history = [];
 let unaltered_placeholder;
 
-let absolute_history = []; // same as above, one might have more use cases (probably this one) - suggest; leave alone*
+let absolute_history = [];
 let history = [];
 
 let isPair = false;
@@ -42,7 +42,7 @@ const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
 
 const filtered_history = () => history.filter((value) => !also_someArray.includes(value));
-const absolute_filter = () => absolute_history.filter((value) => !alsoAlso_someArray.includes(value)); // absolute_filter();
+const absolute_filter = () => absolute_history.filter((value) => !alsoAlso_someArray.includes(value));
 
 const evaluation03 = () => {if(isNaN(unaltered_history.map((value) => +value)[0]) == true && unaltered_history[0] !== undefined) { return true } else {return false}};
 const evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true && unaltered_history[1] !== undefined) { return true } else {return false}};
@@ -65,18 +65,17 @@ if(evaluation01() == false) {unaltered_history.push(previousValue)};
 if(evaluation06() == false) {absolute_history.push(previousValue)};
 
 
-// sets the initial value, last value is likely being perpetuated somewhere else, verify integrity of second condition* (see equals)
 if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
 
 if(evaluation01() == false) { history.push(previousValue)};
 isPair = false;
-if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000') // SEE HERE, 000
+if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
 alsoInput_copy = +alsoInput;} 
 
 if(inputSum > 0 && alsoInput > 0 && evaluation00() == true) {
-determine_arithmetic(currentOperator[currentOperator.length -2]); // SEE BELOW, 001
+determine_arithmetic(currentOperator[currentOperator.length -2]);
 console.log('001')
 alsoInput = "";
 input_field.value = inputSum;
@@ -102,8 +101,7 @@ console.log('ac')
 currentValue = []; unaltered_history = [];
 currentOperator = []; absolute_history = [];
 history = []; inputSum = ""; alsoInput = "";
-input_field.value = alsoInput; behaviour01 = false;}); // see last 
-
+input_field.value = alsoInput; behaviour01 = false;});
 
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
@@ -115,14 +113,10 @@ unaltered_history = []; console.log('values reset')
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1 && inputSum == '') { console.log('reached00 (true)')
 if(also_inputSum == "" && evaluation05() < 2) { console.log('also')
 
-
-// also is executed, but then gives precedence to 05, and then 04 respectively doing the same function see also
-
 behaviour01 = true;
-if(currentOperator.length == 1) {
+// if(currentOperator.length == 1) {
 unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
-}
-
+// }
 unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => a + b);
 inputSum = +input_field.value;
@@ -257,14 +251,19 @@ case "+":
 if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
-input_field.value = filtered_history().reduce((a, b) => +a + +b) + +filtered_history()[filtered_history().length -1];
-inputSum = input_field.value;
-history.push(+filtered_history()[filtered_history().length -1]);
-unaltered_history.push(+filtered_history()[filtered_history().length -1]);
-absolute_history.push(+filtered_history()[filtered_history().length -1]);
+
+if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED');
+unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
+unaltered_history.push(alsoInput_copy);
+}
+// unaltered_history.push(alsoInput_copy); // execute one time directly after the statement above itself* ^
+unaltered_history.push(alsoInput_copy);
+input_field.value = unaltered_history.reduce((a,b) => +a + +b);
+inputSum = +input_field.value;
+
 
 } else { console.log('reached05');
-if(history.length % 2 == 0) {
+if(absolute_history.length % 2 == 0) { // switch keeps executing despite length incrementing between respective values*
 setTimeout(() => { console.log('030')
 input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // verify integrity
 inputSum = +input_field.value;
