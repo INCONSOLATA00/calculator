@@ -15,7 +15,7 @@ let actual_previousValue;
 let alsoInput = "";
 let inputSum = "";
 
-let currentValue = [];
+let currentValue = []; // ??? - pushed when arithmetic*
 let currentOperator = [];
 let also_inputSum = [];
 
@@ -252,8 +252,28 @@ if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('rea
 inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 
+if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
+unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
+unaltered_history.push(alsoInput_copy);
+}
+
+if(history[history.length-2] == ''){ console.log('EXECUTED01') // might be able to make a deciding factor depending on if also was used or not*
+unaltered_history.push(alsoInput_copy);
+}
+
+unaltered_history.push(alsoInput_copy);
+input_field.value = unaltered_history.reduce((a,b) => +a + +b);
+inputSum = +input_field.value;
+
+
+
+} else { console.log('reached05');
+if(absolute_history.length % 2 == 0) {
+setTimeout(() => { console.log('030')
+
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED');
 unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
+unaltered_history.push(alsoInput_copy);
 unaltered_history.push(alsoInput_copy);
 }
 // unaltered_history.push(alsoInput_copy); // execute one time directly after the statement above itself* ^
@@ -261,12 +281,6 @@ unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
-
-} else { console.log('reached05');
-if(absolute_history.length % 2 == 0) { // switch keeps executing despite length incrementing between respective values*
-setTimeout(() => { console.log('030')
-input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // verify integrity
-inputSum = +input_field.value;
 behaviour00 = false;
 }, 1)
 
