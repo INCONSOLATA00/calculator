@@ -260,7 +260,7 @@ iteration++
 return repeats;
 })
 
-if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
+if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00') // ERROR with 11, works with 50, works with 51*
 unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
 unaltered_history.push(alsoInput_copy);
 }
