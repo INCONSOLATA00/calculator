@@ -1,12 +1,12 @@
 setInterval(()=>{
 
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
-// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
-// console.log(`history ${history} filtered_history ${filtered_history()}`)
+// console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 },100)
 
 let previousValue;
@@ -15,7 +15,7 @@ let actual_previousValue;
 let alsoInput = "";
 let inputSum = "";
 
-let currentValue = []; // ??? - pushed when arithmetic*
+let currentValue = [];
 let currentOperator = [];
 let also_inputSum = [];
 
@@ -29,6 +29,9 @@ let isPair = false;
 let behaviour00 = false;
 let behaviour01 = false;
 
+let behavior02 = false; // reset on new assignment
+let repeats = false; // reset on new assignment ||
+let iteration = 0; // reset on new assignment || SEE BOTTOM & AC
 
 const someArray = ['-','+','/','*'];
 const also_someArray = ['-','+','/','*',''];
@@ -114,9 +117,7 @@ unaltered_history = []; console.log('values reset')
 if(also_inputSum == "" && evaluation05() < 2) { console.log('also')
 
 behaviour01 = true;
-// if(currentOperator.length == 1) {
-unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
-// }
+unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
 unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => a + b);
 inputSum = +input_field.value;
@@ -252,41 +253,39 @@ if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('rea
 inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
 
+
+filtered_history().reduce((a,b) => { // requires reset on new assignment*
+if(a == b && iteration < 2) {repeats = true}
+iteration++
+return repeats;
+})
+
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
-unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
+unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
 unaltered_history.push(alsoInput_copy);
 }
 
-if(history[history.length-2] == ''){ console.log('EXECUTED01') // might be able to make a deciding factor depending on if also was used or not*
+if(history[history.length-2] == '' && behavior02 == false && repeats == false){ console.log('EXECUTED01')
 unaltered_history.push(alsoInput_copy);
+behavior02 = true;
 }
-
 unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
 
-
-} else { console.log('reached05');
+} else { console.log('reached05'); // 50 + 50 = + 50
 if(absolute_history.length % 2 == 0) {
 setTimeout(() => { console.log('030')
-
-if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED');
-unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior (appears to be assuming the length without declaration)
-unaltered_history.push(alsoInput_copy);
-unaltered_history.push(alsoInput_copy);
-}
-// unaltered_history.push(alsoInput_copy); // execute one time directly after the statement above itself* ^
-unaltered_history.push(alsoInput_copy);
-input_field.value = unaltered_history.reduce((a,b) => +a + +b);
+input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // verify integrity
 inputSum = +input_field.value;
-
 behaviour00 = false;
 }, 1)
 
+
 } else {
 if(behaviour00 == true){
-setTimeout(() => { console.log('040')
+setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 =
 input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 inputSum = +input_field.value; 
 }, 1)} else {
