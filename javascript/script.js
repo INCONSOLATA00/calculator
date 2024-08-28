@@ -52,6 +52,9 @@ const evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true 
 const evaluation05 = () => currentOperator.filter((value) => !falseValues.includes(value)).length;
 const evaluation06 = () => also_falseValues.some((value) => value == previousValue);
 
+let length = alsoInput_copy+"";
+let alsoLength = length.length;
+
 const input_field = document.querySelector("div > input");
 input_field.value = "";
 const operands = document.querySelectorAll("#numpad > button");
@@ -117,7 +120,8 @@ unaltered_history = []; console.log('values reset')
 if(also_inputSum == "" && evaluation05() < 2) { console.log('also')
 
 behaviour01 = true;
-unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
+// unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
+unaltered_history.splice(0,alsoLength,alsoInput_copy);
 unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => a + b);
 inputSum = +input_field.value;
@@ -260,8 +264,9 @@ iteration++
 return repeats;
 })
 
-if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00') // ERROR with 11, works with 50, works with 51*
-unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
+if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
+// unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
+unaltered_history.splice(0,alsoLength,alsoInput_copy); // unexpected behavior
 unaltered_history.push(alsoInput_copy);
 }
 
