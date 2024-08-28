@@ -54,6 +54,7 @@ const evaluation06 = () => also_falseValues.some((value) => value == previousVal
 
 let length = alsoInput_copy+"";
 let alsoLength = length.length;
+let value = absolute_history.indexOf('+');
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -136,7 +137,7 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if (currentValue.length >= 1) { console.log('0002')
+if (currentValue.length >= 1 &&  !value > -1 && typeof absolute_history[value+1] == 'number') { console.log('0002') // value > -1 && typeof absolute_history[value+1] == 'number' (CHECK FOR NEW ADDITION TO SWITCH, may need revise*)
 also_inputSum.push(alsoInput_copy);
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";
@@ -280,17 +281,16 @@ inputSum = +input_field.value;
 
 
 } else { console.log('reached05'); // 50 + 50 = + 50
-if(absolute_history.length % 2 == 0) {
+if(value > -1 && typeof absolute_history[value+1] == 'number') {
 setTimeout(() => { console.log('030')
-input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // verify integrity
-inputSum = +input_field.value;
+input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // reduce everything excluding assignments?
 behaviour00 = false;
 }, 1)
 
 
 } else {
 if(behaviour00 == true){
-setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 =
+setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 = (determine if there is a complete assignment)
 input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 inputSum = +input_field.value; 
 }, 1)} else {
