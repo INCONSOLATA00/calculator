@@ -121,7 +121,6 @@ unaltered_history = []; console.log('values reset')
 if(also_inputSum == "" && evaluation05() < 2) { console.log('also')
 
 behaviour01 = true;
-// unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
 unaltered_history.splice(0,alsoLength,alsoInput_copy);
 unaltered_history.push(alsoInput_copy);
 input_field.value = unaltered_history.reduce((a,b) => a + b);
@@ -137,7 +136,7 @@ alsoInput = "";
 } else if(previousValue == actual_previousValue) {
 console.log('equals')
 
-if (currentValue.length >= 1 &&  !value > -1 && typeof absolute_history[value+1] == 'number') { console.log('0002') // value > -1 && typeof absolute_history[value+1] == 'number' (CHECK FOR NEW ADDITION TO SWITCH, may need revise*)
+if (currentValue.length >= 1) { console.log('0002')
 also_inputSum.push(alsoInput_copy);
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";
@@ -256,7 +255,7 @@ return;
 case "+":
 if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 inputSum = +inputSum + +alsoInput;
-} else if (inputSum > 0 && alsoInput == 0) { console.log('reached04')
+} else if (inputSum > 0 && alsoInput == 0 && evaluation05() < 2) { console.log('reached04')
 
 
 filtered_history().reduce((a,b) => { // requires reset on new assignment*
@@ -266,8 +265,8 @@ return repeats;
 })
 
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
-// unaltered_history.splice(0,unaltered_history[0],alsoInput_copy); // unexpected behavior
-unaltered_history.splice(0,alsoLength,alsoInput_copy); // unexpected behavior
+
+unaltered_history.splice(0,alsoLength,alsoInput_copy);
 unaltered_history.push(alsoInput_copy);
 }
 
@@ -283,10 +282,11 @@ inputSum = +input_field.value;
 } else { console.log('reached05'); // 50 + 50 = + 50
 if(value > -1 && typeof absolute_history[value+1] == 'number') {
 setTimeout(() => { console.log('030')
-input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b ); // reduce everything excluding assignments?
+input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 behaviour00 = false;
 }, 1)
 
+// something here?
 
 } else {
 if(behaviour00 == true){
