@@ -286,7 +286,14 @@ input_field.value = unaltered_history.slice().filter((value) => !someArray.inclu
 behaviour00 = false;
 }, 1)
 
-// something here?
+
+} else if(evaluation05() > 1) { console.log('CURRENT');
+
+unaltered_history.splice(0,alsoLength,alsoInput_copy); // doensn't include final value, see for sum*
+unaltered_history.push(alsoInput_copy);
+input_field.value = unaltered_history.reduce((a,b) => a + b);
+inputSum = +input_field.value;
+
 
 } else {
 if(behaviour00 == true){
