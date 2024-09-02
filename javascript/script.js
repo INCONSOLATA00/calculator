@@ -1,12 +1,12 @@
 setInterval(()=>{
 
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
-// console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
     //console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
+console.log(`${alsoAlso_inputCopy}`)
 },100)
 
 let previousValue;
@@ -17,9 +17,7 @@ let inputSum = "";
 
 let currentValue = [];
 let currentOperator = [];
-
-let also_inputSum = [];
-let also_inputCopy = []; // may not need to be array* (current)
+let alsoAlso_inputCopy = []; // may need to be reset on new assignment*
 
 let unaltered_history = [];
 let unaltered_placeholder;
@@ -120,7 +118,7 @@ if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.len
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1 && inputSum == '') { console.log('reached00 (true)')
-if(also_inputSum == "" && evaluation05() < 2) { console.log('also')
+if(evaluation05() < 2) { console.log('also')
 
 behaviour01 = true;
 unaltered_history.splice(0,alsoLength,alsoInput_copy);
@@ -131,7 +129,7 @@ inputSum = +input_field.value;
 
 } else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1 || evaluation05() < 2) { console.log('reached01') // new last conditional, see after ||
 console.log('equals')
-
+alsoAlso_inputCopy.push(inputSum);
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)*
 alsoInput = "";
@@ -270,14 +268,19 @@ return repeats;
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
 
 unaltered_history.splice(0,alsoLength,alsoInput_copy);
+
 unaltered_history.push(alsoInput_copy);
+//unaltered_history.push(alsoAlso_inputCopy[0]);
 }
 
 if(history[history.length-2] == '' && behavior02 == false && repeats == false){ console.log('EXECUTED01')
 unaltered_history.push(alsoInput_copy);
+//unaltered_history.push(alsoAlso_inputCopy[0]);
 behavior02 = true;
 }
-unaltered_history.push(alsoInput_copy);
+// unaltered_history.push(alsoInput_copy);
+unaltered_history.push(alsoAlso_inputCopy[0]);
+
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
