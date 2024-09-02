@@ -1,9 +1,9 @@
 setInterval(()=>{
 
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
 // console.log(`also_inputSum ${also_inputSum} filtered_history ${filtered_history()}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+    //console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
@@ -17,7 +17,9 @@ let inputSum = "";
 
 let currentValue = [];
 let currentOperator = [];
+
 let also_inputSum = [];
+let also_inputCopy = []; // may not need to be array* (current)
 
 let unaltered_history = [];
 let unaltered_placeholder;
@@ -129,6 +131,7 @@ inputSum = +input_field.value;
 
 } else if(previousValue !== actual_previousValue && history.length >= 3 && unaltered_history.length > 1 && evaluation05() > 1 || evaluation05() < 2) { console.log('reached01') // new last conditional, see after ||
 console.log('equals')
+
 determine_arithmetic(currentOperator[0]);
 input_field.value = inputSum; // (timeout @ 05)*
 alsoInput = "";
@@ -255,7 +258,7 @@ return;
 case "+":
 if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 inputSum = +inputSum + +alsoInput;
-} else if (inputSum > 0 && alsoInput == 0 && evaluation05() < 2) { console.log('reached04')
+} else if (inputSum > 0 && alsoInput == 0 && evaluation05() < 2) { console.log('reached04') // cumulative with wrong value
 
 
 filtered_history().reduce((a,b) => { // requires reset on new assignment*
@@ -287,7 +290,8 @@ behaviour00 = false;
 }, 1)
 
 
-} else if(evaluation05() > 1) { console.log('CURRENT');
+} else if(evaluation05() > 1) { console.log('CURRENT'); // cumulative with wrong value*
+// - then see 500 + 500 = = = + 500
 if(unaltered_history[unaltered_history.length -1] == '+'){ console.log('executed')
 unaltered_history.push(alsoInput_copy);}
 unaltered_history.push('+')
@@ -324,8 +328,6 @@ inputSum = +alsoInput * +alsoInput;
 }
 return;
 }}
-
-
 
 
 function convertArray(count = 0){
