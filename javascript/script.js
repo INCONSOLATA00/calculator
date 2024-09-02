@@ -2,11 +2,11 @@ setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
-    //console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
-console.log(`${alsoAlso_inputCopy}`)
+// console.log(`${alsoAlso_inputCopy}`)
 },100)
 
 let previousValue;
@@ -268,9 +268,7 @@ return repeats;
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
 
 unaltered_history.splice(0,alsoLength,alsoInput_copy);
-
 unaltered_history.push(alsoInput_copy);
-//unaltered_history.push(alsoAlso_inputCopy[0]);
 }
 
 if(history[history.length-2] == '' && behavior02 == false && repeats == false){ console.log('EXECUTED01')
@@ -278,8 +276,12 @@ unaltered_history.push(alsoInput_copy);
 //unaltered_history.push(alsoAlso_inputCopy[0]);
 behavior02 = true;
 }
-// unaltered_history.push(alsoInput_copy);
-unaltered_history.push(alsoAlso_inputCopy[0]);
+
+if(history[2] == ''){ console.log('EXECUTED02') // CAN TRY MODULO ON REVISE IF FURTHER NEEDED*
+unaltered_history.push(alsoInput_copy); // for single value pairs*
+} else if (history[2] !== '') { console.log('EXECUTED03')
+unaltered_history.push(alsoAlso_inputCopy[0]); // for both value pairs*
+}
 
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
@@ -293,8 +295,11 @@ behaviour00 = false;
 }, 1)
 
 
-} else if(evaluation05() > 1) { console.log('CURRENT'); // cumulative with wrong value*
+} else if(evaluation05() > 1) { console.log('CURRENT'); // cumulative with wrong value* (may need seperate function for non cumulative assignments)
 // - then see 500 + 500 = = = + 500
+
+// determine conditions for this assignment, create conditional statement; determine if the value is revisited through further assignments later*
+
 if(unaltered_history[unaltered_history.length -1] == '+'){ console.log('executed')
 unaltered_history.push(alsoInput_copy);}
 unaltered_history.push('+')
