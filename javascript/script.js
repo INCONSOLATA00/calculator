@@ -288,12 +288,12 @@ behaviour00 = false;
 
 
 } else if(evaluation05() > 1) { console.log('CURRENT');
+if(unaltered_history[unaltered_history.length -1] == '+'){ console.log('executed')
+unaltered_history.push(alsoInput_copy);}
+unaltered_history.push('+')
 
-unaltered_history.splice(0,alsoLength,alsoInput_copy); // doensn't include final value, see for sum*
-unaltered_history.push(alsoInput_copy);
-input_field.value = unaltered_history.reduce((a,b) => a + b);
+input_field.value = convertArray();
 inputSum = +input_field.value;
-
 
 } else {
 if(behaviour00 == true){
@@ -324,3 +324,34 @@ inputSum = +alsoInput * +alsoInput;
 }
 return;
 }}
+
+
+
+
+function convertArray(count = 0){
+let values = {};
+let values_indices = 0;
+let placeholder_ = [];
+
+for(let j = 0; j < unaltered_history.length; j++) {
+if(typeof unaltered_history[j] == 'number') { 
+
+if(!values[values_indices]){
+values[values_indices] = [];
+}
+
+if(!values[values_indices] == []){
+values[values_indices].push(unaltered_history[j]+"");
+}
+
+} else if(typeof unaltered_history[j] == 'string') {
+values_indices++;}}
+
+for(const key in values) {
+values[key] = values[key].join('');
+placeholder_.push(+values[key]);
+}
+
+placeholder_ = placeholder_.reduce((a,b) => a + b);
+return placeholder_;
+}
