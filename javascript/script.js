@@ -1,9 +1,9 @@
 setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue.length ${currentValue.length} also_inputSum.length ${also_inputSum.length} history ${history} history.length ${history.length}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
-// console.log(`absolute_history ${absolute_history}`)
+// console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
@@ -138,7 +138,7 @@ alsoInput = "";
 console.log('equals')
 
 if (currentValue.length >= 1) { console.log('0002')
-also_inputSum.push(alsoInput_copy);
+// also_inputSum.push(alsoInput_copy); left for reference (likely prototype) verify if 100 - 200 == 500
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";
 }}
@@ -295,14 +295,17 @@ behaviour00 = false;
 }, 1)
 
 
-} else if(evaluation05() > 1) { console.log('CURRENT'); // cumulative with wrong value* (may need seperate function for non cumulative assignments)
-// - then see 500 + 500 = = = + 500
-
-// determine conditions for this assignment, create conditional statement; determine if the value is revisited through further assignments later*
+} else if(evaluation05() > 1) { console.log('CURRENT');
 
 if(unaltered_history[unaltered_history.length -1] == '+'){ console.log('executed')
-unaltered_history.push(alsoInput_copy);}
-unaltered_history.push('+')
+
+
+// unaltered_history.push(alsoInput_copy);}
+absolute_history.push(alsoInput_copy);} // LEAVE OMITTED UNLESS NEEDED* - likely not relevant / no interference, will be reset  once relevant*
+
+// could push on 01 as well, given that it contains cumulative assignments for coutinous number pairs*
+// could split as a string, and join indices based on total length if necessary. 
+// unaltered_history.push('+')
 
 input_field.value = convertArray();
 inputSum = +input_field.value;
@@ -343,18 +346,18 @@ let values = {};
 let values_indices = 0;
 let placeholder_ = [];
 
-for(let j = 0; j < unaltered_history.length; j++) {
-if(typeof unaltered_history[j] == 'number') { 
+for(let j = 0; j < absolute_history.length; j++) {
+if(typeof absolute_history[j] == 'number') { 
 
 if(!values[values_indices]){
 values[values_indices] = [];
 }
 
 if(!values[values_indices] == []){
-values[values_indices].push(unaltered_history[j]+"");
+values[values_indices].push(absolute_history[j]+"");
 }
 
-} else if(typeof unaltered_history[j] == 'string') {
+} else if(typeof absolute_history[j] == 'string') {
 values_indices++;}}
 
 for(const key in values) {
