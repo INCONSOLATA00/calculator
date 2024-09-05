@@ -2,8 +2,8 @@ setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
-// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
-console.log(`absolute_history ${absolute_history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+// console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
@@ -26,10 +26,12 @@ let absolute_history = [];
 let history = [];
 
 let isPair = false;
-let behaviour00 = false;
-let behaviour01 = false;
+let behaviour00 = false; // (resets automatically) on new assignment
+let behaviour01 = false; // set to reset on new assignment
 
-let behavior02 = false; // reset on new assignment
+let behaviour02 = false; // reset on new assignment
+let behaviour03 = false; // reset on new assignment
+
 let repeats = false; // reset on new assignment ||
 let iteration = 0; // reset on new assignment || SEE BOTTOM & AC
 
@@ -139,6 +141,7 @@ console.log('equals')
 
 if (currentValue.length >= 1) { console.log('0002')
 // also_inputSum.push(alsoInput_copy); left for reference (likely prototype) verify if 100 - 200 == 500
+// check what is being pushed on the current assignment to the latest function, then make sure the above arithmetic(est) still works^
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";
 }}
@@ -181,7 +184,7 @@ actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
-determine_behavior();
+determine_behaviour();
 
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
@@ -200,7 +203,7 @@ input_field.value = alsoInput;
 // someArray.some((opr) => e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
 // determine if a number is pressed directly after "=" followed by "+"
 
-function determine_behavior(){ console.log('determine behaviour')
+function determine_behaviour(){ console.log('determine behaviour')
 if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage one')
 
 //inputSum = "";
@@ -266,20 +269,21 @@ return repeats;
 })
 
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
-
 unaltered_history.splice(0,alsoLength,alsoInput_copy);
 unaltered_history.push(alsoInput_copy);
 }
 
-if(history[history.length-2] == '' && behavior02 == false && repeats == false){ console.log('EXECUTED01')
+if(history[history.length-2] == '' && behaviour02 == false && repeats == false){ console.log('EXECUTED01')
 unaltered_history.push(alsoInput_copy);
 //unaltered_history.push(alsoAlso_inputCopy[0]);
-behavior02 = true;
+behaviour02 = true;
 }
 
 if(history[2] == ''){ console.log('EXECUTED02') // CAN TRY MODULO ON REVISE IF FURTHER NEEDED*
 unaltered_history.push(alsoInput_copy); // for single value pairs*
 } else if (history[2] !== '') { console.log('EXECUTED03')
+
+absolute_history.push(alsoInput_copy);
 unaltered_history.push(alsoAlso_inputCopy[0]); // for both value pairs*
 }
 
@@ -296,19 +300,10 @@ behaviour00 = false;
 
 
 } else if(evaluation05() > 1) { console.log('CURRENT');
-
-if(unaltered_history[unaltered_history.length -1] == '+'){ console.log('executed')
-
-
-// unaltered_history.push(alsoInput_copy);}
-absolute_history.push(alsoInput_copy);} // LEAVE OMITTED UNLESS NEEDED* - likely not relevant / no interference, will be reset  once relevant*
-
-// could push on 01 as well, given that it contains cumulative assignments for coutinous number pairs*
-// could split as a string, and join indices based on total length if necessary. 
-// unaltered_history.push('+')
-
+if(behaviour03 == true){absolute_history.push(alsoInput_copy)};
 input_field.value = convertArray();
 inputSum = +input_field.value;
+behaviour03 = true;
 
 } else {
 if(behaviour00 == true){
