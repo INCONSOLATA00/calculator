@@ -1,8 +1,8 @@
 setInterval(()=>{
 
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history}`)
 
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
@@ -66,7 +66,7 @@ const arithmetic_functions = [...document.querySelectorAll(".functions > div > b
 for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);}
 
-function arithmetic(e) {
+function arithmetic(e) { console.log('LIKELY ERR')
 if(previousValue !== '+'){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
@@ -77,13 +77,14 @@ if(evaluation06() == false) {absolute_history.push(previousValue)};
 if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
 
-if(evaluation01() == false) { history.push(previousValue)};
+if(evaluation01() == false && previousValue !== "DEL") { history.push(previousValue)}; // consecutive fatal error, "DEL" is not being pushed, ref end state*
 isPair = false;
+
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
 alsoInput_copy = +alsoInput;} 
 
-if(inputSum > 0 && alsoInput > 0 && evaluation00() == true) {
+if(inputSum > 0 && alsoInput > 0 && evaluation00() == true && previousValue !== "DEL") {
 determine_arithmetic(currentOperator[currentOperator.length -2]);
 console.log('001')
 alsoInput = "";
@@ -111,7 +112,6 @@ currentValue = []; unaltered_history = [];
 currentOperator = []; absolute_history = [];
 history = []; inputSum = ""; alsoInput = "";
 input_field.value = alsoInput; behaviour01 = false;});
-
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 history.push(inputSum);
@@ -146,8 +146,7 @@ determine_arithmetic(currentOperator[0]);
 alsoInput = "";
 }}
 
-previousValue = e.target.textContent + "";
-});
+previousValue = e.target.textContent + "";});
 
 window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
@@ -210,27 +209,29 @@ if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage o
 //input_field.value = inputSum;
 //isPair = true;
 }};
-
+// PREVENT 0 FROM BEING ENTERED IF THE TOTAL LENGTH OF THE CURRENT ASSIGNMENT IS EQUAL TO 1*
 function operand_delete(e){
 console.log('delete')
-if(actual_previousValue !== "=") {
-if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) {
+if(actual_previousValue !== "=") { // prevent delete on final sum (entirety)
+if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) { // operation for single number pairs*
 
-alsoInput = alsoInput + "";
-alsoInput = alsoInput.slice(0, alsoInput.length -1);
+alsoInput = alsoInput + ""; // convert to string
+alsoInput = alsoInput.slice(0, alsoInput.length -1); // remove one chars (updates variable)
 
-alsoInput = +alsoInput;
-input_field.value = alsoInput;
+alsoInput = +alsoInput; // convert back to numerical from string
+input_field.value = alsoInput; // update display value
 
-if(alsoInput == 0) {
+if(alsoInput == 0) { // clears the display to empty instead of defaulting to 0 when sliced
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 
 alsoInput = "";
-input_field.value = alsoInput;
-}}
+input_field.value = alsoInput;}}
 
-if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) {
+
+if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { // operation for both number pairs*
+// PAIRING CHANGES TO FALSE, ON "DEL"* (deletion from wrong pair)
+
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
@@ -243,7 +244,10 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 
 inputSum = "";
 input_field.value = inputSum;
-}}}}
+}}
+
+} // master conditional
+} // function
 
 function determine_arithmetic(value){
 switch(value) {
