@@ -1,10 +1,9 @@
 setInterval(()=>{
 
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-// console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+//console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
 // console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
-// console.log(`absolute_history ${absolute_history}`)
-
+console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}`)
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
 },100)
@@ -210,6 +209,8 @@ if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage o
 //isPair = true;
 }};
 // PREVENT 0 FROM BEING ENTERED IF THE TOTAL LENGTH OF THE CURRENT ASSIGNMENT IS EQUAL TO 1*
+// SEE  ERR (100 + 200 -w- 'DEL' +=)  no function @"history" - see unaltered*
+
 function operand_delete(e){
 console.log('delete')
 if(actual_previousValue !== "=") { // prevent delete on final sum (entirety)
@@ -217,9 +218,14 @@ if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" 
 
 alsoInput = alsoInput + ""; // convert to string
 alsoInput = alsoInput.slice(0, alsoInput.length -1); // remove one chars (updates variable)
+// unaltered_history.splice(unaltered_history.length-1 - alsoInput.length, alsoInput.length)...
 
 alsoInput = +alsoInput; // convert back to numerical from string
 input_field.value = alsoInput; // update display value
+
+
+// value in see relvant @ history must be spliced in place (*WARN MUST AQUIRE LENGTH*, see separate indices before splicing)
+
 
 if(alsoInput == 0) { // clears the display to empty instead of defaulting to 0 when sliced
 alsoInput = alsoInput + "";
@@ -237,6 +243,8 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 
 inputSum = +inputSum;
 input_field.value = inputSum;
+
+// value in see relvant @ history must be spliced in place
 
 if(inputSum == 0) {
 inputSum = inputSum + "";
