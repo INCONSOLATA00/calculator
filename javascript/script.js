@@ -77,8 +77,8 @@ if(evaluation06() == false) {absolute_history.push(previousValue)};
 if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
 
-if(evaluation01() == false && previousValue !== "DEL") { history.push(previousValue)}; // consecutive fatal error, "DEL" is not being pushed, ref end state*
-isPair = false;
+if(evaluation01() == false && previousValue !== "DEL") { history.push(previousValue);
+isPair = false;}
 
 if(alsoInput > 0 && previousValue !== "DEL" && previousValue !== "=") { console.log('000')
 isPair = true;
