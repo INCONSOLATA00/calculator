@@ -65,7 +65,7 @@ const arithmetic_functions = [...document.querySelectorAll(".functions > div > b
 for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);}
 
-function arithmetic(e) { console.log('LIKELY ERR')
+function arithmetic(e) { console.log('LIKELY ERR') // POTENTIAL REVISE*
 if(previousValue !== '+'){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
@@ -177,7 +177,7 @@ absolute_history.push(previousValue);
 alsoInput += e.key;
 input_field.value = alsoInput;}}
 
-function buttons_click(e) { // as in numerical buttons, not to be confused with operators
+function buttons_click(e) { // as in numerical buttons, not to be confused with operators (DOES NOT INCLUDE DELETE)
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
@@ -218,20 +218,20 @@ if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" 
 
 alsoInput = alsoInput + ""; // convert to string
 alsoInput = alsoInput.slice(0, alsoInput.length -1); // remove one chars (updates variable)
-// unaltered_history.splice(unaltered_history.length-1 - alsoInput.length, alsoInput.length)...
+
+//  unaltered_history.splice(unaltered_history.length-1 - alsoInput.length, alsoInput.length) // remove items from the following array (no replacements)
 
 alsoInput = +alsoInput; // convert back to numerical from string
 input_field.value = alsoInput; // update display value
 
+unaltered_history.splice(unaltered_history.length - unaltered_history.length,alsoInput.length,alsoInput) // updates values in place
+absolute_history.splice(unaltered_history.length - unaltered_history.length,alsoInput.length,alsoInput) // additional, may be redundant on error
 
-// value in see relvant @ history must be spliced in place (*WARN MUST AQUIRE LENGTH*, see separate indices before splicing)
-
+// additional value is likely being pushed on deletion, may fall under arithmetic*
 
 if(alsoInput == 0) { // clears the display to empty instead of defaulting to 0 when sliced
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
-
-alsoInput = "";
 input_field.value = alsoInput;}}
 
 
@@ -241,6 +241,11 @@ if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" &&
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
+// SEE BELOW, WORKS ON LAST NUMBER PAIR, see start from beginning
+
+// unaltered_history.splice(unaltered_history.length - inputSum.length +1, inputSum.length) // updates values in place
+// absolute_history.splice(unaltered_history.length - inputSum.length +1, inputSum.length) // additional, may be redundant on error
+
 inputSum = +inputSum;
 input_field.value = inputSum;
 
@@ -249,8 +254,6 @@ input_field.value = inputSum;
 if(inputSum == 0) {
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
-
-inputSum = "";
 input_field.value = inputSum;
 }}
 
