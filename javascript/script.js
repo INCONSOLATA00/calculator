@@ -142,10 +142,9 @@ if (currentValue.length >= 1) { console.log('0002')
 // also_inputSum.push(alsoInput_copy); left for reference (likely prototype) verify if 100 - 200 == 500
 // check what is being pushed on the current assignment to the latest function, then make sure the above arithmetic(est) still works^
 determine_arithmetic(currentOperator[0]);
-alsoInput = "";
-}}
-
+alsoInput = "";}}
 previousValue = e.target.textContent + "";});
+
 
 window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
@@ -287,13 +286,14 @@ unaltered_history.push(alsoInput_copy);
 //unaltered_history.push(alsoAlso_inputCopy[0]);
 behaviour02 = true;
 }
-
 if(history[2] == ''){ console.log('EXECUTED02') // CAN TRY MODULO ON REVISE IF FURTHER NEEDED*
 unaltered_history.push(alsoInput_copy); // for single value pairs*
-} else if (history[2] !== '') { console.log('EXECUTED03')
+if(history.length == 5) {unaltered_history.push(alsoInput_copy)}
 
+} else if (history[2] !== '') { console.log('EXECUTED03')
 absolute_history.push(alsoInput_copy);
 unaltered_history.push(alsoAlso_inputCopy[0]); // for both value pairs*
+if(history.length == 4) {unaltered_history.push(alsoInput_copy)}
 }
 
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
