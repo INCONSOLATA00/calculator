@@ -198,58 +198,52 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 }}
 
-// someArray.some((opr) => e.key == opr) == false, allow use of keyboard to enter operators. (optional features)
-// determine if a number is pressed directly after "=" followed by "+"
 
 function determine_behaviour(){ console.log('determine behaviour')
 if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage one')
-
-//inputSum = "";
-//input_field.value = inputSum;
-//isPair = true;
 }};
 // PREVENT 0 FROM BEING ENTERED IF THE TOTAL LENGTH OF THE CURRENT ASSIGNMENT IS EQUAL TO 1*
-// SEE  ERR (100 + 200 -w- 'DEL' +=)  no function @"history" - see unaltered*
+
 
 function operand_delete(e){
 console.log('delete')
-if(actual_previousValue !== "=") { // prevent delete on final sum (entirety)
-if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) { // operation for single number pairs*
+if(actual_previousValue !== "=") {
+if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) {
 
-alsoInput = alsoInput + ""; // convert to string
-alsoInput = alsoInput.slice(0, alsoInput.length -1); // remove one chars (updates variable)
+alsoInput = alsoInput + "";
+alsoInput = alsoInput.slice(0, alsoInput.length -1);
 
-//  unaltered_history.splice(unaltered_history.length-1 - alsoInput.length, alsoInput.length) // remove items from the following array (no replacements)
+alsoInput = +alsoInput;
+input_field.value = alsoInput;
 
-alsoInput = +alsoInput; // convert back to numerical from string
-input_field.value = alsoInput; // update display value
+unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
+absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
 
-unaltered_history.splice(unaltered_history.length - unaltered_history.length,alsoInput.length,alsoInput) // updates values in place
-absolute_history.splice(unaltered_history.length - unaltered_history.length,alsoInput.length,alsoInput) // additional, may be redundant on error
+// subtract both lengths for current position?
 
-// additional value is likely being pushed on deletion, may fall under arithmetic*
+// unsure if splicing full lengths will exacerbate further issues
+// WARN  may not target later assignments; WARN "history" may affect other assignments
 
-if(alsoInput == 0) { // clears the display to empty instead of defaulting to 0 when sliced
+if(alsoInput == 0) { // do this for above if length == 1* ^^^  ^^^ ^^^ SEE ABOVE
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;}}
 
 
-if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { // operation for both number pairs*
-// PAIRING CHANGES TO FALSE, ON "DEL"* (deletion from wrong pair)
+
+
+if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) {
 
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
-// SEE BELOW, WORKS ON LAST NUMBER PAIR, see start from beginning
+unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
+absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
 
-// unaltered_history.splice(unaltered_history.length - inputSum.length +1, inputSum.length) // updates values in place
-// absolute_history.splice(unaltered_history.length - inputSum.length +1, inputSum.length) // additional, may be redundant on error
+// subtract both lengths for current position?
 
 inputSum = +inputSum;
 input_field.value = inputSum;
-
-// value in see relvant @ history must be spliced in place
 
 if(inputSum == 0) {
 inputSum = inputSum + "";
