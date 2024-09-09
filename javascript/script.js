@@ -290,9 +290,8 @@ if(history[2] == ''){ console.log('EXECUTED02') // CAN TRY MODULO ON REVISE IF F
 unaltered_history.push(alsoInput_copy); // for single value pairs*
 if(history.length == 5) {unaltered_history.push(alsoInput_copy)}
 
-} else if (history[2] !== '') { console.log('EXECUTED03') // 300 + 500 += (SEE ERROR) > cumulative assignment
+} else if (history[2] !== '') { console.log('EXECUTED03')
 absolute_history.push(alsoInput_copy);
-// unaltered_history.push(alsoAlso_inputCopy[0]); // for both value pairs*
 if(history.length > 3) {unaltered_history.push(alsoAlso_inputCopy[0])}
 }
 
@@ -301,8 +300,11 @@ inputSum = +input_field.value;
 
 
 } else if(evaluation05() > 1) { console.log('reached05'); // 50 + 50 = + 50 (DO THE EXACT SAME THING THAT WAS DONE IN 03) - was originally just else*
-if(value > -1 && typeof absolute_history[value+1] == 'number') {
+// if(value > -1 && typeof absolute_history[value+1] == 'number') {
+
 setTimeout(() => { console.log('030')
+absolute_history.push(alsoInput_copy);
+unaltered_history.push(alsoAlso_inputCopy[0])
 
 // unaltered_history.push(alsoInput_copy); // for single value pairs*
 // if(history.length == 5) {unaltered_history.push(alsoInput_copy); console.log('CURRENT-CURRENT')}
@@ -311,14 +313,7 @@ behaviour00 = false;
 }, 1)
 
 
-//} else if(evaluation05() > 1) { console.log('CURRENT'); // redundant block?
-// if(behaviour03 == true){absolute_history.push(alsoInput_copy)};
-// input_field.value = convertArray();
-// inputSum = +input_field.value;
-// behaviour03 = true;
-
-} else {
-if(behaviour00 == true){
+} else if(behaviour00 == true){
 setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 = (determine if there is a complete assignment)
 input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 inputSum = +input_field.value; 
@@ -326,7 +321,7 @@ inputSum = +input_field.value;
 inputSum = +inputSum + +alsoInput;
 behaviour00 = true;
 }
-}}
+
 
 return;
 
