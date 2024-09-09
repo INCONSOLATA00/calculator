@@ -42,8 +42,7 @@ const falseValues = ['DEL', 'AC', '='];
 const also_falseValues = ['DEL', 'AC'];
 
 let alsoInput_copy;
-let inputSum_copy = []; // same function as "alsoAlso_inputCopy" for later process (grabs final value of each assignment for iterative purposes)
-// use last value stead of reset*
+let beforeCumulative; // last numerical before cumulative
 
 const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
@@ -88,7 +87,6 @@ alsoInput_copy = +alsoInput;}
 
 if(inputSum > 0 && alsoInput > 0 && evaluation00() == true && previousValue !== "DEL") {
 determine_arithmetic(currentOperator[currentOperator.length -2]);
-inputSum_copy = +inputSum // may go for 001, (REQUIRE SWITCH, MAY NEED ADDITIONAL REVISION)
 
 console.log('001')
 alsoInput = "";
@@ -307,11 +305,15 @@ inputSum = +input_field.value;
 
 setTimeout(() => { console.log('030')
 
-absolute_history.push(inputSum_copy);
-unaltered_history.push(inputSum_copy);
+for(let i = history.length; i > 0; i--) { // console.log(i) does not account value type*
+if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !== 'number'){
+beforeCumulative = history[i-1];
+break;
+}}
 
+absolute_history.push(+beforeCumulative); // yikes
+unaltered_history.push(+beforeCumulative);
 
-// input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
 input_field.value = convertArray();
 behaviour00 = false;
 }, 1)
