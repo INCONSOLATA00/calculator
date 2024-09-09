@@ -303,12 +303,14 @@ inputSum = +input_field.value;
 // if(value > -1 && typeof absolute_history[value+1] == 'number') {
 
 setTimeout(() => { console.log('030')
-absolute_history.push(alsoInput_copy);
+// absolute_history.push(alsoInput_copy);
+absolute_history.push(alsoAlso_inputCopy[0])
 unaltered_history.push(alsoAlso_inputCopy[0])
 
-// unaltered_history.push(alsoInput_copy); // for single value pairs*
-// if(history.length == 5) {unaltered_history.push(alsoInput_copy); console.log('CURRENT-CURRENT')}
-input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+
+
+// input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
+input_field.value = convertArray();
 behaviour00 = false;
 }, 1)
 
