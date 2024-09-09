@@ -16,7 +16,7 @@ let inputSum = "";
 
 let currentValue = [];
 let currentOperator = [];
-let alsoAlso_inputCopy = []; // may need to be reset on new assignment*
+let alsoAlso_inputCopy = []; // may need to be reset on new assignment / may continue past "AC" - undetermined*
 
 let unaltered_history = [];
 let unaltered_placeholder;
@@ -40,7 +40,10 @@ const alsoAlso_someArray = ['-','+','/','*','='];
 
 const falseValues = ['DEL', 'AC', '='];
 const also_falseValues = ['DEL', 'AC'];
+
 let alsoInput_copy;
+let inputSum_copy = []; // same function as "alsoAlso_inputCopy" for later process (grabs final value of each assignment for iterative purposes)
+// use last value stead of reset*
 
 const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
@@ -65,7 +68,7 @@ const arithmetic_functions = [...document.querySelectorAll(".functions > div > b
 for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);}
 
-function arithmetic(e) { console.log('LIKELY ERR') // POTENTIAL REVISE*
+function arithmetic(e) {
 if(previousValue !== '+'){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
@@ -85,6 +88,8 @@ alsoInput_copy = +alsoInput;}
 
 if(inputSum > 0 && alsoInput > 0 && evaluation00() == true && previousValue !== "DEL") {
 determine_arithmetic(currentOperator[currentOperator.length -2]);
+inputSum_copy = +inputSum // may go for 001, (REQUIRE SWITCH, MAY NEED ADDITIONAL REVISION)
+
 console.log('001')
 alsoInput = "";
 input_field.value = inputSum;
@@ -139,8 +144,6 @@ alsoInput = "";
 console.log('equals')
 
 if (currentValue.length >= 1) { console.log('0002')
-// also_inputSum.push(alsoInput_copy); left for reference (likely prototype) verify if 100 - 200 == 500
-// check what is being pushed on the current assignment to the latest function, then make sure the above arithmetic(est) still works^
 determine_arithmetic(currentOperator[0]);
 alsoInput = "";}}
 previousValue = e.target.textContent + "";});
@@ -238,7 +241,6 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 
 unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
 absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
-
 // subtract both lengths for current position?
 
 inputSum = +inputSum;
@@ -266,6 +268,7 @@ return;
 
 case "+":
 if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
+
 inputSum = +inputSum + +alsoInput;
 } else if (inputSum > 0 && alsoInput == 0 && evaluation05() < 2) { console.log('reached04') // cumulative with wrong value
 
@@ -303,10 +306,9 @@ inputSum = +input_field.value;
 // if(value > -1 && typeof absolute_history[value+1] == 'number') {
 
 setTimeout(() => { console.log('030')
-// absolute_history.push(alsoInput_copy);
-absolute_history.push(alsoAlso_inputCopy[0])
-unaltered_history.push(alsoAlso_inputCopy[0])
 
+absolute_history.push(inputSum_copy);
+unaltered_history.push(inputSum_copy);
 
 
 // input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
