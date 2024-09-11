@@ -309,9 +309,10 @@ if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !
 beforeCumulative = history[i-1];
 break;}}
 
-if(typeof absolute_history[absolute_history.length-1] == 'string' && typeof absolute_history[absolute_history.length-2] == 'number' && absolute_history.length % 2 == 1) { console.log('REMOVE VALUE')
+if(typeof absolute_history[absolute_history.length-1] == 'string' && typeof absolute_history[absolute_history.length-2] == 'number') { console.log('REMOVE VALUE') // WAS && absolute_history.length % 2 == 1
 // works but may need third conditional
 // 100 200 300 400 += 1000 += > 1400 then 2000 += > 2600 + 200 == 3000? (try additional modulo, second eval)
+// modulo does not arrive on a consistent basis, try total operator(s)*
 
 } else { console.log('add value')
 absolute_history.push(+beforeCumulative); // yikes (correct but shaky, also recent)
