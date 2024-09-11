@@ -302,22 +302,25 @@ inputSum = +input_field.value;
 
 } else if(evaluation05() > 1) { console.log('reached05'); // 50 + 50 = + 50 (DO THE EXACT SAME THING THAT WAS DONE IN 03) - was originally just else*
 // if(value > -1 && typeof absolute_history[value+1] == 'number') {
-
 setTimeout(() => { console.log('030')
 
 for(let i = history.length; i > 0; i--) { // console.log(i) does not account value type*
 if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !== 'number'){
 beforeCumulative = history[i-1];
-break;
-}}
+break;}}
 
-absolute_history.push(+beforeCumulative); // yikes
+if(typeof absolute_history[absolute_history.length-1] == 'string' && typeof absolute_history[absolute_history.length-2] == 'number' && absolute_history.length % 2 == 1) { console.log('REMOVE VALUE')
+// works but may need third conditional
+// 100 200 300 400 += 1000 += > 1400 then 2000 += > 2600 + 200 == 3000? (try additional modulo, second eval)
+
+} else { console.log('add value')
+absolute_history.push(+beforeCumulative); // yikes (correct but shaky, also recent)
 unaltered_history.push(+beforeCumulative);
+}
 
 input_field.value = convertArray();
 behaviour00 = false;
 }, 1)
-
 
 } else if(behaviour00 == true){
 setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 = (determine if there is a complete assignment)
