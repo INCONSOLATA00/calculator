@@ -6,7 +6,15 @@ setInterval(()=>{
 console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}`)
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
+
+// console.log(`V1 ${typeof absolute_history[absolute_history.length - alsoValue] == 'number'}
+// V2 ${typeof absolute_history[absolute_history.length - alsoValue -1] == 'string'} 
+// V3 ${typeof absolute_history[absolute_history.length - alsoValue -2] == 'number'}`)
+
 },100)
+// if(typeof absolute_history[absolute_history.length - alsoValue] == 'number' && // works but wrong landing*
+// typeof absolute_history[absolute_history.length - alsoValue -1] == 'string' &&
+// typeof absolute_history[absolute_history.length - alsoValue -2] == 'number') { console.log('050')
 
 let previousValue;
 let actual_previousValue;
@@ -311,9 +319,8 @@ break;}}
 for(let i = 0; i < input_field.value.length; i++) {
 alsoValue++;}
 
-if(typeof absolute_history[absolute_history.length - alsoValue] == 'number' && // works but wrong landing*
-typeof absolute_history[absolute_history.length - alsoValue -1] == 'string' &&
-typeof absolute_history[absolute_history.length - alsoValue -2] == 'number') { console.log('050')
+if(typeof absolute_history[absolute_history.length - alsoValue] == 'number' && typeof absolute_history[absolute_history.length - alsoValue -1] == 'string' && typeof absolute_history[absolute_history.length - alsoValue -2] == 'number') { console.log('050')
+
 } else { console.log('60')
 absolute_history.push(+beforeCumulative); // yikes (correct but shaky, also recent)
 unaltered_history.push(+beforeCumulative);
