@@ -41,9 +41,6 @@ const alsoAlso_someArray = ['-','+','/','*','='];
 const falseValues = ['DEL', 'AC', '='];
 const also_falseValues = ['DEL', 'AC'];
 
-let alsoInput_copy;
-let beforeCumulative; // last numerical before cumulative
-
 const evaluation00 = () => someArray.some((value) => value == previousValue);
 const evaluation01 = () => falseValues.some((value) => value == previousValue);
 
@@ -55,9 +52,13 @@ const evaluation04 = () => {if(isNaN(history.map((value) => +value)[1]) == true 
 const evaluation05 = () => currentOperator.filter((value) => !falseValues.includes(value)).length;
 const evaluation06 = () => also_falseValues.some((value) => value == previousValue);
 
+let alsoInput_copy;
 let length = alsoInput_copy+"";
 let alsoLength = length.length;
 let value = absolute_history.indexOf('+');
+
+let beforeCumulative; // last numerical before cumulative
+let alsoValue = -1;
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -220,7 +221,6 @@ unaltered_history.splice(unaltered_history.length - unaltered_history.length,una
 absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
 
 // subtract both lengths for current position?
-
 // unsure if splicing full lengths will exacerbate further issues
 // WARN  may not target later assignments; WARN "history" may affect other assignments
 
@@ -239,7 +239,6 @@ inputSum = inputSum.slice(0, inputSum.length -1);
 
 unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
 absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
-// subtract both lengths for current position?
 
 inputSum = +inputSum;
 input_field.value = inputSum;
@@ -304,17 +303,18 @@ inputSum = +input_field.value;
 // if(value > -1 && typeof absolute_history[value+1] == 'number') {
 setTimeout(() => { console.log('030')
 
-for(let i = history.length; i > 0; i--) { // console.log(i) does not account value type*
+for(let i = history.length; i > 0; i--) { // finds the last position a cumulative value was at
 if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !== 'number'){
 beforeCumulative = history[i-1];
 break;}}
 
-if(typeof absolute_history[absolute_history.length-1] == 'string' && typeof absolute_history[absolute_history.length-2] == 'number') { console.log('REMOVE VALUE') // WAS && absolute_history.length % 2 == 1
-// works but may need third conditional
-// 100 200 300 400 += 1000 += > 1400 then 2000 += > 2600 + 200 == 3000? (try additional modulo, second eval)
-// modulo does not arrive on a consistent basis, try total operator(s)*
+for(let i = 0; i < input_field.value.length; i++) {
+alsoValue++;}
 
-} else { console.log('add value')
+if(typeof absolute_history[absolute_history.length - alsoValue] == 'number' && // works but wrong landing*
+typeof absolute_history[absolute_history.length - alsoValue -1] == 'string' &&
+typeof absolute_history[absolute_history.length - alsoValue -2] == 'number') { console.log('050')
+} else { console.log('60')
 absolute_history.push(+beforeCumulative); // yikes (correct but shaky, also recent)
 unaltered_history.push(+beforeCumulative);
 }
@@ -329,9 +329,7 @@ input_field.value = unaltered_history.slice().filter((value) => !someArray.inclu
 inputSum = +input_field.value; 
 }, 1)} else {
 inputSum = +inputSum + +alsoInput;
-behaviour00 = true;
-}
-
+behaviour00 = true;}
 
 return;
 
