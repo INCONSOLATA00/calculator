@@ -1,15 +1,16 @@
 setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
-//console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
+// console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
 // console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
-console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}`)
+// console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}`)
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
 
-// console.log(`V1 ${typeof absolute_history[absolute_history.length - alsoValue] == 'number'}
-// V2 ${typeof absolute_history[absolute_history.length - alsoValue -1] == 'string'} 
-// V3 ${typeof absolute_history[absolute_history.length - alsoValue -2] == 'number'}`)
+console.log(`V1 ${absolute_history[absolute_history.length - alsoValue]}
+V2 ${absolute_history[absolute_history.length - alsoValue -1]} 
+V3 ${absolute_history[absolute_history.length - alsoValue -2]}
+absolute_history ${absolute_history}`)
 
 },100)
 // if(typeof absolute_history[absolute_history.length - alsoValue] == 'number' && // works but wrong landing*
@@ -309,7 +310,7 @@ inputSum = +input_field.value;
 
 } else if(evaluation05() > 1) { console.log('reached05'); // 50 + 50 = + 50 (DO THE EXACT SAME THING THAT WAS DONE IN 03) - was originally just else*
 // if(value > -1 && typeof absolute_history[value+1] == 'number') {
-setTimeout(() => { console.log('030')
+// setTimeout(() => { console.log('030')
 
 for(let i = history.length; i > 0; i--) { // finds the last position a cumulative value was at
 if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !== 'number'){
@@ -319,16 +320,21 @@ break;}}
 for(let i = 0; i < input_field.value.length; i++) {
 alsoValue++;}
 
-if(typeof absolute_history[absolute_history.length - alsoValue] == 'number' && typeof absolute_history[absolute_history.length - alsoValue -1] == 'string' && typeof absolute_history[absolute_history.length - alsoValue -2] == 'number') { console.log('050')
+
+if(typeof absolute_history[absolute_history.length - alsoValue-2] == 'number' && typeof absolute_history[absolute_history.length+1 - alsoValue-2] == 'string' && typeof absolute_history[absolute_history.length+1 - alsoValue-1] == 'number') { console.log('050')
+// do nothing; unforseen, executes on following sequence*
+// doesn't work reliably because the spliced numerical value changes from late indices, may need to convert temporal evalulation (try eval @"history")
+
 
 } else { console.log('60')
-absolute_history.push(+beforeCumulative); // yikes (correct but shaky, also recent)
+absolute_history.push(+beforeCumulative);
 unaltered_history.push(+beforeCumulative);
+// 400,+,6,0,0 ^
 }
 
 input_field.value = convertArray();
 behaviour00 = false;
-}, 1)
+// }, 500)
 
 } else if(behaviour00 == true){
 setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 = (determine if there is a complete assignment)
