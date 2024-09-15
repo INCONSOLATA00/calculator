@@ -116,7 +116,11 @@ console.log('ac')
 currentValue = []; unaltered_history = [];
 currentOperator = []; absolute_history = [];
 history = []; inputSum = ""; alsoInput = "";
-input_field.value = alsoInput; behaviour01 = false;});
+
+input_field.value = alsoInput; behaviour01 = false;
+behaviour02 = false; behaviour03 = false;
+repeats = false; iteration = 0;
+});
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
 history.push(inputSum);
@@ -154,7 +158,7 @@ window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', buttons_click)};
 
-function keyboard_input(e) {
+function keyboard_input(e) { // May not need(s) "determine_behavior" - does not include "=" in operations (reduced)
 if(isNaN(e.key) == true) {
 actual_previousValue = previousValue;
 previousValue = e.key + "";
@@ -201,9 +205,9 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 }}
 
-
-function determine_behaviour(){ console.log('determine behaviour')
-if(absolute_history[absolute_history.length -2] == '='){ console.log('DB_stage one')
+function determine_behaviour(){
+if(typeof previousValue == 'number' && actual_previousValue == '='){ console.log('CALL FOR AC')
+functions_all_clear.click();
 }};
 // PREVENT 0 FROM BEING ENTERED IF THE TOTAL LENGTH OF THE CURRENT ASSIGNMENT IS EQUAL TO 1*
 
@@ -310,28 +314,19 @@ if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !
 beforeCumulative = history[i-1];
 break;}}
 
-
+// WARN conditional is based on separate async operation at the same time as execution, see here*
 if(typeof history[history.length-3] == 'string' && typeof history[history.length-2] == 'string' && typeof history[history.length-1] == 'number') { console.log('do nothing')
-// MAY BE STRING > STRING > NUMBER due to synchornous operations taking precedence before final eval, consequentially may only execute once, opposed twice*
+
 
 } else { console.log('do something')
 absolute_history.push(+beforeCumulative);
 unaltered_history.push(+beforeCumulative);
-// 400,+,6,0,0 ^
 }
 
 
 input_field.value = convertArray();
 behaviour00 = false;
-}, 50)
-
-} else if(behaviour00 == true){
-setTimeout(() => { console.log('040') // 50 + 50 =, 50 + 50 = (determine if there is a complete assignment)
-input_field.value = unaltered_history.slice().filter((value) => !someArray.includes(value)).reduce((a,b) => +a + +b );
-inputSum = +input_field.value; 
-}, 1)} else {
-inputSum = +inputSum + +alsoInput;
-behaviour00 = true;}
+}, 1)} 
 
 return;
 
