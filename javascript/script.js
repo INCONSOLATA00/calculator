@@ -189,7 +189,7 @@ actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
-determine_behaviour();
+determine_behaviour(e);
 
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
@@ -201,16 +201,21 @@ inputSum += e.target.textContent;
 input_field.value = inputSum;
 
 } else {
-alsoInput += e.target.textContent;
-input_field.value = alsoInput;
+determine_behaviour(e); // value is being assigned somewhere else?
 }}
 
-function determine_behaviour(){
-if(typeof previousValue == 'number' && actual_previousValue == '='){ console.log('CALL FOR AC')
+function determine_behaviour(e){ console.log('CALLED')
+if(typeof previousValue == 'number' && actual_previousValue == '=') { 
 functions_all_clear.click();
-}};
-// PREVENT 0 FROM BEING ENTERED IF THE TOTAL LENGTH OF THE CURRENT ASSIGNMENT IS EQUAL TO 1*
+}
 
+// find a way to determine if the initial value is no lnoger 0 and append it, making the function "possible else" - redundant
+if([...input_field.value][0] !== "0") { console.log('CALLED ALSO')
+alsoInput += e.target.textContent;
+input_field.value = alsoInput;
+} else {
+input_field.value = '';
+}};
 
 function operand_delete(e){
 console.log('delete')
