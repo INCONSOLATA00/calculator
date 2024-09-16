@@ -204,13 +204,15 @@ input_field.value = inputSum;
 determine_behaviour(e); // value is being assigned somewhere else?
 }}
 
-function determine_behaviour(e){ console.log('CALLED')
+function determine_behaviour(e,alsoPlaceholder  = [...input_field.value].length-1){ console.log('CALLED')
 if(typeof previousValue == 'number' && actual_previousValue == '=') { 
 functions_all_clear.click();
 }
 
 // find a way to determine if the initial value is no lnoger 0 and append it, making the function "possible else" - redundant
-if([...input_field.value][0] !== "0") { console.log('CALLED ALSO')
+
+if([...input_field.value][0] !== "0" && [...input_field.value][alsoPlaceholder] !== "0") { console.log('CALLED ALSO') // ***SHOULD ONLY NEED TO BE TRUE ONCE***
+// ... because a person can keep consecutively pressing 0 pass a conditional with a set amount causing the eval to break* - create behaviour in place of same line*
 alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 } else {
