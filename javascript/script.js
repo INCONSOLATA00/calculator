@@ -29,9 +29,9 @@ let history = [];
 let isPair = false;
 let behaviour00 = false; // (resets automatically) on new assignment
 let behaviour01 = false; // set to reset on new assignment
-
 let behaviour02 = false; // reset on new assignment
 let behaviour03 = false; // reset on new assignment
+let behaviour04 = false; // reset everytime a field value is cleared, may need 05 for is and isn't pairs*
 
 let repeats = false; // reset on new assignment ||
 let iteration = 0; // reset on new assignment || SEE BOTTOM & AC
@@ -189,7 +189,6 @@ actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
-determine_behaviour(e);
 
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
@@ -201,23 +200,16 @@ inputSum += e.target.textContent;
 input_field.value = inputSum;
 
 } else {
-determine_behaviour(e); // value is being assigned somewhere else?
-}}
-
-function determine_behaviour(e,alsoPlaceholder  = [...input_field.value].length-1){ console.log('CALLED')
-if(typeof previousValue == 'number' && actual_previousValue == '=') { 
-functions_all_clear.click();
-}
-
-// find a way to determine if the initial value is no lnoger 0 and append it, making the function "possible else" - redundant
-
-if([...input_field.value][0] !== "0" && [...input_field.value][alsoPlaceholder] !== "0") { console.log('CALLED ALSO') // ***SHOULD ONLY NEED TO BE TRUE ONCE***
-// ... because a person can keep consecutively pressing 0 pass a conditional with a set amount causing the eval to break* - create behaviour in place of same line*
+if(!+e.target.textContent > 0 && behaviour04 == false) { // should prevent 0 entirely from being entered, revise if not...
+// too tired to understand basic functions, resume later*
+behaviour04 == true;
+} else {
 alsoInput += e.target.textContent;
 input_field.value = alsoInput;
-} else {
-input_field.value = '';
-}};
+}
+
+}}
+
 
 function operand_delete(e){
 console.log('delete')
