@@ -3,11 +3,13 @@ setInterval(()=>{
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
 // console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
-console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}
-convertArray ${convertArray()}`)
+// console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}
+// convertArray ${convertArray()}`)
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
+// console.log({behaviour04})
 
+console.log(`${valueRemoved}`)
 },100)
 
 let previousValue;
@@ -27,14 +29,14 @@ let absolute_history = [];
 let history = [];
 
 let isPair = false;
-let behaviour00 = false; // (resets automatically) on new assignment
-let behaviour01 = false; // set to reset on new assignment
-let behaviour02 = false; // reset on new assignment
-let behaviour03 = false; // reset on new assignment
-let behaviour04 = false; // reset everytime a field value is cleared, may need 05 for is and isn't pairs*
+let behaviour00 = false;
+let behaviour01 = false;
+let behaviour02 = false;
+let behaviour03 = false;
+let behaviour04 = false;
 
-let repeats = false; // reset on new assignment ||
-let iteration = 0; // reset on new assignment || SEE BOTTOM & AC
+let repeats = false;
+let iteration = 0;
 
 const someArray = ['-','+','/','*'];
 const also_someArray = ['-','+','/','*',''];
@@ -61,6 +63,7 @@ let value = absolute_history.indexOf('+');
 
 let beforeCumulative; // last numerical before cumulative
 let alsoValue = -1;
+let valueRemoved;
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -123,9 +126,10 @@ repeats = false; iteration = 0;
 });
 
 const functions_equals = document.querySelector(".assignment03 > button").addEventListener('click', (e) => {
+behaviour04 = false;
 history.push(inputSum);
 
-if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)')
+if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)') // delete function, adding incorrect lengths, invalidating process*
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1 && inputSum == '') { console.log('reached00 (true)')
@@ -158,7 +162,7 @@ window.addEventListener("keyup", keyboard_input);
 for(let i = 0; i < operands.length -1; i++) {
 operands[i].addEventListener('click', buttons_click)};
 
-function keyboard_input(e) { // May not need(s) "determine_behavior" - does not include "=" in operations (reduced)
+function keyboard_input(e) {
 if(isNaN(e.key) == true) {
 actual_previousValue = previousValue;
 previousValue = e.key + "";
@@ -210,7 +214,7 @@ behaviour04 = true;}
 function operand_delete(e){
 console.log('delete')
 if(actual_previousValue !== "=") {
-if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) {
+if((e.key == "Backspace" && isPair == false ) || (e.target.textContent == "DEL" && isPair == false)) { console.log('pairs01')
 
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
@@ -218,28 +222,22 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
 
-unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
-absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
+// valueRemoved = unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
 
-// subtract both lengths for current position?
-// unsure if splicing full lengths will exacerbate further issues
-// WARN  may not target later assignments; WARN "history" may affect other assignments
-
-if(alsoInput == 0) { // do this for above if length == 1* ^^^  ^^^ ^^^ SEE ABOVE
+value
+if(alsoInput == 0) {
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
 input_field.value = alsoInput;}}
 
 
-
-
-if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) {
+if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" && isPair == true)) { console.log('pairs02') // CURRENT
 
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
-unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
-absolute_history.splice(absolute_history.length - absolute_history.length,absolute_history.length,alsoInput) // additional, may be redundant on error
+// reconstruct the value removed? - likely won't work because of "0"s (requires forethought... unsure of logic)
+
 
 inputSum = +inputSum;
 input_field.value = inputSum;
@@ -249,9 +247,7 @@ inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 input_field.value = inputSum;
 }}
-
-} // master conditional
-} // function
+}}
 
 function determine_arithmetic(value){
 switch(value) {
@@ -268,10 +264,10 @@ case "+":
 if(inputSum > 0 && alsoInput > 0 && currentValue.length <= 1) { console.log('reached03')
 
 inputSum = +inputSum + +alsoInput;
-} else if (inputSum > 0 && alsoInput == 0 && evaluation05() < 2) { console.log('reached04') // cumulative with wrong value
+} else if (inputSum > 0 && alsoInput == 0 && evaluation05() < 2) { console.log('reached04')
 
 
-filtered_history().reduce((a,b) => { // requires reset on new assignment*
+filtered_history().reduce((a,b) => { // MAY require reset on new assignment*
 if(a == b && iteration < 2) {repeats = true}
 iteration++
 return repeats;
@@ -284,11 +280,10 @@ unaltered_history.push(alsoAlso_inputCopy[0]);
 
 if(history[history.length-2] == '' && behaviour02 == false && repeats == false){ console.log('EXECUTED01')
 unaltered_history.push(alsoInput_copy);
-//unaltered_history.push(alsoAlso_inputCopy[0]);
 behaviour02 = true;
 }
-if(history[2] == ''){ console.log('EXECUTED02') // CAN TRY MODULO ON REVISE IF FURTHER NEEDED*
-unaltered_history.push(alsoInput_copy); // for single value pairs*
+if(history[2] == ''){ console.log('EXECUTED02')
+unaltered_history.push(alsoInput_copy);
 if(history.length == 5) {unaltered_history.push(alsoInput_copy)}
 
 } else if (history[2] !== '') { console.log('EXECUTED03')
@@ -299,12 +294,10 @@ if(history.length > 3) {unaltered_history.push(alsoAlso_inputCopy[0])}
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
-
-} else if(evaluation05() > 1) { console.log('reached05'); // 50 + 50 = + 50 (DO THE EXACT SAME THING THAT WAS DONE IN 03) - was originally just else*
-// if(value > -1 && typeof absolute_history[value+1] == 'number') {
+} else if(evaluation05() > 1) { console.log('reached05');
 setTimeout(() => { console.log('030')
 
-for(let i = history.length; i > 0; i--) { // finds the last position a cumulative value was at
+for(let i = history.length; i > 0; i--) {
 if(history[i-1] !== '' && typeof history[i] == 'number' && typeof history[i-1] !== 'number'){
 beforeCumulative = history[i-1];
 break;}}
