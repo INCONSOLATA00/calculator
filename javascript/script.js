@@ -200,14 +200,10 @@ inputSum += e.target.textContent;
 input_field.value = inputSum;
 
 } else {
-if(!+e.target.textContent > 0 && behaviour04 == false) { // should prevent 0 entirely from being entered, revise if not...
-// too tired to understand basic functions, resume later*
-behaviour04 == true;
-} else {
+if(e.target.textContent > 0 || behaviour04 == true) { 
 alsoInput += e.target.textContent;
 input_field.value = alsoInput;
-}
-
+behaviour04 = true;}
 }}
 
 
