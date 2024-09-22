@@ -9,11 +9,11 @@ setInterval(()=>{
 // console.log(`${alsoAlso_inputCopy}`)
 // console.log({behaviour04})
 
+console.log(`${valueRemoved}`)
 },100)
 
 let previousValue;
 let actual_previousValue;
-let previous_value;
 
 let alsoInput = "";
 let inputSum = "";
@@ -63,7 +63,7 @@ let value = absolute_history.indexOf('+');
 
 let beforeCumulative; // last numerical before cumulative
 let alsoValue = -1;
-let values = {};
+let valueRemoved;
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -222,7 +222,7 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
 
-// code that finds the current iteration, updates the index of the value by slicing from the length; returns the total (alsoInput)
+// code that checks the current iteration "+", slices, from the index of that same iteration; corrects the sum (may need to return values to object UNDETERMINED)
 
 value
 if(alsoInput == 0) {
@@ -236,7 +236,7 @@ if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" &&
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
-// code that finds the current iteration, updates the index of the value by slicing from the length; returns the total (inputSum)
+// code that checks the current iteration "+", slices, from the index of that same iteration; corrects the sum (may need to return values to object UNDETERMINED)
 
 inputSum = +inputSum;
 input_field.value = inputSum;
@@ -335,9 +335,11 @@ return;
 }}
 
 
-function convertArray(count = 0){
+function convertArray(){ // variables refusing to go outside of function scope* (unforseen error)
+let values = {};
 let values_indices = 0;
 let placeholder_ = [];
+let previous_value;
 
 for(let j = 0; j < absolute_history.length; j++) {
 if(typeof absolute_history[j] == 'number') { 
