@@ -9,11 +9,11 @@ setInterval(()=>{
 // console.log(`${alsoAlso_inputCopy}`)
 // console.log({behaviour04})
 
-console.log(`${valueRemoved}`)
 },100)
 
 let previousValue;
 let actual_previousValue;
+let previous_value;
 
 let alsoInput = "";
 let inputSum = "";
@@ -63,7 +63,7 @@ let value = absolute_history.indexOf('+');
 
 let beforeCumulative; // last numerical before cumulative
 let alsoValue = -1;
-let valueRemoved;
+let values = {};
 
 const input_field = document.querySelector("div > input");
 input_field.value = "";
@@ -222,7 +222,7 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
 
-// valueRemoved = unaltered_history.splice(unaltered_history.length - unaltered_history.length,unaltered_history.length,alsoInput) // updates values in place
+// code that finds the current iteration, updates the index of the value by slicing from the length; returns the total (alsoInput)
 
 value
 if(alsoInput == 0) {
@@ -236,8 +236,7 @@ if((e.key == "Backspace" && isPair == true) || (e.target.textContent == "DEL" &&
 inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
-// reconstruct the value removed? - likely won't work because of "0"s (requires forethought... unsure of logic)
-
+// code that finds the current iteration, updates the index of the value by slicing from the length; returns the total (inputSum)
 
 inputSum = +inputSum;
 input_field.value = inputSum;
@@ -337,7 +336,6 @@ return;
 
 
 function convertArray(count = 0){
-let values = {};
 let values_indices = 0;
 let placeholder_ = [];
 
@@ -352,8 +350,11 @@ if(!values[values_indices] == []){
 values[values_indices].push(absolute_history[j]+"");
 }
 
-} else if(typeof absolute_history[j] == 'string') {
-values_indices++;}}
+} else if(typeof absolute_history[j] == 'string' && typeof previous_value !== typeof absolute_history[j]) {
+values_indices++;}
+
+previous_value = absolute_history[j]; // forces consecutive incrementation for operators WAS 0,1,4
+} // for (closing above)
 
 for(const key in values) {
 values[key] = values[key].join('');
