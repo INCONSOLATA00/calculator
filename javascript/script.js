@@ -1,8 +1,8 @@
 setInterval(()=>{
 
-// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}
 // convertArray ${convertArray()}`)
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
@@ -71,7 +71,7 @@ const arithmetic_functions = [...document.querySelectorAll(".functions > div > b
 for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);}
 
-let values = {}; // recently updated*
+let values = {};
 let values_indices = 0;
 let placeholder_ = [];
 let previous_value;
@@ -82,6 +82,7 @@ actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 if(evaluation01() == false) {unaltered_history.push(previousValue)};
 if(evaluation06() == false) {absolute_history.push(previousValue)};
+
 
 if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
@@ -225,7 +226,8 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
 
-values[evaluation05()].slice(values[evaluation05()].length-1); // RECENTLY ADDED***
+// values[evaluation05()] = values[evaluation05()].slice(0,values[evaluation05()].length-1);   // RECENTLY ADDED***
+
 
 if(alsoInput == 0) {
 alsoInput = alsoInput + "";
@@ -239,7 +241,11 @@ inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
 // code that checks the current iteration "+", slices, from the index of that same iteration; corrects the sum (may need to return values to object UNDETERMINED)
-values[evaluation05()].slice(values[evaluation05()].length-1); // RECENTLY ADDED***
+// values[evaluation05()].slice(values[evaluation05()].length-1);
+
+values[evaluation05()] = values[evaluation05()].slice(0,values[evaluation05()].length-1);   // RECENTLY ADDED***
+// find responsible line of code for cumulative assignments*
+
 
 inputSum = +inputSum;
 input_field.value = inputSum;
