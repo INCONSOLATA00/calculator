@@ -2,14 +2,12 @@ setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
-// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}
 // convertArray ${convertArray()}`)
 // console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
 // console.log({behaviour04})
-
-console.log(`${valueRemoved}`)
 },100)
 
 let previousValue;
@@ -73,13 +71,17 @@ const arithmetic_functions = [...document.querySelectorAll(".functions > div > b
 for(let i = 0; i < arithmetic_functions.length; i++){
 arithmetic_functions[i].addEventListener('click', arithmetic);}
 
+let values = {}; // recently updated*
+let values_indices = 0;
+let placeholder_ = [];
+let previous_value;
+
 function arithmetic(e) {
 if(previousValue !== '+'){
 actual_previousValue = previousValue;
 previousValue = e.target.textContent + "";
 if(evaluation01() == false) {unaltered_history.push(previousValue)};
 if(evaluation06() == false) {absolute_history.push(previousValue)};
-
 
 if(isPair == false) {history.push(alsoInput); console.log('current')}  else {if(previousValue !== '='){history.push(inputSum); console.log('also-current')}};
 currentOperator.push(previousValue);
@@ -129,7 +131,7 @@ const functions_equals = document.querySelector(".assignment03 > button").addEve
 behaviour04 = false;
 history.push(inputSum);
 
-if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)') // delete function, adding incorrect lengths, invalidating process*
+if (!(!evaluation03() == true && evaluation04() == true && unaltered_history.length > 1)) { console.log('reached00 (false)')
 unaltered_history = []; console.log('values reset')
 
 } else if(!evaluation03() == true && evaluation04() == true && evaluation05() < 2 && unaltered_history.length > 1 && inputSum == '') { console.log('reached00 (true)')
@@ -193,6 +195,7 @@ actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
+convertArray(); // RECENTLY ADDED*
 
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
@@ -222,9 +225,8 @@ alsoInput = alsoInput.slice(0, alsoInput.length -1);
 alsoInput = +alsoInput;
 input_field.value = alsoInput;
 
-// code that checks the current iteration "+", slices, from the index of that same iteration; corrects the sum (may need to return values to object UNDETERMINED)
+values[evaluation05()].slice(values[evaluation05()].length-1); // RECENTLY ADDED***
 
-value
 if(alsoInput == 0) {
 alsoInput = alsoInput + "";
 alsoInput = alsoInput.slice(0, alsoInput.length -1);
@@ -237,6 +239,7 @@ inputSum = inputSum + "";
 inputSum = inputSum.slice(0, inputSum.length -1);
 
 // code that checks the current iteration "+", slices, from the index of that same iteration; corrects the sum (may need to return values to object UNDETERMINED)
+values[evaluation05()].slice(values[evaluation05()].length-1); // RECENTLY ADDED***
 
 inputSum = +inputSum;
 input_field.value = inputSum;
@@ -305,7 +308,7 @@ break;}}
 if(typeof history[history.length-3] == 'string' && typeof history[history.length-2] == 'string' && typeof history[history.length-1] == 'number') { console.log('do nothing')
 
 
-} else { console.log('do something')
+} else { console.log('do something / convertArray()')
 absolute_history.push(+beforeCumulative);
 unaltered_history.push(+beforeCumulative);
 }
@@ -335,16 +338,16 @@ return;
 }}
 
 
-function convertArray(){ // variables refusing to go outside of function scope* (unforseen error)
-let values = {};
-let values_indices = 0;
-let placeholder_ = [];
-let previous_value;
+function convertArray(){
+values = {};
+values_indices = 0;
+placeholder_ = [];
+previous_value;
 
 for(let j = 0; j < absolute_history.length; j++) {
 if(typeof absolute_history[j] == 'number') { 
 
-if(!values[values_indices]){
+if(!values[values_indices]){ console.log('values updated')
 values[values_indices] = [];
 }
 
@@ -358,7 +361,7 @@ values_indices++;}
 previous_value = absolute_history[j]; // forces consecutive incrementation for operators WAS 0,1,4
 } // for (closing above)
 
-for(const key in values) {
+for(let key in values) {
 values[key] = values[key].join('');
 placeholder_.push(+values[key]);
 }
