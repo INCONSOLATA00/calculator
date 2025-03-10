@@ -1,11 +1,11 @@
 setInterval(()=>{
 
-console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
+// console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
-// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}
 // convertArray ${convertArray()}`)
-// console.log(`history ${history} filtered_history ${filtered_history().length} repeats ${repeats}`)
+// console.log(`history ${history} filtered_history ${filtered_history()} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
 // console.log({behaviour04})
 },100)
@@ -198,6 +198,13 @@ unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
 convertArray(); // RECENTLY ADDED*
 
+console.log(previousValue) // isNaN
+// if([...input_field.value].some((value) => value == ".") == false && isNaN(previousValue) == false) { console.log('THIS works')
+// may have to use method other than some (filter) --> currentOperator.filter((value) => !falseValues.includes(value)).length;
+
+// may need to be parsed in steps*
+// [...input_field.value].filter((value) => isNaN(value)).length
+
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
 
@@ -213,6 +220,7 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 behaviour04 = true;}
 }}
+// }
 
 
 function operand_delete(e){
@@ -282,7 +290,7 @@ return repeats;
 })
 
 if(currentOperator.length % 2 == 1 && currentOperator.length < 4) { console.log('EXECUTED00')
-unaltered_history.splice(0,alsoLength,alsoInput_copy);
+unaltered_history.splice(0,alsoLength,alsoInput_copy); // ??? CURRENT
 unaltered_history.push(alsoAlso_inputCopy[0]);
 }
 
@@ -302,6 +310,7 @@ if(history.length > 3) {unaltered_history.push(alsoAlso_inputCopy[0])}
 input_field.value = unaltered_history.reduce((a,b) => +a + +b);
 inputSum = +input_field.value;
 
+// on DEL, values not being joined* - on DEL, then possible wrong sum*
 } else if(evaluation05() > 1) { console.log('reached05');
 setTimeout(() => { console.log('030')
 
@@ -344,7 +353,7 @@ return;
 }}
 
 
-function convertArray(){
+function convertArray(){ console.log('called')
 values = {};
 values_indices = 0;
 placeholder_ = [];
