@@ -198,13 +198,9 @@ unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
 convertArray(); // RECENTLY ADDED*
 
-console.log(previousValue) // isNaN
-// if([...input_field.value].some((value) => value == ".") == false && isNaN(previousValue) == false) { console.log('THIS works')
-// may have to use method other than some (filter) --> currentOperator.filter((value) => !falseValues.includes(value)).length;
 
-// may need to be parsed in steps*
-// [...input_field.value].filter((value) => isNaN(value)).length
-
+if([...input_field.value].filter((value) => isNaN(value)).length < 1 || typeof previousValue == 'number'){ // may need 4 () () strict conditions*
+// could disable event listener, but would require logic to determine when to enable @ multiple instances*
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
 
@@ -220,7 +216,7 @@ alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 behaviour04 = true;}
 }}
-// }
+}
 
 
 function operand_delete(e){
