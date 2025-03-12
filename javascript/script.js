@@ -2,12 +2,15 @@ setInterval(()=>{
 
 // console.log(`add: alsoInput ${alsoInput} inputSum: ${inputSum} previousValue: ${previousValue} actual_previousValue: ${actual_previousValue} isPair: ${isPair}`) 
 // console.log(`currentValue.length ${currentValue.length} history ${history} history.length ${history.length}`)
-console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
+
+// console.log(`evaluation03() ${evaluation03()} evaluation04 ${evaluation04()} unaltered_history ${unaltered_history} evaluation05 ${evaluation05()} history ${history}`)
 // console.log(`absolute_history ${absolute_history} history ${history} unaltered_history ${unaltered_history}
 // convertArray ${convertArray()}`)
 // console.log(`history ${history} filtered_history ${filtered_history()} repeats ${repeats}`)
 // console.log(`${alsoAlso_inputCopy}`)
 // console.log({behaviour04})
+
+// console.log(`${target.id}`)
 },100)
 
 let previousValue;
@@ -67,9 +70,11 @@ const input_field = document.querySelector("div > input");
 input_field.value = "";
 const operands = document.querySelectorAll("#numpad > button");
 
-const arithmetic_functions = [...document.querySelectorAll(".functions > div > button")]
-for(let i = 0; i < arithmetic_functions.length; i++){
-arithmetic_functions[i].addEventListener('click', arithmetic);}
+ const arithmetic_functions = [...document.querySelectorAll(".functions > div > button")]
+ for(let i = 0; i < arithmetic_functions.length; i++){
+ arithmetic_functions[i].addEventListener('click', arithmetic);
+}
+
 
 let values = {};
 let values_indices = 0;
@@ -161,11 +166,17 @@ alsoInput = "";}}
 previousValue = e.target.textContent + "";});
 
 
-window.addEventListener("keyup", keyboard_input);
-for(let i = 0; i < operands.length -1; i++) {
-operands[i].addEventListener('click', buttons_click)};
+operands.forEach((button,instance) => {
+button.addEventListener('click', function() {
+console.log(instance)
+});
+})
 
+
+window.addEventListener("keyup", keyboard_input);
 function keyboard_input(e) {
+console.log(e.target.textContent) // ditto for later*
+
 if(isNaN(e.key) == true) {
 actual_previousValue = previousValue;
 previousValue = e.key + "";
@@ -192,6 +203,10 @@ alsoInput += e.key;
 input_field.value = alsoInput;}}
 
 function buttons_click(e) { // as in numerical buttons, not to be confused with operators (DOES NOT INCLUDE DELETE)
+// could create separate event listener for "." if no immediate method to remove instantiation*
+
+
+
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
@@ -199,8 +214,9 @@ absolute_history.push(previousValue);
 convertArray(); // RECENTLY ADDED*
 
 
-if([...input_field.value].filter((value) => isNaN(value)).length < 1 || typeof previousValue == 'number'){ // may need 4 () () strict conditions*
-// could disable event listener, but would require logic to determine when to enable @ multiple instances*
+if([...input_field.value].filter((value) => isNaN(value)).length == 1){
+}
+
 if(previousValue == "=" && typeof actual_previousValue == "number") {
 functions_all_clear.click();
 
@@ -215,7 +231,7 @@ if(e.target.textContent > 0 || behaviour04 == true) {
 alsoInput += e.target.textContent;
 input_field.value = alsoInput;
 behaviour04 = true;}
-}}
+}
 }
 
 
