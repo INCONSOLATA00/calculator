@@ -74,7 +74,7 @@ const operands = document.querySelectorAll("#numpad > button");
  for(let i = 0; i < arithmetic_functions.length; i++){
  arithmetic_functions[i].addEventListener('click', arithmetic);
 }
-
+// DOES ARITHMETIC GET DISABLE LATER? - if so do for each ""
 
 let values = {};
 let values_indices = 0;
@@ -167,11 +167,11 @@ previousValue = e.target.textContent + "";});
 
 
 operands.forEach((button,instance) => {
-button.addEventListener('click', function() {
+button.addEventListener('click', someDamnedFunction = (e) => {
 console.log(instance)
+buttons_click(e);
 });
 })
-
 
 window.addEventListener("keyup", keyboard_input);
 function keyboard_input(e) {
@@ -205,16 +205,24 @@ input_field.value = alsoInput;}}
 function buttons_click(e) { // as in numerical buttons, not to be confused with operators (DOES NOT INCLUDE DELETE)
 // could create separate event listener for "." if no immediate method to remove instantiation*
 
-
-
 actual_previousValue = previousValue;
 previousValue = +e.target.textContent;
 unaltered_history.push(previousValue);
 absolute_history.push(previousValue);
 convertArray(); // RECENTLY ADDED*
 
-
 if([...input_field.value].filter((value) => isNaN(value)).length == 1){
+
+// CREATE PARALELLE INVOCATION FOR REFERENCE, UNABLE TO REMOVE COMBINATION OF LOOP WITH ANONYMOUS FUNC...
+
+
+operands.forEach((button,instance) => {
+button[10].removeEventListener('click', someDamnedFunction = (e) => { // function likely needs to be named*
+console.log(instance)
+buttons_click(e);
+});
+})
+
 }
 
 if(previousValue == "=" && typeof actual_previousValue == "number") {
